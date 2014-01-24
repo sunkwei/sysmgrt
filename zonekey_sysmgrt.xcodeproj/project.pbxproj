@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		C07CEE751890C5E3009C3F17 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = C07CEE741890C5E3009C3F17 /* main.c */; };
 		C07CEE771890C5E3009C3F17 /* zonekey_sysmgrt.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C07CEE761890C5E3009C3F17 /* zonekey_sysmgrt.1 */; };
+		C07CEE811890D7EF009C3F17 /* soapC.c in Sources */ = {isa = PBXBuildFile; fileRef = C07CEE7D1890D7EF009C3F17 /* soapC.c */; };
+		C07CEE821890D7EF009C3F17 /* soapServer.c in Sources */ = {isa = PBXBuildFile; fileRef = C07CEE7F1890D7EF009C3F17 /* soapServer.c */; };
+		C07CEE841890DA1B009C3F17 /* stdsoap2.c in Sources */ = {isa = PBXBuildFile; fileRef = C07CEE831890DA1B009C3F17 /* stdsoap2.c */; };
+		C07CEE8718928224009C3F17 /* dbhlp.c in Sources */ = {isa = PBXBuildFile; fileRef = C07CEE8618928224009C3F17 /* dbhlp.c */; };
+		C07CEE891892847A009C3F17 /* zkregimpl.c in Sources */ = {isa = PBXBuildFile; fileRef = C07CEE881892847A009C3F17 /* zkregimpl.c */; };
+		C07CEE8B189284DE009C3F17 /* zkqimpl.c in Sources */ = {isa = PBXBuildFile; fileRef = C07CEE8A189284DE009C3F17 /* zkqimpl.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,6 +34,15 @@
 		C07CEE711890C5E3009C3F17 /* zonekey_sysmgrt */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = zonekey_sysmgrt; sourceTree = BUILT_PRODUCTS_DIR; };
 		C07CEE741890C5E3009C3F17 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		C07CEE761890C5E3009C3F17 /* zonekey_sysmgrt.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = zonekey_sysmgrt.1; sourceTree = "<group>"; };
+		C07CEE7D1890D7EF009C3F17 /* soapC.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = soapC.c; sourceTree = "<group>"; };
+		C07CEE7E1890D7EF009C3F17 /* soapH.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = soapH.h; sourceTree = "<group>"; };
+		C07CEE7F1890D7EF009C3F17 /* soapServer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = soapServer.c; sourceTree = "<group>"; };
+		C07CEE801890D7EF009C3F17 /* soapStub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = soapStub.h; sourceTree = "<group>"; };
+		C07CEE831890DA1B009C3F17 /* stdsoap2.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stdsoap2.c; sourceTree = "<group>"; };
+		C07CEE851892803E009C3F17 /* dbhlp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = dbhlp.h; sourceTree = "<group>"; };
+		C07CEE8618928224009C3F17 /* dbhlp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dbhlp.c; sourceTree = "<group>"; };
+		C07CEE881892847A009C3F17 /* zkregimpl.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zkregimpl.c; sourceTree = "<group>"; };
+		C07CEE8A189284DE009C3F17 /* zkqimpl.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zkqimpl.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,6 +59,15 @@
 		C07CEE681890C5E3009C3F17 = {
 			isa = PBXGroup;
 			children = (
+				C07CEE8A189284DE009C3F17 /* zkqimpl.c */,
+				C07CEE881892847A009C3F17 /* zkregimpl.c */,
+				C07CEE8618928224009C3F17 /* dbhlp.c */,
+				C07CEE851892803E009C3F17 /* dbhlp.h */,
+				C07CEE831890DA1B009C3F17 /* stdsoap2.c */,
+				C07CEE7D1890D7EF009C3F17 /* soapC.c */,
+				C07CEE7E1890D7EF009C3F17 /* soapH.h */,
+				C07CEE7F1890D7EF009C3F17 /* soapServer.c */,
+				C07CEE801890D7EF009C3F17 /* soapStub.h */,
 				C07CEE731890C5E3009C3F17 /* zonekey_sysmgrt */,
 				C07CEE721890C5E3009C3F17 /* Products */,
 			);
@@ -117,7 +141,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C07CEE8718928224009C3F17 /* dbhlp.c in Sources */,
+				C07CEE891892847A009C3F17 /* zkregimpl.c in Sources */,
+				C07CEE821890D7EF009C3F17 /* soapServer.c in Sources */,
+				C07CEE811890D7EF009C3F17 /* soapC.c in Sources */,
+				C07CEE8B189284DE009C3F17 /* zkqimpl.c in Sources */,
 				C07CEE751890C5E3009C3F17 /* main.c in Sources */,
+				C07CEE841890DA1B009C3F17 /* stdsoap2.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -195,6 +225,8 @@
 		C07CEE7B1890C5E3009C3F17 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				OTHER_CFLAGS = "-I/usr/include";
+				OTHER_LDFLAGS = "-lsqlite3";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -202,6 +234,8 @@
 		C07CEE7C1890C5E3009C3F17 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				OTHER_CFLAGS = "-I/usr/include";
+				OTHER_LDFLAGS = "-lsqlite3";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
