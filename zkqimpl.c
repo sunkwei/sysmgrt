@@ -118,13 +118,13 @@ int __zkq__getAllHosts(struct soap *soap, enum xsd__boolean offline, struct zkre
      */
     char *sql = (char*)alloca(1024);
     if (offline) {
-        snprintf(sql, 1024, "SELECT host.*,mse.showname FROM host join mse WHERE host.name=mse.name");
+        snprintf(sql, 1024, "SELECT host.*,mse.showname FROM host JOIN mse ON host.name=mse.name");
     }
     else {
         // FIXME: 这个查询语句可能有问题！！！！
-        snprintf(sql, 1024, "SELECT host.*,mse.showname FROM host join token "
-                 "where token.name=host.name and token.catalog=0 "
-                 "join mse where host.name=mse.name");
+        snprintf(sql, 1024, "SELECT host.*,mse.showname FROM host"
+                 " JOIN mse ON mse.name=host.name"
+                 " JOIN token ON host.name=token.name");
     }
     
     struct paramGetAllHosts p = { soap, 0, 0};
@@ -187,7 +187,25 @@ static int cb_get_all_services(void *opaque, size_t row, sqlite3_stmt *stmt)
     s->name = strdup((const char*)sqlite3_column_text(stmt, 0));
     s->hostname = strdup((const char*)sqlite3_column_text(stmt, 1));
     s->catalog = sqlite3_column_int(stmt, 2);
-    s->type = strdup(sqlite3_column_text(stmt, 3));
+    s->type = strdup((const char*)sqlite3_column_text(stmt, 3));
+    s->version = strdup((const char*)sqlite3_column_text(stmt, 5));
+    s->showname = strdup((const char*)sqlite3_column_text(stmt, 6));
+    
+    s->urls = (struct zkreg__Urls*)malloc(sizeof(struct zkreg__Urls));
+    s->urls->__size = 0;
+    s->urls->__ptr = 0;
+
+    char *urls = strdup((const char*)sqlite3_column_text(stmt, 4));
+    char *t = strtok(urls, ",");    // FIXME: url 使用“，”分割合理么？
+    while (t) {
+        s->urls->__size ++;
+        s->urls->__ptr = ((char**)realloc(s->urls->__ptr, s->urls->__size * sizeof(char*)));
+        s->urls->__ptr[s->urls->__size-1] = strdup(t);
+        
+        t = strtok(0, ",");
+    }
+    
+    free(urls);
     
     return 0;
 }
@@ -196,12 +214,12 @@ int __zkq__getAllServices(struct soap *soap, enum xsd__boolean offline, struct z
 {
     char *sql = (char*)alloca(1024);
     if (offline) {
-        snprintf(sql, 1024, "SELECT service.*,mse.showname FROM service join mse WHERE service.name=mse.name");
+        snprintf(sql, 1024, "SELECT service.*,mse.showname FROM service JOIN mse ON service.name=mse.name");
     }
     else {
         snprintf(sql, 1024, "SELECT service.*,mse.showname FROM service "
-                 " join token WHERE token.name=service.name "
-                 " join mse WHERE mse.name=service.name");
+                 " JOIN token ON token.name=service.name "
+                 " JOIN mse ON mse.name=service.name");
     }
     
     struct paramGetAllServices p = { soap, 0, 0 };
