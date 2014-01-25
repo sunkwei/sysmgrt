@@ -9,7 +9,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include "dbhlp.h"
+#include "heartBeatCheck.h"
 
 /** 执行 select 语句
  */
@@ -110,6 +112,12 @@ int db_init(sqlite3 *db)
             
         }
     }
+    
+    // 清空 token table 中所有超时的
+    unsigned curr = (unsigned)time(0) - CHECK_INTERVAL;
+    char *sql = (char*)alloca(1024);
+    snprintf(sql, 1024, "DELETE FROM token WHERE last_stamp < %u", curr);
+    db_exec_sql(db, sql);
     
     return 0;
 }

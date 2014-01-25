@@ -207,6 +207,48 @@ static int cb_get_all_services(void *opaque, size_t row, sqlite3_stmt *stmt)
     return 0;
 }
 
+static int copy_services_from_param(struct soap *soap, struct paramGetAllServices *pp, struct zkreg__Services *services)
+{
+    /** 将 Services 数据从 paramGetAllServices 结构中，复制到 zkreg__Services，并且释放 paramGetAllServices
+     */
+    services->__size = pp->_n;
+    services->__ptr = (struct zkreg__Service*)soap_malloc(soap, sizeof(struct zkreg__Service) * pp->_n);
+    for (int i = 0; i < pp->_n; i++) {
+        struct zkreg__Service *s = &services->__ptr[i];
+        s->name = soap_strdup(soap, pp->_p[i]->name);
+        s->hostname = soap_strdup(soap, pp->_p[i]->hostname);
+        s->catalog = pp->_p[i]->catalog;
+        s->type = soap_strdup(soap, pp->_p[i]->type);
+        s->showname = soap_strdup(soap, pp->_p[i]->showname);
+        
+        s->urls->__size = pp->_p[i]->urls->__size;
+        s->urls->__ptr = (char**)soap_malloc(soap, sizeof(char*) * s->urls->__size);
+        for (int j = 0; j < s->urls->__size; j++) {
+            s->urls->__ptr[j] = pp->_p[i]->urls->__ptr[j];
+        }
+    }
+    
+    // 释放 p._p
+    for (int i = 0; i < pp->_n; i++) {
+        free(pp->_p[i]->name);
+        free(pp->_p[i]->hostname);
+        free(pp->_p[i]->type);
+        free(pp->_p[i]->version);
+        free(pp->_p[i]->showname);
+        
+        for (int j = 0; j < pp->_p[i]->urls->__size; j++) {
+            free(pp->_p[i]->urls->__ptr[j]);
+        }
+        free(pp->_p[i]->urls->__ptr);
+        free(pp->_p[i]->urls);
+        
+        free(pp->_p[i]);
+    }
+    free(pp->_p);
+
+    return 0;
+}
+
 int __zkq__getAllServices(struct soap *soap, enum xsd__boolean offline, struct zkreg__Services *services)
 {
     char *sql = (char*)alloca(1024);
@@ -223,40 +265,7 @@ int __zkq__getAllServices(struct soap *soap, enum xsd__boolean offline, struct z
     db_exec_select(_db, sql, cb_get_all_services, &p);
     
     // 从 p 中复制到 services 中
-    services->__size = p._n;
-    services->__ptr = (struct zkreg__Service*)soap_malloc(soap, sizeof(struct zkreg__Service) * p._n);
-    for (int i = 0; i < p._n; i++) {
-        struct zkreg__Service *s = &services->__ptr[i];
-        s->name = soap_strdup(soap, p._p[i]->name);
-        s->hostname = soap_strdup(soap, p._p[i]->hostname);
-        s->catalog = p._p[i]->catalog;
-        s->type = soap_strdup(soap, p._p[i]->type);
-        s->showname = soap_strdup(soap, p._p[i]->showname);
-        
-        s->urls->__size = p._p[i]->urls->__size;
-        s->urls->__ptr = (char**)soap_malloc(soap, sizeof(char*) * s->urls->__size);
-        for (int j = 0; j < s->urls->__size; j++) {
-            s->urls->__ptr[j] = p._p[i]->urls->__ptr[j];
-        }
-    }
-    
-    // 释放 p._p
-    for (int i = 0; i < p._n; i++) {
-        free(p._p[i]->name);
-        free(p._p[i]->hostname);
-        free(p._p[i]->type);
-        free(p._p[i]->version);
-        free(p._p[i]->showname);
-        
-        for (int j = 0; j < p._p[i]->urls->__size; j++) {
-            free(p._p[i]->urls->__ptr[j]);
-        }
-        free(p._p[i]->urls->__ptr);
-        free(p._p[i]->urls);
-        
-        free(p._p[i]);
-    }
-    free(p._p);
+    copy_services_from_param(soap, &p, services);
     
     return SOAP_OK;
 }
@@ -278,10 +287,24 @@ int __zkq__getServicesByType(struct soap *soap, enum xsd__boolean offline, char 
 {
     char *sql = (char*)alloca(1024);
     if (offline) {
-        
+        snprintf(sql, 1024, "SELECT service.*,mse.showname FROM service"
+                 " JOIN mse ON service.name=mse.name"
+                 " WHERE service.type='%s'",
+                 type);
     }
     else {
-        
+        snprintf(sql, 1024, "SELECT service.*,mse.showname FROM service"
+                 " JOIN mse ON service.name=mse.name"
+                 " JOIN token ON token.name=service.name"
+                 " WHERE service.type='%s'",
+                 type);
     }
+    
+    struct paramGetServiceByType p;
+    db_exec_select(_db, sql, cb_get_service_by_type, &p);
+    
+    // 从 p 中复制到 services 中
+    copy_services_from_param(soap, &p, services);
+    
     return SOAP_OK;
 }
