@@ -14,7 +14,6 @@
 
 struct paramGetAllMses
 {
-    struct soap *soap;
     struct zkreg__Mse **_p;
     int _n;
 };
@@ -49,7 +48,7 @@ int __zkq__getAllMses(struct soap *soap, enum xsd__boolean offline, struct zkreg
         snprintf(sql, 1024, "SELECT mse.* FROM host JOIN token WHERE mse.name=token.name");
     }
     
-    struct paramGetAllMses p = { soap, 0, 0 };
+    struct paramGetAllMses p = { 0, 0 };
     db_exec_select(_db, sql, cb_get_all_mses, &p);
     
     // 从 p._p 中复制到 mses 中
@@ -74,7 +73,6 @@ int __zkq__getAllMses(struct soap *soap, enum xsd__boolean offline, struct zkreg
 
 struct paramGetAllHosts
 {
-    struct soap *soap;
     struct zkreg__Host **_p;
     int _n;
 };
@@ -127,7 +125,7 @@ int __zkq__getAllHosts(struct soap *soap, enum xsd__boolean offline, struct zkre
                  " JOIN token ON host.name=token.name");
     }
     
-    struct paramGetAllHosts p = { soap, 0, 0};
+    struct paramGetAllHosts p = { 0, 0};
     db_exec_select(_db, sql, cb_get_all_hosts, &p);
     
     // 从 _p 复制到 hosts 中
@@ -165,7 +163,6 @@ int __zkq__getAllHosts(struct soap *soap, enum xsd__boolean offline, struct zkre
 
 struct paramGetAllServices
 {
-    struct soap *soap;
     struct zkreg__Service **_p;
     int _n;
 };
@@ -222,7 +219,7 @@ int __zkq__getAllServices(struct soap *soap, enum xsd__boolean offline, struct z
                  " JOIN mse ON mse.name=service.name");
     }
     
-    struct paramGetAllServices p = { soap, 0, 0 };
+    struct paramGetAllServices p = { 0, 0 };
     db_exec_select(_db, sql, cb_get_all_services, &p);
     
     // 从 p 中复制到 services 中
@@ -266,7 +263,6 @@ int __zkq__getAllServices(struct soap *soap, enum xsd__boolean offline, struct z
 
 int __zkq__getAllDevices(struct soap* soap, enum xsd__boolean offline, struct zkreg__Devices *devices)
 {
-    
     return SOAP_OK;
 }
 
@@ -275,7 +271,17 @@ int __zkq__getAllLogics(struct soap *soap, enum xsd__boolean offline, struct zkr
     return SOAP_OK;
 }
 
+#define paramGetServiceByType paramGetAllServices
+#define cb_get_service_by_type cb_get_all_services
+
 int __zkq__getServicesByType(struct soap *soap, enum xsd__boolean offline, char *type, struct zkreg__Services *services)
 {
+    char *sql = (char*)alloca(1024);
+    if (offline) {
+        
+    }
+    else {
+        
+    }
     return SOAP_OK;
 }
