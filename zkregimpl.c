@@ -18,7 +18,7 @@ int cb_exist(void *opaque, size_t row, sqlite3_stmt *stmt)
     return -1;  // 总是中断，
 }
 
-int __zkreg__regHost(struct soap* soap, struct _zkreg__Host *req, char **token)
+int __zkreg__regHost(struct soap* soap, struct zkreg__Host *req, char **token)
 {
     uuid_t id;
     uuid_string_t s;
@@ -90,7 +90,7 @@ int __zkreg__unregHost(struct soap *soap, char *token, int *code)
     return SOAP_OK;
 }
 
-int __zkreg__regService(struct soap *soap, struct _zkreg__Service *req, char **token)
+int __zkreg__regService(struct soap *soap, struct zkreg__Service *req, char **token)
 {
     return SOAP_OK;
 }
@@ -100,7 +100,7 @@ int __zkreg__unregService(struct soap *soap, char *token, int *code)
     return SOAP_OK;
 }
 
-int __zkreg__regDevice(struct soap *soap, struct _zkreg__Device *req, char **token)
+int __zkreg__regDevice(struct soap *soap, struct zkreg__Device *req, char **token)
 {
     return SOAP_OK;
 }

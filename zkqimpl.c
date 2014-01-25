@@ -12,7 +12,7 @@
 #include "soapStub.h"
 #include "dbhlp.h"
 
-int __zkq__getAllMses(struct soap *soap, enum xsd__boolean offline, struct _zkreg__Mses *mses)
+int __zkq__getAllMses(struct soap *soap, enum xsd__boolean offline, struct zkreg__Mses *mses)
 {
     return SOAP_OK;
 }
@@ -20,8 +20,8 @@ int __zkq__getAllMses(struct soap *soap, enum xsd__boolean offline, struct _zkre
 struct paramGetAllHosts
 {
     struct soap *soap;
-    struct _zkreg__Hosts *hosts;
-    struct _zkreg__Host **_p;
+    struct zkreg__Hosts *hosts;
+    struct zkreg__Host **_p;
     int _n;
 };
 
@@ -34,14 +34,14 @@ static int cb_get_all_hosts(void *opaque, size_t row, sqlite3_stmt *stmt)
      */
     p->_n = row+1;  // 行数；
     p->_p = (struct _zkreg__Host**)realloc(p->_p, p->_n * sizeof(struct _zkreg__Host*));
-    p->_p[row] = (struct _zkreg__Host*)malloc(sizeof(struct _zkreg__Host));
+    p->_p[row] = (struct _zkreg__Host*)malloc(sizeof(struct zkreg__Host));
     
     // 提取行记录
-    struct _zkreg__Host *host = p->_p[row];
-    host->catalog = _zkreg__Catalog__Host;
+    struct zkreg__Host *host = p->_p[row];
+    host->catalog = zkreg__Catalog__Host;
     host->name = strdup((const char*)sqlite3_column_text(stmt, 0));
     host->showname = strdup((const char *)sqlite3_column_text(stmt, 2));
-    host->ips = (struct _zkreg__Ips*)malloc(sizeof(struct _zkreg__Ips));
+    host->ips = (struct zkreg__Ips*)malloc(sizeof(struct zkreg__Ips));
     host->ips->__ptr = 0;
     host->ips->__size = 0;
     
@@ -58,7 +58,7 @@ static int cb_get_all_hosts(void *opaque, size_t row, sqlite3_stmt *stmt)
     return 0;
 }
 
-int __zkq__getAllHosts(struct soap *soap, enum xsd__boolean offline, struct _zkreg__Hosts *hosts)
+int __zkq__getAllHosts(struct soap *soap, enum xsd__boolean offline, struct zkreg__Hosts *hosts)
 {
     /** 从 host / token 表中提取
      */
@@ -76,13 +76,13 @@ int __zkq__getAllHosts(struct soap *soap, enum xsd__boolean offline, struct _zkr
     
     // 从 _p 复制到 hosts 中
     hosts->__size = p._n;
-    hosts->__ptr = (struct _zkreg__Host*)soap_malloc(soap, sizeof(struct _zkreg__Host) * p._n);
+    hosts->__ptr = (struct zkreg__Host*)soap_malloc(soap, sizeof(struct zkreg__Host) * p._n);
     for (int i = 0; i < p._n; i++) {
-        struct _zkreg__Host *host = &hosts->__ptr[i];
+        struct zkreg__Host *host = &hosts->__ptr[i];
         host->name = soap_strdup(soap, p._p[i]->name);
         host->catalog = p._p[i]->catalog;
         host->showname = soap_strdup(soap, p._p[i]->showname);
-        host->ips = (struct _zkreg__Ips*)soap_malloc(soap, sizeof(struct _zkreg__Ips));
+        host->ips = (struct _zkreg__Ips*)soap_malloc(soap, sizeof(struct zkreg__Ips));
         host->ips->__size = p._p[i]->ips->__size;
         host->ips->__ptr = (char**)soap_malloc(soap, sizeof(char*) * host->ips->__size);
         for (int j = 0; j < host->ips->__size; j++) {
@@ -106,22 +106,22 @@ int __zkq__getAllHosts(struct soap *soap, enum xsd__boolean offline, struct _zkr
     return SOAP_OK;
 }
 
-int __zkq__getAllServices(struct soap *soap, enum xsd__boolean offline, struct _zkreg__Services *services)
+int __zkq__getAllServices(struct soap *soap, enum xsd__boolean offline, struct zkreg__Services *services)
 {
     return SOAP_OK;
 }
 
-int __zkq__getAllDevices(struct soap* soap, enum xsd__boolean offline, struct _zkreg__Devices *devices)
+int __zkq__getAllDevices(struct soap* soap, enum xsd__boolean offline, struct zkreg__Devices *devices)
 {
     return SOAP_OK;
 }
 
-int __zkq__getAllLogics(struct soap *soap, enum xsd__boolean offline, struct _zkreg__Logics *logics)
+int __zkq__getAllLogics(struct soap *soap, enum xsd__boolean offline, struct zkreg__Logics *logics)
 {
     return SOAP_OK;
 }
 
-int __zkq__getServicesByType(struct soap *soap, enum xsd__boolean offline, char *type, struct _zkreg__Services *services)
+int __zkq__getServicesByType(struct soap *soap, enum xsd__boolean offline, char *type, struct zkreg__Services *services)
 {
     return SOAP_OK;
 }
