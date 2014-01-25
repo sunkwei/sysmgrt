@@ -144,6 +144,135 @@
   <element name="unregDevcietoken" type="xsd:token"/>
   <element name="heartBeattoken" type="xsd:token"/>
   <element name="setShowNameReq" type="xsd:token"/>
+  <!-- operation request element -->
+  <element name="regHost">
+   <complexType>
+    <sequence>
+     <element ref="zkreg:regHostReq" minOccurs="0" maxOccurs="1"/><!-- zkreg__regHost::zkreg__regHostReq -->
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="regHostResponse">
+   <complexType>
+    <sequence>
+     <element name="token" type="xsd:token" minOccurs="0" maxOccurs="1" nillable="true"/><!-- zkreg__regHost::token -->
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation request element -->
+  <element name="unregHost">
+   <complexType>
+    <sequence>
+     <element ref="zkreg:unRegHosttoken" minOccurs="0" maxOccurs="1"/><!-- zkreg__unregHost::zkreg__unRegHosttoken -->
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="unregHostResponse">
+   <complexType>
+    <sequence>
+     <element name="code" type="xsd:int" minOccurs="0" maxOccurs="1" nillable="true"/><!-- zkreg__unregHost::code -->
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation request element -->
+  <element name="regService">
+   <complexType>
+    <sequence>
+     <element ref="zkreg:regServiceReq" minOccurs="0" maxOccurs="1"/><!-- zkreg__regService::zkreg__regServiceReq -->
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="regServiceResponse">
+   <complexType>
+    <sequence>
+     <element name="token" type="xsd:token" minOccurs="0" maxOccurs="1" nillable="true"/><!-- zkreg__regService::token -->
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation request element -->
+  <element name="unregService">
+   <complexType>
+    <sequence>
+     <element ref="zkreg:unregServicetoken" minOccurs="0" maxOccurs="1"/><!-- zkreg__unregService::zkreg__unregServicetoken -->
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="unregServiceResponse">
+   <complexType>
+    <sequence>
+     <element name="code" type="xsd:int" minOccurs="0" maxOccurs="1" nillable="true"/><!-- zkreg__unregService::code -->
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation request element -->
+  <element name="regDevice">
+   <complexType>
+    <sequence>
+     <element ref="zkreg:regDeviceReq" minOccurs="0" maxOccurs="1"/><!-- zkreg__regDevice::zkreg__regDeviceReq -->
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="regDeviceResponse">
+   <complexType>
+    <sequence>
+     <element name="token" type="xsd:token" minOccurs="0" maxOccurs="1" nillable="true"/><!-- zkreg__regDevice::token -->
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation request element -->
+  <element name="unregDevice">
+   <complexType>
+    <sequence>
+     <element ref="zkreg:unregDevcietoken" minOccurs="0" maxOccurs="1"/><!-- zkreg__unregDevice::zkreg__unregDevcietoken -->
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="unregDeviceResponse">
+   <complexType>
+    <sequence>
+     <element name="code" type="xsd:int" minOccurs="0" maxOccurs="1" nillable="true"/><!-- zkreg__unregDevice::code -->
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation request element -->
+  <element name="heartBeat">
+   <complexType>
+    <sequence>
+     <element ref="zkreg:heartBeattoken" minOccurs="0" maxOccurs="1"/><!-- zkreg__heartBeat::zkreg__heartBeattoken -->
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="heartBeatResponse">
+   <complexType>
+    <sequence>
+     <element name="code" type="xsd:int" minOccurs="0" maxOccurs="1" nillable="true"/><!-- zkreg__heartBeat::code -->
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation request element -->
+  <element name="setShowName">
+   <complexType>
+    <sequence>
+     <element ref="zkreg:setShowNameReq" minOccurs="0" maxOccurs="1"/><!-- zkreg__setShowName::zkreg__setShowNameReq -->
+     <element name="showname" type="xsd:token" minOccurs="0" maxOccurs="1" nillable="true"/><!-- zkreg__setShowName::showname -->
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="setShowNameResponse">
+   <complexType>
+    <sequence>
+     <element name="code" type="xsd:int" minOccurs="0" maxOccurs="1" nillable="true"/><!-- zkreg__setShowName::code -->
+    </sequence>
+   </complexType>
+  </element>
  </schema>
 
  <schema targetNamespace="http://tempuri.org/zkq.xsd"
@@ -210,107 +339,107 @@
 </types>
 
 <message name="regHostRequest">
- <part name="Body" element="zkreg:regHostReq"/><!-- __zkreg__regHost::zkreg__regHostReq -->
+ <part name="Body" element="zkreg:regHost"/><!-- zkreg__regHost::zkreg__regHost -->
 </message>
 
 <message name="regHostResponse">
- <part name="Body" element="-zkreg:regHostResponse"/>
+ <part name="Body" element="zkreg:regHostResponse"/>
 </message>
 
 <message name="unregHostRequest">
- <part name="Body" element="zkreg:unRegHosttoken"/><!-- __zkreg__unregHost::zkreg__unRegHosttoken -->
+ <part name="Body" element="zkreg:unregHost"/><!-- zkreg__unregHost::zkreg__unregHost -->
 </message>
 
 <message name="unregHostResponse">
- <part name="Body" element="-zkreg:unregHostResponse"/>
+ <part name="Body" element="zkreg:unregHostResponse"/>
 </message>
 
 <message name="regServiceRequest">
- <part name="Body" element="zkreg:regServiceReq"/><!-- __zkreg__regService::zkreg__regServiceReq -->
+ <part name="Body" element="zkreg:regService"/><!-- zkreg__regService::zkreg__regService -->
 </message>
 
 <message name="regServiceResponse">
- <part name="Body" element="-zkreg:regServiceResponse"/>
+ <part name="Body" element="zkreg:regServiceResponse"/>
 </message>
 
 <message name="unregServiceRequest">
- <part name="Body" element="zkreg:unregServicetoken"/><!-- __zkreg__unregService::zkreg__unregServicetoken -->
+ <part name="Body" element="zkreg:unregService"/><!-- zkreg__unregService::zkreg__unregService -->
 </message>
 
 <message name="unregServiceResponse">
- <part name="Body" element="-zkreg:unregServiceResponse"/>
+ <part name="Body" element="zkreg:unregServiceResponse"/>
 </message>
 
 <message name="regDeviceRequest">
- <part name="Body" element="zkreg:regDeviceReq"/><!-- __zkreg__regDevice::zkreg__regDeviceReq -->
+ <part name="Body" element="zkreg:regDevice"/><!-- zkreg__regDevice::zkreg__regDevice -->
 </message>
 
 <message name="regDeviceResponse">
- <part name="Body" element="-zkreg:regDeviceResponse"/>
+ <part name="Body" element="zkreg:regDeviceResponse"/>
 </message>
 
 <message name="unregDeviceRequest">
- <part name="Body" element="zkreg:unregDevcietoken"/><!-- __zkreg__unregDevice::zkreg__unregDevcietoken -->
+ <part name="Body" element="zkreg:unregDevice"/><!-- zkreg__unregDevice::zkreg__unregDevice -->
 </message>
 
 <message name="unregDeviceResponse">
- <part name="Body" element="-zkreg:unregDeviceResponse"/>
+ <part name="Body" element="zkreg:unregDeviceResponse"/>
 </message>
 
 <message name="heartBeatRequest">
- <part name="Body" element="zkreg:heartBeattoken"/><!-- __zkreg__heartBeat::zkreg__heartBeattoken -->
+ <part name="Body" element="zkreg:heartBeat"/><!-- zkreg__heartBeat::zkreg__heartBeat -->
 </message>
 
 <message name="heartBeatResponse">
- <part name="Body" element="-zkreg:heartBeatResponse"/>
+ <part name="Body" element="zkreg:heartBeatResponse"/>
 </message>
 
 <message name="setShowNameRequest">
- <part name="Body" element="zkreg:setShowNameReq"/><!-- __zkreg__setShowName::zkreg__setShowNameReq -->
+ <part name="Body" element="zkreg:setShowName"/><!-- zkreg__setShowName::zkreg__setShowName -->
 </message>
 
 <message name="setShowNameResponse">
- <part name="Body" element="-zkreg:setShowNameResponse"/>
+ <part name="Body" element="zkreg:setShowNameResponse"/>
 </message>
 
 <portType name="ServicePortType">
  <operation name="regHost">
-  <documentation>Service definition of function __zkreg__regHost</documentation>
+  <documentation>Service definition of function zkreg__regHost</documentation>
   <input message="tns:regHostRequest"/>
   <output message="tns:regHostResponse"/>
  </operation>
  <operation name="unregHost">
-  <documentation>Service definition of function __zkreg__unregHost</documentation>
+  <documentation>Service definition of function zkreg__unregHost</documentation>
   <input message="tns:unregHostRequest"/>
   <output message="tns:unregHostResponse"/>
  </operation>
  <operation name="regService">
-  <documentation>Service definition of function __zkreg__regService</documentation>
+  <documentation>Service definition of function zkreg__regService</documentation>
   <input message="tns:regServiceRequest"/>
   <output message="tns:regServiceResponse"/>
  </operation>
  <operation name="unregService">
-  <documentation>Service definition of function __zkreg__unregService</documentation>
+  <documentation>Service definition of function zkreg__unregService</documentation>
   <input message="tns:unregServiceRequest"/>
   <output message="tns:unregServiceResponse"/>
  </operation>
  <operation name="regDevice">
-  <documentation>Service definition of function __zkreg__regDevice</documentation>
+  <documentation>Service definition of function zkreg__regDevice</documentation>
   <input message="tns:regDeviceRequest"/>
   <output message="tns:regDeviceResponse"/>
  </operation>
  <operation name="unregDevice">
-  <documentation>Service definition of function __zkreg__unregDevice</documentation>
+  <documentation>Service definition of function zkreg__unregDevice</documentation>
   <input message="tns:unregDeviceRequest"/>
   <output message="tns:unregDeviceResponse"/>
  </operation>
  <operation name="heartBeat">
-  <documentation>Service definition of function __zkreg__heartBeat</documentation>
+  <documentation>Service definition of function zkreg__heartBeat</documentation>
   <input message="tns:heartBeatRequest"/>
   <output message="tns:heartBeatResponse"/>
  </operation>
  <operation name="setShowName">
-  <documentation>Service definition of function __zkreg__setShowName</documentation>
+  <documentation>Service definition of function zkreg__setShowName</documentation>
   <input message="tns:setShowNameRequest"/>
   <output message="tns:setShowNameResponse"/>
  </operation>
