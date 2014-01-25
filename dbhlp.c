@@ -7,11 +7,13 @@
 //
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "dbhlp.h"
 
 /** 执行 select 语句
  */
-int db_exec_select(sqlite3 *db, const char *sql, int (*callback)(void *opaque, int row, sqlite3_stmt *stmt), void *opaque)
+int db_exec_select(sqlite3 *db, const char *sql, int (*callback)(void *opaque, size_t row, sqlite3_stmt *stmt), void *opaque)
 {
     sqlite3_stmt *stmt;
     if (sqlite3_prepare_v2(db, sql, (int)strlen(sql), &stmt, 0) != SQLITE_OK) {
@@ -33,6 +35,11 @@ int db_exec_select(sqlite3 *db, const char *sql, int (*callback)(void *opaque, i
     sqlite3_finalize(stmt);
     
     return 0;
+}
+
+int db_exec_sql(sqlite3 *db, const char *sql)
+{
+    return sqlite3_exec(db, sql, 0, 0, 0);
 }
 
 struct cbparamSelectCount
@@ -74,7 +81,7 @@ int db_init(sqlite3 *db)
      */
     if (!db_table_exist(db, "host")) {
         const char *sql = SQL_CREATE_HOST;
-        int rc = sqlite3_exec(db, sql, 0, 0, 0);
+        int rc = db_exec_sql(db, sql);
         if (rc != SQLITE_OK) {
             
         }
@@ -82,7 +89,15 @@ int db_init(sqlite3 *db)
     
     if (!db_table_exist(db, "service")) {
         const char *sql = SQL_CREATE_SERVICE;
-        int rc = sqlite3_exec(db, sql, 0, 0, 0);
+        int rc = db_exec_sql(db, sql);
+        if (rc != SQLITE_OK) {
+            
+        }
+    }
+    
+    if (!db_table_exist(db, "token")) {
+        const char *sql = SQL_CREATE_TOKEN_MAP;
+        int rc = db_exec_sql(db, sql);
         if (rc != SQLITE_OK) {
             
         }

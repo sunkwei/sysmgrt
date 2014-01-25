@@ -4,7 +4,6 @@
 # zonekey ...
 zkreg	= "http://www.zonekey.com/ver09/sysmgrt/reg"
 zkq	= "http://www.zonekey.com/ver09/sysmgrt/query"
-
  */
 
 /******************************************************************************\
@@ -173,39 +172,39 @@ struct _zkreg__Logics
 };
 
 // 主机注册, token 为返回
-int __zkreg__regHost(struct _zkreg__Host *req, xsd__token *token);
-int __zkreg__unregHost(xsd__token token, int *code);
+int __zkreg__regHost(struct _zkreg__Host *zkreg__regHostReq, xsd__token *token);
+int __zkreg__unregHost(xsd__token zkreg__unRegHosttoken, int *code);
 
 // 服务注册
-int __zkreg__regService(struct _zkreg__Service *req, xsd__token *token);
-int __zkreg__unregService(xsd__token token, int *code);
+int __zkreg__regService(struct _zkreg__Service *zkreg__regServiceReq, xsd__token *token);
+int __zkreg__unregService(xsd__token zkreg__unregServicetoken, int *code);
 
 // 设备注册
-int __zkreg__regDevice(struct _zkreg__Device *req, xsd__token *token);
-int __zkreg__unregDevice(xsd__token token, int *code);
+int __zkreg__regDevice(struct _zkreg__Device *zkreg__regDeviceReq, xsd__token *token);
+int __zkreg__unregDevice(xsd__token zkreg__unregDevcietoken, int *code);
 
 // 心跳
-int __zkreg__heartBeat(xsd__token token, int *code);
+int __zkreg__heartBeat(xsd__token zkreg__heartBeattoken, int *code);
 
 
 //////////////////////////////////////////////////////////
 
 // 查询返回所有 mse 对象
-int __zkq__getAllMses(enum xsd__boolean offline, struct _zkreg__Mses *mses);
+int __zkq__getAllMses(enum xsd__boolean zkq__getAllMsesoffline, struct _zkreg__Mses *mses);
 
 // 返回所有主机
-int __zkq__getAllHosts(enum xsd__boolean offline, struct _zkreg__Hosts *hosts);
+int __zkq__getAllHosts(enum xsd__boolean zkq__getAllHostsoffline, struct _zkreg__Hosts *hosts);
 
 // 返回所有服务
-int __zkq__getAllServices(enum xsd__boolean offline, struct _zkreg__Services *services);
+int __zkq__getAllServices(enum xsd__boolean zkq__getAllServiceoffline, struct _zkreg__Services *services);
 
 // 返回所有设备
-int __zkq__getAllDevices(enum xsd__boolean offline, struct _zkreg__Devices *devices);
+int __zkq__getAllDevices(enum xsd__boolean zkq__getAllDevicesoffline, struct _zkreg__Devices *devices);
 
 // 返回所有 logic 对象
-int __zkq__getAllLogics(enum xsd__boolean offline, struct _zkreg__Logics *logics);
+int __zkq__getAllLogics(enum xsd__boolean zkq__getAllLogicsoffline, struct _zkreg__Logics *logics);
 
 // 根据服务类型查询服务
-int __zkq__getServicesByType(enum xsd__boolean offline, xsd__token type, struct _zkreg__Services *services);
+int __zkq__getServicesByType(enum xsd__boolean zkq__getServiceByTypeoffline, xsd__token type, struct _zkreg__Services *services);
 
 

@@ -39,10 +39,10 @@
 		C07CEE7F1890D7EF009C3F17 /* soapServer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = soapServer.c; sourceTree = "<group>"; };
 		C07CEE801890D7EF009C3F17 /* soapStub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = soapStub.h; sourceTree = "<group>"; };
 		C07CEE831890DA1B009C3F17 /* stdsoap2.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stdsoap2.c; sourceTree = "<group>"; };
-		C07CEE851892803E009C3F17 /* dbhlp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = dbhlp.h; sourceTree = "<group>"; };
-		C07CEE8618928224009C3F17 /* dbhlp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dbhlp.c; sourceTree = "<group>"; };
-		C07CEE881892847A009C3F17 /* zkregimpl.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zkregimpl.c; sourceTree = "<group>"; };
-		C07CEE8A189284DE009C3F17 /* zkqimpl.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zkqimpl.c; sourceTree = "<group>"; };
+		C07CEE851892803E009C3F17 /* dbhlp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = dbhlp.h; path = ../dbhlp.h; sourceTree = "<group>"; };
+		C07CEE8618928224009C3F17 /* dbhlp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = dbhlp.c; path = ../dbhlp.c; sourceTree = "<group>"; };
+		C07CEE881892847A009C3F17 /* zkregimpl.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = zkregimpl.c; path = ../zkregimpl.c; sourceTree = "<group>"; };
+		C07CEE8A189284DE009C3F17 /* zkqimpl.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = zkqimpl.c; path = ../zkqimpl.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,10 +59,6 @@
 		C07CEE681890C5E3009C3F17 = {
 			isa = PBXGroup;
 			children = (
-				C07CEE8A189284DE009C3F17 /* zkqimpl.c */,
-				C07CEE881892847A009C3F17 /* zkregimpl.c */,
-				C07CEE8618928224009C3F17 /* dbhlp.c */,
-				C07CEE851892803E009C3F17 /* dbhlp.h */,
 				C07CEE831890DA1B009C3F17 /* stdsoap2.c */,
 				C07CEE7D1890D7EF009C3F17 /* soapC.c */,
 				C07CEE7E1890D7EF009C3F17 /* soapH.h */,
@@ -84,6 +80,10 @@
 		C07CEE731890C5E3009C3F17 /* zonekey_sysmgrt */ = {
 			isa = PBXGroup;
 			children = (
+				C07CEE8A189284DE009C3F17 /* zkqimpl.c */,
+				C07CEE881892847A009C3F17 /* zkregimpl.c */,
+				C07CEE8618928224009C3F17 /* dbhlp.c */,
+				C07CEE851892803E009C3F17 /* dbhlp.h */,
 				C07CEE741890C5E3009C3F17 /* main.c */,
 				C07CEE761890C5E3009C3F17 /* zonekey_sysmgrt.1 */,
 			);

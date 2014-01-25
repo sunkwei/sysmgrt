@@ -15,8 +15,9 @@
 extern sqlite3 *_db;    // 方便全局使用
 
 #define DB_NAME "zonekey.mgrt.db"
-#define SQL_CREATE_HOST "CREATE TABLE host(id integer primary key, name text, ips text, showname text)"
-#define SQL_CREATE_SERVICE "CREATE TABLE service(id integer primary key, name text, hostid integer, type text, urls text, version text, showname text)"
+#define SQL_CREATE_HOST "CREATE TABLE host(name char(40) primary key, ips varchar(255), showname text)"
+#define SQL_CREATE_SERVICE "CREATE TABLE service(name char(40) primary key, hostname char(40), type varchar(128), urls text, version varchar(128), showname text)"
+#define SQL_CREATE_TOKEN_MAP "CREATE TABLE token(token char(40) primary key, name char(40), catalog int, last_stamp int)"
 
 /** 初始化 db，自动创建所需的表 */
 int db_init(sqlite3 *db);
@@ -25,6 +26,6 @@ int db_init(sqlite3 *db);
 int db_exec_sql(sqlite3 *db, const char *sql);
 
 /** 执行 SELECT 查询，通过 callback 得到每一行，如果 callback() 返回 -1 则提前中断 */
-int db_exec_select(sqlite3 *db, const char *sql, int (*callback)(void *opaque, int row, sqlite3_stmt *stmt), void *opaque);
+int db_exec_select(sqlite3 *db, const char *sql, int (*callback)(void *opaque, size_t row, sqlite3_stmt *stmt), void *opaque);
 
 #endif
