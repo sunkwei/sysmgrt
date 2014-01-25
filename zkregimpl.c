@@ -38,27 +38,17 @@ int __zkreg__regHost(struct soap* soap, struct zkreg__Host *req, char **token)
     }
     
     char *sql = (char*)malloc(4096); // FIXME: 应该足够了 :)
-    // 检查是否存在，如果存在，需要构造 UPDATE，否则 INSERT
-    int exist = 0;
-    snprintf(sql, 4096, "SELECT COUNT(*) FROM host WHERE name=\"%s\"", req->name);
-    db_exec_select(_db, sql, cb_exist, &exist);
-    
-    if (exist) {
-        // FIXME: 总是先删除，然后在插入 :)
-        snprintf(sql, 4096, "DELETE FROM host WHERE name='%s'; INSERT INFO host VALUES ('%s', '%s', '%s')",
-                 req->name, req->name, ips, req->showname);
-    }
-    else {
-        // 构造 INSERT
-        snprintf(sql, 4096, "INSERT INTO host (name, ips, showname) VALUES ('%s', '%s', '%s')",
-                 req->name, ips, req->showname);
-    }
+    // 构造 INSERT
+    snprintf(sql, 4096, "INSERT INTO host (name, ips) VALUES ('%s', '%s'); "
+             "INSERT INTO mse (name, catalog, showname) VALUES ('%s', %d, '%s')",
+             req->name, ips,
+             req->name, zkreg__Catalog__Host, req->showname);
     
     db_exec_sql(_db, sql);  // 执行语句
     
     // 创建 token 记录
     time_t t = time(0); // last_stamp
-    snprintf(sql, 4096, "INSERT INTO token VALUES('%s', '%s', 0, %d)", s, req->name, t);
+    snprintf(sql, 4096, "INSERT INTO token VALUES('%s', '%s', 0, %u)", s, req->name, (unsigned)t);
     db_exec_sql(_db, sql);
     
     *token = (char*)soap_malloc(soap, 64);
@@ -120,11 +110,21 @@ int __zkreg__heartBeat(struct soap *soap, char *token, int *code)
     
     if (exist) {
         *code = 0;
-        snprintf(sql, 1024, "UPDATE token SET last_stamp=%d WHERE token='%s'", time(0), token);
+        snprintf(sql, 1024, "UPDATE token SET last_stamp=%u WHERE token='%s'", (unsigned)time(0), token);
         db_exec_sql(_db, sql);
     }
     else {
         *code = -1; // 没有找到
     }
+    return SOAP_OK;
+}
+
+int __zkreg__setShowName(struct soap *soap, char *name, char *showname, int *code)
+{
+    /** 直接修改 mse table 中的记录即可 */
+    char *sql = (char*)alloca(1024);
+    snprintf(sql, 1024, "UPDATE mse SET showname='%s' WHERE name='%s'", showname, name);
+    db_exec_sql(_db, sql);
+    
     return SOAP_OK;
 }

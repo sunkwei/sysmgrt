@@ -4,6 +4,8 @@
 # zonekey ...
 zkreg	= "http://www.zonekey.com/ver09/sysmgrt/reg"
 zkq	= "http://www.zonekey.com/ver09/sysmgrt/query"
+
+to typemap.dat
  */
 
 /******************************************************************************\
@@ -90,6 +92,7 @@ struct zkreg__Mse
 {
 	xsd__token		name		1;	// 唯一名字
 	enum zkreg__Catalog	catalog		1;	// 类型
+	xsd__token		showname	0;	// 显示名字
 };
 
 /** mse 列表 */
@@ -186,6 +189,10 @@ int __zkreg__unregDevice(xsd__token zkreg__unregDevcietoken, int *code);
 // 心跳
 int __zkreg__heartBeat(xsd__token zkreg__heartBeattoken, int *code);
 
+// 修改 mse 显示信息
+int __zkreg__setShowName(xsd__token zkreg__setShowNameReq, xsd__token showname, int *code);
+
+// 逻辑设备的绑定
 
 //////////////////////////////////////////////////////////
 
@@ -206,5 +213,4 @@ int __zkq__getAllLogics(enum xsd__boolean zkq__getAllLogicsoffline, struct zkreg
 
 // 根据服务类型查询服务
 int __zkq__getServicesByType(enum xsd__boolean zkq__getServiceByTypeoffline, xsd__token type, struct zkreg__Services *services);
-
 

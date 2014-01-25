@@ -10,8 +10,13 @@
 #include "../soapStub.h"
 #include "../zkq.nsmap"
 #include "../dbhlp.h"
+#include <pthread.h>
 
 sqlite3 *_db = 0;
+
+/** 启动工作线程，周期查询 token table，将 last_stamp 超时的删除！！！
+ */
+
 
 int main(int argc, const char * argv[])
 {

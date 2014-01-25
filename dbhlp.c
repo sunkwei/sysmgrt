@@ -79,6 +79,14 @@ int db_init(sqlite3 *db)
 {
     /** 检查是否存在 host, service, 等...
      */
+    if (!db_table_exist(db, "mse")) {
+        const char *sql = SQL_CREATE_MSE;
+        int rc = db_exec_sql(db, sql);
+        if (rc != SQLITE_OK) {
+            
+        }
+    }
+    
     if (!db_table_exist(db, "host")) {
         const char *sql = SQL_CREATE_HOST;
         int rc = db_exec_sql(db, sql);

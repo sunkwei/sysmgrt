@@ -15,8 +15,9 @@
 extern sqlite3 *_db;    // 方便全局使用
 
 #define DB_NAME "zonekey.mgrt.db"
-#define SQL_CREATE_HOST "CREATE TABLE host(name char(40) primary key, ips varchar(255), showname text)"
-#define SQL_CREATE_SERVICE "CREATE TABLE service(name char(40) primary key, hostname char(40), type varchar(128), urls text, version varchar(128), showname text)"
+#define SQL_CREATE_MSE "CREATE TABLE mse(name char(40) primary key, catalog int, showname text)"
+#define SQL_CREATE_HOST "CREATE TABLE host(name char(40) primary key, ips varchar(255))"
+#define SQL_CREATE_SERVICE "CREATE TABLE service(name char(40) primary key, hostname char(40), type varchar(128), urls text, version varchar(128))"
 #define SQL_CREATE_TOKEN_MAP "CREATE TABLE token(token char(40) primary key, name char(40), catalog int, last_stamp int)"
 
 /** 初始化 db，自动创建所需的表 */
