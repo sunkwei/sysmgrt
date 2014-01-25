@@ -126,5 +126,134 @@
   <element name="unregDevcietoken" type="xsd:token"/>
   <element name="heartBeattoken" type="xsd:token"/>
   <element name="setShowNameReq" type="xsd:token"/>
+  <!-- operation request element -->
+  <element name="regHost">
+   <complexType>
+    <sequence>
+     <element ref="zkreg:regHostReq" minOccurs="0" maxOccurs="1"/><!-- zkreg__regHost::zkreg__regHostReq -->
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="regHostResponse">
+   <complexType>
+    <sequence>
+     <element name="token" type="xsd:token" minOccurs="0" maxOccurs="1" nillable="true"/><!-- zkreg__regHost::token -->
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation request element -->
+  <element name="unregHost">
+   <complexType>
+    <sequence>
+     <element ref="zkreg:unRegHosttoken" minOccurs="0" maxOccurs="1"/><!-- zkreg__unregHost::zkreg__unRegHosttoken -->
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="unregHostResponse">
+   <complexType>
+    <sequence>
+     <element name="code" type="xsd:int" minOccurs="0" maxOccurs="1" nillable="true"/><!-- zkreg__unregHost::code -->
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation request element -->
+  <element name="regService">
+   <complexType>
+    <sequence>
+     <element ref="zkreg:regServiceReq" minOccurs="0" maxOccurs="1"/><!-- zkreg__regService::zkreg__regServiceReq -->
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="regServiceResponse">
+   <complexType>
+    <sequence>
+     <element name="token" type="xsd:token" minOccurs="0" maxOccurs="1" nillable="true"/><!-- zkreg__regService::token -->
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation request element -->
+  <element name="unregService">
+   <complexType>
+    <sequence>
+     <element ref="zkreg:unregServicetoken" minOccurs="0" maxOccurs="1"/><!-- zkreg__unregService::zkreg__unregServicetoken -->
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="unregServiceResponse">
+   <complexType>
+    <sequence>
+     <element name="code" type="xsd:int" minOccurs="0" maxOccurs="1" nillable="true"/><!-- zkreg__unregService::code -->
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation request element -->
+  <element name="regDevice">
+   <complexType>
+    <sequence>
+     <element ref="zkreg:regDeviceReq" minOccurs="0" maxOccurs="1"/><!-- zkreg__regDevice::zkreg__regDeviceReq -->
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="regDeviceResponse">
+   <complexType>
+    <sequence>
+     <element name="token" type="xsd:token" minOccurs="0" maxOccurs="1" nillable="true"/><!-- zkreg__regDevice::token -->
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation request element -->
+  <element name="unregDevice">
+   <complexType>
+    <sequence>
+     <element ref="zkreg:unregDevcietoken" minOccurs="0" maxOccurs="1"/><!-- zkreg__unregDevice::zkreg__unregDevcietoken -->
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="unregDeviceResponse">
+   <complexType>
+    <sequence>
+     <element name="code" type="xsd:int" minOccurs="0" maxOccurs="1" nillable="true"/><!-- zkreg__unregDevice::code -->
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation request element -->
+  <element name="heartBeat">
+   <complexType>
+    <sequence>
+     <element ref="zkreg:heartBeattoken" minOccurs="0" maxOccurs="1"/><!-- zkreg__heartBeat::zkreg__heartBeattoken -->
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="heartBeatResponse">
+   <complexType>
+    <sequence>
+     <element name="code" type="xsd:int" minOccurs="0" maxOccurs="1" nillable="true"/><!-- zkreg__heartBeat::code -->
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation request element -->
+  <element name="setShowName">
+   <complexType>
+    <sequence>
+     <element ref="zkreg:setShowNameReq" minOccurs="0" maxOccurs="1"/><!-- zkreg__setShowName::zkreg__setShowNameReq -->
+     <element name="showname" type="xsd:token" minOccurs="0" maxOccurs="1" nillable="true"/><!-- zkreg__setShowName::showname -->
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="setShowNameResponse">
+   <complexType>
+    <sequence>
+     <element name="code" type="xsd:int" minOccurs="0" maxOccurs="1" nillable="true"/><!-- zkreg__setShowName::code -->
+    </sequence>
+   </complexType>
+  </element>
  </schema>
 

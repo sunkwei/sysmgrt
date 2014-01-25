@@ -18,7 +18,7 @@ int cb_exist(void *opaque, size_t row, sqlite3_stmt *stmt)
     return -1;  // 总是中断，
 }
 
-int __zkreg__regHost(struct soap* soap, struct zkreg__Host *req, char **token)
+int zkreg__regHost(struct soap* soap, struct zkreg__Host *req, char **token)
 {
     uuid_t id;
     uuid_string_t s;
@@ -60,7 +60,7 @@ int __zkreg__regHost(struct soap* soap, struct zkreg__Host *req, char **token)
     return SOAP_OK;
 }
 
-int __zkreg__unregHost(struct soap *soap, char *token, int *code)
+int zkreg__unregHost(struct soap *soap, char *token, int *code)
 {
     // 从 token table 中找到，删除，但不应该删除 host table 中的记录，或许将来增加一个 removeHost 的函数
     int exist = 0;
@@ -80,27 +80,27 @@ int __zkreg__unregHost(struct soap *soap, char *token, int *code)
     return SOAP_OK;
 }
 
-int __zkreg__regService(struct soap *soap, struct zkreg__Service *req, char **token)
+int zkreg__regService(struct soap *soap, struct zkreg__Service *req, char **token)
 {
     return SOAP_OK;
 }
 
-int __zkreg__unregService(struct soap *soap, char *token, int *code)
+int zkreg__unregService(struct soap *soap, char *token, int *code)
 {
     return SOAP_OK;
 }
 
-int __zkreg__regDevice(struct soap *soap, struct zkreg__Device *req, char **token)
+int zkreg__regDevice(struct soap *soap, struct zkreg__Device *req, char **token)
 {
     return SOAP_OK;
 }
 
-int __zkreg__unregDevice(struct soap *soap, char *token, int *code)
+int zkreg__unregDevice(struct soap *soap, char *token, int *code)
 {
     return SOAP_OK;
 }
 
-int __zkreg__heartBeat(struct soap *soap, char *token, int *code)
+int zkreg__heartBeat(struct soap *soap, char *token, int *code)
 {
     /** 心跳，更新 token table 的 last_stamp */
     int exist = 0;
@@ -119,7 +119,7 @@ int __zkreg__heartBeat(struct soap *soap, char *token, int *code)
     return SOAP_OK;
 }
 
-int __zkreg__setShowName(struct soap *soap, char *name, char *showname, int *code)
+int zkreg__setShowName(struct soap *soap, char *name, char *showname, int *code)
 {
     /** 直接修改 mse table 中的记录即可 */
     char *sql = (char*)alloca(1024);

@@ -36,7 +36,7 @@ static int cb_get_all_mses(void *opaque, size_t row, sqlite3_stmt *stmt)
     return 0;
 }
 
-int __zkq__getAllMses(struct soap *soap, enum xsd__boolean offline, struct zkreg__Mses *mses)
+int zkq__getAllMses(struct soap *soap, enum xsd__boolean offline, struct zkreg__Mses *mses)
 {
     /** 返回 mse table 的内容 */
     
@@ -110,7 +110,7 @@ static int cb_get_all_hosts(void *opaque, size_t row, sqlite3_stmt *stmt)
     return 0;
 }
 
-int __zkq__getAllHosts(struct soap *soap, enum xsd__boolean offline, struct zkreg__Hosts *hosts)
+int zkq__getAllHosts(struct soap *soap, enum xsd__boolean offline, struct zkreg__Hosts *hosts)
 {
     /** 从 host / token 表中提取
      */
@@ -249,7 +249,7 @@ static int copy_services_from_param(struct soap *soap, struct paramGetAllService
     return 0;
 }
 
-int __zkq__getAllServices(struct soap *soap, enum xsd__boolean offline, struct zkreg__Services *services)
+int zkq__getAllServices(struct soap *soap, enum xsd__boolean offline, struct zkreg__Services *services)
 {
     char *sql = (char*)alloca(1024);
     if (offline) {
@@ -270,12 +270,12 @@ int __zkq__getAllServices(struct soap *soap, enum xsd__boolean offline, struct z
     return SOAP_OK;
 }
 
-int __zkq__getAllDevices(struct soap* soap, enum xsd__boolean offline, struct zkreg__Devices *devices)
+int zkq__getAllDevices(struct soap* soap, enum xsd__boolean offline, struct zkreg__Devices *devices)
 {
     return SOAP_OK;
 }
 
-int __zkq__getAllLogics(struct soap *soap, enum xsd__boolean offline, struct zkreg__Logics *logics)
+int zkq__getAllLogics(struct soap *soap, enum xsd__boolean offline, struct zkreg__Logics *logics)
 {
     return SOAP_OK;
 }
@@ -283,7 +283,7 @@ int __zkq__getAllLogics(struct soap *soap, enum xsd__boolean offline, struct zkr
 #define paramGetServiceByType paramGetAllServices
 #define cb_get_service_by_type cb_get_all_services
 
-int __zkq__getServicesByType(struct soap *soap, enum xsd__boolean offline, char *type, struct zkreg__Services *services)
+int zkq__getServicesByType(struct soap *soap, enum xsd__boolean offline, char *type, struct zkreg__Services *services)
 {
     char *sql = (char*)alloca(1024);
     if (offline) {

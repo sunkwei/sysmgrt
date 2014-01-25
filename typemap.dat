@@ -393,6 +393,6 @@ aws	= "urn:PI/DevCentral/SoapService"
 mpt	= "http://s.mappoint.net/mappoint-30/"
 
 # zonekey ...
-zkreg	= "http://www.zonekey.com/ver09/sysmgrt/reg"
-zkq	= "http://www.zonekey.com/ver09/sysmgrt/query"
+zkreg	= "urn:zonekey/sysmgrt/reg"
+zkq	= "urn:zonekey/sysmgrt/query"
 
