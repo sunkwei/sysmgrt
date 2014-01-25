@@ -12,15 +12,69 @@
 #include "soapStub.h"
 #include "dbhlp.h"
 
+struct paramGetAllMses
+{
+    struct soap *soap;
+    struct zkreg__Mse **_p;
+    int _n;
+};
+
+static int cb_get_all_mses(void *opaque, size_t row, sqlite3_stmt *stmt)
+{
+    struct paramGetAllMses *p = (struct paramGetAllMses*)opaque;
+    
+    // name, catalog, showname
+    p->_n = (int)row+1;     // 行数
+    p->_p = (struct zkreg__Mse**)realloc(p->_p, sizeof(struct zkreg__Mse*) * p->_n);
+    p->_p[row] = (struct zkreg__Mse*)malloc(sizeof(struct zkreg__Mse));
+    
+    // 提取行记录
+    struct zkreg__Mse *mse = p->_p[row];
+    mse->name = strdup((const char *)sqlite3_column_text(stmt, 0));
+    mse->catalog = sqlite3_column_int(stmt, 1);
+    mse->showname = strdup((const char*)sqlite3_column_text(stmt, 2));
+    
+    return 0;
+}
+
 int __zkq__getAllMses(struct soap *soap, enum xsd__boolean offline, struct zkreg__Mses *mses)
 {
+    /** 返回 mse table 的内容 */
+    
+    char *sql = (char*)alloca(1024);
+    if (offline) {
+        snprintf(sql, 1024, "SELECT * FROM mse");
+    }
+    else {
+        snprintf(sql, 1024, "SELECT mse.* FROM host JOIN token WHERE mse.name=token.name");
+    }
+    
+    struct paramGetAllMses p = { soap, 0, 0 };
+    db_exec_select(_db, sql, cb_get_all_mses, &p);
+    
+    // 从 p._p 中复制到 mses 中
+    mses->__size = p._n;
+    mses->__ptr = (struct zkreg__Mse*)soap_malloc(soap, sizeof(struct zkreg__Mse) * p._n);
+    for (int i = 0; i < p._n; i++) {
+        mses->__ptr[i].name = soap_strdup(soap, p._p[i]->name);
+        mses->__ptr[i].catalog = p._p[i]->catalog;
+        mses->__ptr[i].showname = soap_strdup(soap, p._p[i]->showname);
+    }
+    
+    // 释放 p._p 的内存
+    for (int i = 0; i < p._n; i++) {
+        free(p._p[i]->name);
+        free(p._p[i]->showname);
+        free(p._p[i]);
+    }
+    free(p._p);
+    
     return SOAP_OK;
 }
 
 struct paramGetAllHosts
 {
     struct soap *soap;
-    struct zkreg__Hosts *hosts;
     struct zkreg__Host **_p;
     int _n;
 };
@@ -73,7 +127,7 @@ int __zkq__getAllHosts(struct soap *soap, enum xsd__boolean offline, struct zkre
                  "join mse where host.name=mse.name");
     }
     
-    struct paramGetAllHosts p = { soap, hosts, 0, 0};
+    struct paramGetAllHosts p = { soap, 0, 0};
     db_exec_select(_db, sql, cb_get_all_hosts, &p);
     
     // 从 _p 复制到 hosts 中
@@ -100,6 +154,7 @@ int __zkq__getAllHosts(struct soap *soap, enum xsd__boolean offline, struct zkre
         for (int j = 0; j < p._p[i]->ips->__size; j++) {
             free(p._p[i]->ips->__ptr[j]);
         }
+        free(p._p[i]->ips->__ptr);
         free(p._p[i]->ips);
         free(p._p[i]);
     }
@@ -108,13 +163,92 @@ int __zkq__getAllHosts(struct soap *soap, enum xsd__boolean offline, struct zkre
     return SOAP_OK;
 }
 
+struct paramGetAllServices
+{
+    struct soap *soap;
+    struct zkreg__Service **_p;
+    int _n;
+};
+
+static int cb_get_all_services(void *opaque, size_t row, sqlite3_stmt *stmt)
+{
+    struct paramGetAllServices *p = (struct paramGetAllServices*)opaque;
+    
+    /** 从 stmt 中提取，并保存到 p 中 
+     
+            name, hostname, type, urls, version, showname
+     */
+    p->_n = (int)row+1;
+    p->_p = (struct zkreg__Service**)realloc(p->_p, p->_n);
+    p->_p[p->_n] = (struct zkreg__Service*)malloc(sizeof(struct zkreg__Service));
+    
+    struct zkreg__Service *s = p->_p[p->_n];
+    
+    s->name = strdup((const char*)sqlite3_column_text(stmt, 0));
+    s->hostname = strdup((const char*)sqlite3_column_text(stmt, 1));
+    s->catalog = sqlite3_column_int(stmt, 2);
+    s->type = strdup(sqlite3_column_text(stmt, 3));
+    
+    return 0;
+}
+
 int __zkq__getAllServices(struct soap *soap, enum xsd__boolean offline, struct zkreg__Services *services)
 {
+    char *sql = (char*)alloca(1024);
+    if (offline) {
+        snprintf(sql, 1024, "SELECT service.*,mse.showname FROM service join mse WHERE service.name=mse.name");
+    }
+    else {
+        snprintf(sql, 1024, "SELECT service.*,mse.showname FROM service "
+                 " join token WHERE token.name=service.name "
+                 " join mse WHERE mse.name=service.name");
+    }
+    
+    struct paramGetAllServices p = { soap, 0, 0 };
+    db_exec_select(_db, sql, cb_get_all_services, &p);
+    
+    // 从 p 中复制到 services 中
+    services->__size = p._n;
+    services->__ptr = (struct zkreg__Service*)soap_malloc(soap, sizeof(struct zkreg__Service) * p._n);
+    for (int i = 0; i < p._n; i++) {
+        struct zkreg__Service *s = &services->__ptr[i];
+        s->name = soap_strdup(soap, p._p[i]->name);
+        s->hostname = soap_strdup(soap, p._p[i]->hostname);
+        s->catalog = p._p[i]->catalog;
+        s->type = soap_strdup(soap, p._p[i]->type);
+        s->showname = soap_strdup(soap, p._p[i]->showname);
+        
+        s->urls->__size = p._p[i]->urls->__size;
+        s->urls->__ptr = (char**)soap_malloc(soap, sizeof(char*) * s->urls->__size);
+        for (int j = 0; j < s->urls->__size; j++) {
+            s->urls->__ptr[j] = p._p[i]->urls->__ptr[j];
+        }
+    }
+    
+    // 释放 p._p
+    for (int i = 0; i < p._n; i++) {
+        free(p._p[i]->name);
+        free(p._p[i]->hostname);
+        free(p._p[i]->type);
+        free(p._p[i]->version);
+        free(p._p[i]->showname);
+        
+        for (int j = 0; j < p._p[i]->urls->__size; j++) {
+            free(p._p[i]->urls->__ptr[j]);
+        }
+        free(p._p[i]->urls->__ptr);
+        free(p._p[i]->urls);
+        
+        free(p._p[i]);
+    }
+    free(p._p);
+    
     return SOAP_OK;
 }
 
 int __zkq__getAllDevices(struct soap* soap, enum xsd__boolean offline, struct zkreg__Devices *devices)
 {
+    
     return SOAP_OK;
 }
 
