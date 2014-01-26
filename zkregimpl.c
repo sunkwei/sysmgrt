@@ -32,6 +32,7 @@ int zkreg__regHost(struct soap* soap, struct zkreg__Host *req, char **token)
         *token = soap_strdup(soap, s);
     }
     else {
+        *token = "";
         fprintf(stdout, "ERR: %s: reg %s ERR\n", __func__, req->name);
     }
     
@@ -41,7 +42,7 @@ int zkreg__regHost(struct soap* soap, struct zkreg__Host *req, char **token)
 int zkreg__unregHost(struct soap *soap, char *token, int *code)
 {
     // 从 token table 中找到，删除，但不应该删除 host table 中的记录，或许将来增加一个 removeHost 的函数
-    *code = db_unregHost(_db, token);
+    *code = db_unregXXX(_db, token);
     fprintf(stdout, "INFO: %s: unreg token %s\n", __func__, token);
 
     return SOAP_OK;
@@ -53,6 +54,16 @@ int zkreg__regService(struct soap *soap, struct zkreg__Service *req, char **toke
     uuid_string_t s;
     uuid_generate(id);
     uuid_unparse(id, s);
+    
+    int rc = db_regService(_db, req, s);
+    if (rc >= 0) {
+        fprintf(stdout, "INFO: %s: reg %s OK\n", __func__, req->name);
+        *token = soap_strdup(soap, s);
+    }
+    else {
+        *token = "";
+        fprintf(stderr, "ERR: %s: reg %s ERR\n", __func__, req->name);
+    }
     
     return SOAP_OK;
 }

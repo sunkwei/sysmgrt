@@ -15,6 +15,7 @@
 extern sqlite3 *_db;    // 方便全局使用
 
 #define DB_NAME "zonekey.mgrt.db"
+//#define DB_NAME ":memory:"
 
 /** mse 为 host, service, device, logic 的基类，保存通用信息，通过 name 字段进行关联.
         name：主键，唯一

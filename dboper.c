@@ -81,7 +81,12 @@ int db_regHost(sqlite3 *db, struct zkreg__Host *host, const char *token)
     return 0;
 }
 
-int db_unregHost(sqlite3 *db, const char *token)
+int db_regService(sqlite3 *db, struct zkreg__Service *service, const char *token)
+{
+    return 0;
+}
+
+int db_unregXXX(sqlite3 *db, const char *token)
 {
     /** 对于 unRegXXX: 仅仅在 token 中删除，而不会删除 mse/host 表中的记录 
         永远返回0，不管 token 是否存在 :)

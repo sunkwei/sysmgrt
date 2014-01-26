@@ -7,13 +7,31 @@
 //
 
 #include <stdio.h>
+#include <pthread.h>
 #include "../soapStub.h"
 #include "../zkq.nsmap"
 #include "../dbhlp.h"
-#include <pthread.h>
 #include "../heartBeatCheck.h"
 
+// #define MULTITHREAD_SERVER
+
 sqlite3 *_db = 0;
+
+#ifdef MULTITHREAD_SERVER
+static void *_working_proc(void *param)
+{
+    struct soap *soap = (struct soap*)param;
+    
+    pthread_detach(pthread_self());
+    soap_serve((struct soap*)soap);
+    soap_destroy((struct soap*)soap); // dealloc C++ data
+    soap_end((struct soap*)soap); // dealloc data and clean up
+    soap_done((struct soap*)soap); // detach soap struct
+    soap_free(soap);
+    
+    return NULL;
+}
+#endif // multi thread server mode
 
 int main(int argc, const char * argv[])
 {
@@ -50,12 +68,24 @@ int main(int argc, const char * argv[])
         int n = soap_accept(&soap);
         if (n < 0) {
             fprintf(stderr, "ERR: soap_accept err\n");
+            soap_print_fault(&soap, stderr);
+            if (soap.errnum) {
+                soap_print_fault(&soap, stderr);
+                exit(1);
+            }
             exit(-1);
         }
-        
+#ifdef MULTITHREAD_SERVER
+        struct soap *ts = soap_copy(&soap);
+        if (ts) {
+            pthread_t th;
+            pthread_create(&th, 0, _working_proc, ts);
+        }
+#else
         soap_serve(&soap);
         soap_destroy(&soap);
         soap_end(&soap);
+#endif // multi thread server
     }
     
     soap_done(&soap);
