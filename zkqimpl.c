@@ -72,45 +72,6 @@ int zkq__getAllMses(struct soap *soap, enum xsd__boolean offline, struct zkreg__
     return SOAP_OK;
 }
 
-struct paramGetAllHosts
-{
-    struct zkreg__Host **_p;
-    int _n;
-};
-
-static int cb_get_all_hosts(void *opaque, size_t row, sqlite3_stmt *stmt)
-{
-    struct paramGetAllHosts *p = (struct paramGetAllHosts*)opaque;
-    
-    /** FIXME: 将每行保存到 hosts 中，
-            这里采用非常低效的内存分配方式 :(
-     */
-    p->_n = (int)row+1;  // 行数；
-    p->_p = (struct zkreg__Host**)realloc(p->_p, p->_n * sizeof(struct zkreg__Host*));
-    p->_p[row] = (struct zkreg__Host*)malloc(sizeof(struct zkreg__Host));
-    
-    // 提取行记录
-    struct zkreg__Host *host = p->_p[row];
-    host->catalog = zkreg__Catalog__Host;
-    host->name = strdup((const char*)sqlite3_column_text(stmt, 0));
-    host->showname = strdup((const char *)sqlite3_column_text(stmt, 2));
-    host->ips = (struct zkreg__Ips*)malloc(sizeof(struct zkreg__Ips));
-    host->ips->__ptr = 0;
-    host->ips->__size = 0;
-    
-    char *ips = strdup((const char*)sqlite3_column_text(stmt, 1));
-    char *ip = strtok(ips, ",");
-    while (ip) {
-        host->ips->__size++;
-        host->ips->__ptr = (char**)realloc(host->ips->__ptr, host->ips->__size*sizeof(char*));
-        host->ips->__ptr[host->ips->__size-1] = strdup(ip);
-        
-        ip = strtok(0, ",");
-    }
-    
-    return 0;
-}
-
 int zkq__getAllHosts(struct soap *soap, enum xsd__boolean offline, struct zkreg__Hosts *hosts)
 {
     struct zkreg__Host **hs = 0;

@@ -73,12 +73,12 @@ int db_regHost(sqlite3 *db, struct zkreg__Host *host, const char *token)
     }
     
     // 新建 token 记录
-    snprintf(st, 1024, "INSERT INFO token (token, name, last_stamp)"
+    snprintf(st, 1024, "INSERT INTO token (token, name, last_stamp)"
              " VALUES('%s', '%s', %u)",
              token, host->name, now);
     db_exec_sql(db, st);
 
-    return -1;
+    return 0;
 }
 
 int db_unregHost(sqlite3 *db, const char *token)

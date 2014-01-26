@@ -11,6 +11,7 @@
 #include <time.h>
 #include "soapStub.h"
 #include "dbhlp.h"
+#include "dboper.h"
 
 int cb_exist(void *opaque, size_t row, sqlite3_stmt *stmt)
 {
@@ -25,37 +26,10 @@ int zkreg__regHost(struct soap* soap, struct zkreg__Host *req, char **token)
     uuid_generate(id);
     uuid_unparse(id, s);
     
-    char *ips = (char*)malloc(256); // FIXME: 用于穿行化 ip，使用“，”分割
-    ips[0] = 0;
-    fprintf(stdout, "INFO: %s[%d]: hostname=%s, showname=%s, ipcnt=%d\n",
-            __func__, req->catalog, req->name, req->showname, req->ips->__size);
-    if (req->ips->__size > 0) {
-        strcat(ips, req->ips->__ptr[0]);
+    int rc = db_regHost(_db, req, s);
+    if (rc >= 0) {
+        *token = soap_strdup(soap, s);
     }
-    for (int i = 1; i < req->ips->__size; i++) {
-        strcat(ips, ",");   // 逗号分割
-        strcat(ips, req->ips->__ptr[i]);
-    }
-    
-    char *sql = (char*)malloc(4096); // FIXME: 应该足够了 :)
-    // 构造 INSERT
-    snprintf(sql, 4096, "INSERT INTO host (name, ips) VALUES ('%s', '%s'); "
-             "INSERT INTO mse (name, catalog, showname) VALUES ('%s', %d, '%s')",
-             req->name, ips,
-             req->name, zkreg__Catalog__Host, req->showname);
-    
-    db_exec_sql(_db, sql);  // 执行语句
-    
-    // 创建 token 记录
-    time_t t = time(0); // last_stamp
-    snprintf(sql, 4096, "INSERT INTO token VALUES('%s', '%s', 0, %u)", s, req->name, (unsigned)t);
-    db_exec_sql(_db, sql);
-    
-    *token = (char*)soap_malloc(soap, 64);
-    strcpy(*token, s);
-    
-    free(ips);
-    free(sql);
     
     return SOAP_OK;
 }
@@ -63,20 +37,7 @@ int zkreg__regHost(struct soap* soap, struct zkreg__Host *req, char **token)
 int zkreg__unregHost(struct soap *soap, char *token, int *code)
 {
     // 从 token table 中找到，删除，但不应该删除 host table 中的记录，或许将来增加一个 removeHost 的函数
-    int exist = 0;
-    char *sql = (char*)alloca(1024);
-    snprintf(sql, 1024, "SELECT COUNT(*) FROM token WHERE token='%s'", token);
-    db_exec_select(_db, sql, cb_exist, &exist);
-    
-    if (exist) {
-        *code = 0;
-        snprintf(sql, 1024, "DELETE FROM token WHERE token='%s'", token);
-        db_exec_sql(_db, sql);
-    }
-    else {
-        *code = -1; // 没有找到
-    }
-    
+    *code = db_unregHost(_db, token);
     return SOAP_OK;
 }
 
