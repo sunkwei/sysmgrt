@@ -11,6 +11,7 @@
 #include <string.h>
 #include "soapStub.h"
 #include "dbhlp.h"
+#include "dboper.h"
 
 struct paramGetAllMses
 {
@@ -112,51 +113,42 @@ static int cb_get_all_hosts(void *opaque, size_t row, sqlite3_stmt *stmt)
 
 int zkq__getAllHosts(struct soap *soap, enum xsd__boolean offline, struct zkreg__Hosts *hosts)
 {
-    /** 从 host / token 表中提取
-     */
-    char *sql = (char*)alloca(1024);
-    if (offline) {
-        snprintf(sql, 1024, "SELECT host.*,mse.showname FROM host JOIN mse ON host.name=mse.name");
+    struct zkreg__Host **hs = 0;
+    int n = 0, i, j;
+    int rc = db_getAllHosts(_db, offline, &hs, &n);
+    if (rc < 0) {
+        //
     }
-    else {
-        // FIXME: 这个查询语句可能有问题！！！！
-        snprintf(sql, 1024, "SELECT host.*,mse.showname FROM host"
-                 " JOIN mse ON mse.name=host.name"
-                 " JOIN token ON host.name=token.name");
-    }
-    
-    struct paramGetAllHosts p = { 0, 0};
-    db_exec_select(_db, sql, cb_get_all_hosts, &p);
     
     // 从 _p 复制到 hosts 中
-    hosts->__size = p._n;
-    hosts->__ptr = (struct zkreg__Host*)soap_malloc(soap, sizeof(struct zkreg__Host) * p._n);
-    for (int i = 0; i < p._n; i++) {
+    hosts->__size = n;
+    hosts->__ptr = (struct zkreg__Host*)soap_malloc(soap, sizeof(struct zkreg__Host) * n);
+    for (int i = 0; i < n; i++) {
         struct zkreg__Host *host = &hosts->__ptr[i];
-        host->name = soap_strdup(soap, p._p[i]->name);
-        host->catalog = p._p[i]->catalog;
-        host->showname = soap_strdup(soap, p._p[i]->showname);
+        host->name = soap_strdup(soap, hs[i]->name);
+        host->catalog = hs[i]->catalog;
+        host->showname = soap_strdup(soap, hs[i]->showname);
         host->ips = (struct zkreg__Ips*)soap_malloc(soap, sizeof(struct zkreg__Ips));
-        host->ips->__size = p._p[i]->ips->__size;
+        host->ips->__size = hs[i]->ips->__size;
         host->ips->__ptr = (char**)soap_malloc(soap, sizeof(char*) * host->ips->__size);
         for (int j = 0; j < host->ips->__size; j++) {
-            host->ips->__ptr[j] = soap_strdup(soap, p._p[i]->ips->__ptr[j]);
+            host->ips->__ptr[j] = soap_strdup(soap, hs[i]->ips->__ptr[j]);
         }
     }
     
     // 释放 _p
-    for (int i = 0; i < p._n; i++) {
-        free(p._p[i]->name);
-        free(p._p[i]->showname);
+    for (i = 0; i < n; i++) {
+        free(hs[i]->name);
+        free(hs[i]->showname);
         
-        for (int j = 0; j < p._p[i]->ips->__size; j++) {
-            free(p._p[i]->ips->__ptr[j]);
+        for (j = 0; j < hs[i]->ips->__size; j++) {
+            free(hs[i]->ips->__ptr[j]);
         }
-        free(p._p[i]->ips->__ptr);
-        free(p._p[i]->ips);
-        free(p._p[i]);
+        free(hs[i]->ips->__ptr);
+        free(hs[i]->ips);
+        free(hs[i]);
     }
-    free(p._p);
+    free(hs);
     
     return SOAP_OK;
 }

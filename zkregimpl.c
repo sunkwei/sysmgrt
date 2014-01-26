@@ -82,6 +82,11 @@ int zkreg__unregHost(struct soap *soap, char *token, int *code)
 
 int zkreg__regService(struct soap *soap, struct zkreg__Service *req, char **token)
 {
+    uuid_t id;
+    uuid_string_t s;
+    uuid_generate(id);
+    uuid_unparse(id, s);
+    
     return SOAP_OK;
 }
 

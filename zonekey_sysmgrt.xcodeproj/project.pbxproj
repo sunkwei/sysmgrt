@@ -15,6 +15,7 @@
 		C07CEE8718928224009C3F17 /* dbhlp.c in Sources */ = {isa = PBXBuildFile; fileRef = C07CEE8618928224009C3F17 /* dbhlp.c */; };
 		C07CEE891892847A009C3F17 /* zkregimpl.c in Sources */ = {isa = PBXBuildFile; fileRef = C07CEE881892847A009C3F17 /* zkregimpl.c */; };
 		C07CEE8B189284DE009C3F17 /* zkqimpl.c in Sources */ = {isa = PBXBuildFile; fileRef = C07CEE8A189284DE009C3F17 /* zkqimpl.c */; };
+		C09F38F418949983001A5A59 /* dboper.c in Sources */ = {isa = PBXBuildFile; fileRef = C09F38F318949983001A5A59 /* dboper.c */; };
 		C0BC4DA5189394A700CCC0D5 /* heartBeatCheck.c in Sources */ = {isa = PBXBuildFile; fileRef = C0BC4DA4189394A700CCC0D5 /* heartBeatCheck.c */; };
 /* End PBXBuildFile section */
 
@@ -44,6 +45,8 @@
 		C07CEE8618928224009C3F17 /* dbhlp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = dbhlp.c; path = ../dbhlp.c; sourceTree = "<group>"; };
 		C07CEE881892847A009C3F17 /* zkregimpl.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = zkregimpl.c; path = ../zkregimpl.c; sourceTree = "<group>"; };
 		C07CEE8A189284DE009C3F17 /* zkqimpl.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = zkqimpl.c; path = ../zkqimpl.c; sourceTree = "<group>"; };
+		C09F38F218949968001A5A59 /* dboper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = dboper.h; path = ../dboper.h; sourceTree = "<group>"; };
+		C09F38F318949983001A5A59 /* dboper.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = dboper.c; path = ../dboper.c; sourceTree = "<group>"; };
 		C0BC4DA4189394A700CCC0D5 /* heartBeatCheck.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = heartBeatCheck.c; path = ../heartBeatCheck.c; sourceTree = "<group>"; };
 		C0BC4DA6189394C400CCC0D5 /* heartBeatCheck.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = heartBeatCheck.h; path = ../heartBeatCheck.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -79,6 +82,8 @@
 		C07CEE731890C5E3009C3F17 /* zonekey_sysmgrt */ = {
 			isa = PBXGroup;
 			children = (
+				C09F38F318949983001A5A59 /* dboper.c */,
+				C09F38F218949968001A5A59 /* dboper.h */,
 				C0BC4DA6189394C400CCC0D5 /* heartBeatCheck.h */,
 				C0BC4DA4189394A700CCC0D5 /* heartBeatCheck.c */,
 				C07CEE8A189284DE009C3F17 /* zkqimpl.c */,
@@ -158,6 +163,7 @@
 				C07CEE891892847A009C3F17 /* zkregimpl.c in Sources */,
 				C07CEE821890D7EF009C3F17 /* soapServer.c in Sources */,
 				C07CEE811890D7EF009C3F17 /* soapC.c in Sources */,
+				C09F38F418949983001A5A59 /* dboper.c in Sources */,
 				C07CEE8B189284DE009C3F17 /* zkqimpl.c in Sources */,
 				C07CEE751890C5E3009C3F17 /* main.c in Sources */,
 				C07CEE841890DA1B009C3F17 /* stdsoap2.c in Sources */,
