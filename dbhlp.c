@@ -10,6 +10,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <malloc.h>
+#include <alloca.h>
 #include "dbhlp.h"
 #include "heartBeatCheck.h"
 

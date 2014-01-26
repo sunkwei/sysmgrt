@@ -22,7 +22,7 @@ int cb_exist(void *opaque, size_t row, sqlite3_stmt *stmt)
 int zkreg__regHost(struct soap* soap, struct zkreg__Host *req, char **token)
 {
     uuid_t id;
-    uuid_string_t s;
+    char s[40];
     uuid_generate(id);
     uuid_unparse(id, s);
     
@@ -51,7 +51,7 @@ int zkreg__unregHost(struct soap *soap, char *token, int *code)
 int zkreg__regService(struct soap *soap, struct zkreg__Service *req, char **token)
 {
     uuid_t id;
-    uuid_string_t s;
+    char s[40];
     uuid_generate(id);
     uuid_unparse(id, s);
     

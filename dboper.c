@@ -10,6 +10,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <uuid/uuid.h>
+#include <strings.h>
+#include <alloca.h>
 #include "dboper.h"
 
 /** 用于判断是否存在，一般执行
