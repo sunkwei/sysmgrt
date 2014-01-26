@@ -132,10 +132,54 @@ int db_setShowname(sqlite3 *db, const char *name, const char *showname)
     }
 }
 
+struct paramGetMses
+{
+    struct zkreg__Mse **_p;
+    int _n;
+};
+
+static int cb_get_mses(void *opaque, size_t row, sqlite3_stmt *stmt)
+{
+    struct paramGetMses *p = (struct paramGetMses*)opaque;
+    
+    // name, catalog, showname
+    p->_n = (int)row+1;     // 行数
+    p->_p = (struct zkreg__Mse**)realloc(p->_p, sizeof(struct zkreg__Mse*) * p->_n);
+    p->_p[row] = (struct zkreg__Mse*)malloc(sizeof(struct zkreg__Mse));
+    
+    // 提取行记录
+    struct zkreg__Mse *mse = p->_p[row];
+    mse->name = strdup((const char *)sqlite3_column_text(stmt, 0));
+    mse->catalog = sqlite3_column_int(stmt, 1);
+    mse->showname = strdup((const char*)sqlite3_column_text(stmt, 2));
+
+    return 0;
+}
+
+int db_getAllMses(sqlite3 *db, int offline, struct zkreg__Mse ***mses, int *n)
+{
+    *mses = 0, *n = 0;
+    
+    char *st = (char*)alloca(1024);
+    if (offline) {
+        snprintf(st, 1024, "SELECT * FROM mse");
+    }
+    else {
+        snprintf(st, 1024, "SELECT mse.* FROM mse JOIN token ON token.name=mse.name");
+    }
+    
+    struct paramGetMses p = { 0, 0 };
+    db_exec_select(db, st, cb_get_mses, &p);
+    *mses = p._p;
+    *n = p._n;
+    
+    return 0;
+}
+
 struct paramGetHosts
 {
-    struct zkreg__Host **hosts;
-    int n;
+    struct zkreg__Host **_p;
+    int _n;
 };
 
 static int cb_get_hosts(void *opaque, size_t row, sqlite3_stmt *stmt)
@@ -145,12 +189,12 @@ static int cb_get_hosts(void *opaque, size_t row, sqlite3_stmt *stmt)
     /** FIXME: 将每行保存到 hosts 中，
      这里采用非常低效的内存分配方式 :(
      */
-    p->n = (int)row+1;  // 行数；
-    p->hosts = (struct zkreg__Host**)realloc(p->hosts, p->n * sizeof(struct zkreg__Host*));
-    p->hosts[row] = (struct zkreg__Host*)malloc(sizeof(struct zkreg__Host));
+    p->_n = (int)row+1;  // 行数；
+    p->_p = (struct zkreg__Host**)realloc(p->_p, p->_n * sizeof(struct zkreg__Host*));
+    p->_p[row] = (struct zkreg__Host*)malloc(sizeof(struct zkreg__Host));
     
     // 提取行记录
-    struct zkreg__Host *host = p->hosts[row];
+    struct zkreg__Host *host = p->_p[row];
     host->catalog = zkreg__Catalog__Host;
     host->name = strdup((const char*)sqlite3_column_text(stmt, 0));
     host->showname = strdup((const char *)sqlite3_column_text(stmt, 2));
@@ -190,8 +234,98 @@ int db_getAllHosts(sqlite3 *db, int offline, struct zkreg__Host ***host, int *n)
     
     struct paramGetHosts p = { 0, 0 };
     db_exec_select(db, st, cb_get_hosts, &p);
-    *host = p.hosts;
-    *n = p.n;
+    *host = p._p;
+    *n = p._n;
+    
+    return 0;
+}
+
+int db_getServiceList(sqlite3 *db, int offline, struct zkreg__Service ***services, int *n)
+{
+    return db_getServiceListByType(db, offline, 0, services, n);
+}
+
+struct paramGetServices
+{
+    struct zkreg__Service **_p;
+    int _n;
+};
+
+static int cb_get_services(void *opaque, size_t row, sqlite3_stmt *stmt)
+{
+    struct paramGetServices *p = (struct paramGetServices*)opaque;
+    
+    /** 从 stmt 中提取，并保存到 p 中
+     
+     name, hostname, type, urls, version, showname
+     */
+    p->_n = (int)row+1;
+    p->_p = (struct zkreg__Service**)realloc(p->_p, p->_n);
+    p->_p[p->_n] = (struct zkreg__Service*)malloc(sizeof(struct zkreg__Service));
+    
+    struct zkreg__Service *s = p->_p[p->_n];
+    
+    s->name = strdup((const char*)sqlite3_column_text(stmt, 0));
+    s->hostname = strdup((const char*)sqlite3_column_text(stmt, 1));
+    s->catalog = sqlite3_column_int(stmt, 2);
+    s->type = strdup((const char*)sqlite3_column_text(stmt, 3));
+    s->version = strdup((const char*)sqlite3_column_text(stmt, 5));
+    s->showname = strdup((const char*)sqlite3_column_text(stmt, 6));
+    
+    s->urls = (struct zkreg__Urls*)malloc(sizeof(struct zkreg__Urls));
+    s->urls->__size = 0;
+    s->urls->__ptr = 0;
+    
+    char *urls = strdup((const char*)sqlite3_column_text(stmt, 4));
+    char *t = strtok(urls, ",");    // FIXME: url 使用“，”分割合理么？
+    while (t) {
+        s->urls->__size ++;
+        s->urls->__ptr = ((char**)realloc(s->urls->__ptr, s->urls->__size * sizeof(char*)));
+        s->urls->__ptr[s->urls->__size-1] = strdup(t);
+        
+        t = strtok(0, ",");
+    }
+    
+    free(urls);
+    
+    return 0;
+
+}
+
+int db_getServiceListByType(sqlite3 *db, int offline, const char *type, struct zkreg__Service ***service, int *n)
+{
+    *service = 0, *n = 0;
+    
+    char *st = (char*)alloca(1024);
+    if (offline) {
+        if (type) {
+            snprintf(st, 1024, "SELECT service.*,mse.showname FROM service"
+                     " JOIN mse ON mse.name=service.name"
+                     " WHERE service.type='%s'", type);
+        }
+        else {
+            snprintf(st, 1024, "SELECT service.*,mse.showname FROM service"
+                     " JOIN mse ON mse.name=service.name");
+        }
+    }
+    else {
+        if (type) {
+            snprintf(st, 1024, "SELECT service.*,mse.showname FROM service"
+                     " JOIN mse ON mse.name=service.name"
+                     " JOIN token ON token.name=service.name"
+                     " WHERE service.type='%s'", type);
+        }
+        else {
+            snprintf(st, 1024, "SELECT service.*,mse.showname FROM service"
+                     " JOIN mse ON mse.name=service.name"
+                     " JOIN token ON token.name=service.name");
+        }
+    }
+    
+    struct paramGetServices p = { 0, 0 };
+    db_exec_select(db, st, cb_get_services, &p);
+    *service = p._p;
+    *n = p._n;
     
     return 0;
 }

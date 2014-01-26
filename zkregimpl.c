@@ -28,7 +28,11 @@ int zkreg__regHost(struct soap* soap, struct zkreg__Host *req, char **token)
     
     int rc = db_regHost(_db, req, s);
     if (rc >= 0) {
+        fprintf(stdout, "INFO: %s: reg %s OK\n", __func__, req->name);
         *token = soap_strdup(soap, s);
+    }
+    else {
+        fprintf(stdout, "ERR: %s: reg %s ERR\n", __func__, req->name);
     }
     
     return SOAP_OK;
@@ -38,6 +42,8 @@ int zkreg__unregHost(struct soap *soap, char *token, int *code)
 {
     // 从 token table 中找到，删除，但不应该删除 host table 中的记录，或许将来增加一个 removeHost 的函数
     *code = db_unregHost(_db, token);
+    fprintf(stdout, "INFO: %s: unreg token %s\n", __func__, token);
+
     return SOAP_OK;
 }
 
@@ -69,28 +75,16 @@ int zkreg__unregDevice(struct soap *soap, char *token, int *code)
 int zkreg__heartBeat(struct soap *soap, char *token, int *code)
 {
     /** 心跳，更新 token table 的 last_stamp */
-    int exist = 0;
-    char *sql = (char*)alloca(1024);
-    snprintf(sql, 1024, "SELECT COUNT(*) FROM token WHERE token='%s'", token);
-    db_exec_select(_db, sql, cb_exist, &exist);
-    
-    if (exist) {
-        *code = 0;
-        snprintf(sql, 1024, "UPDATE token SET last_stamp=%u WHERE token='%s'", (unsigned)time(0), token);
-        db_exec_sql(_db, sql);
-    }
-    else {
-        *code = -1; // 没有找到
-    }
+    *code = db_heartBeat(_db, token);
+    fprintf(stdout, "INFO: %s: token %s\n", __func__, token);
+
     return SOAP_OK;
 }
 
 int zkreg__setShowName(struct soap *soap, char *name, char *showname, int *code)
 {
-    /** 直接修改 mse table 中的记录即可 */
-    char *sql = (char*)alloca(1024);
-    snprintf(sql, 1024, "UPDATE mse SET showname='%s' WHERE name='%s'", showname, name);
-    db_exec_sql(_db, sql);
+    *code = db_setShowname(_db, name, showname);
+    fprintf(stdout, "INFO: %s: %s: change showname to '%s'\n", __func__, name, showname);
     
     return SOAP_OK;
 }

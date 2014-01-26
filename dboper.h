@@ -25,11 +25,17 @@ int db_unregHost(sqlite3 *db, const char *token);
         n 为出参，指定 host 的数目
  */
 int db_getAllHosts(sqlite3 *db, int offline, struct zkreg__Host ***hosts, int *n);
+int db_getAllMses(sqlite3 *db, int offline, struct zkreg__Mse ***mses, int *n);
 
 /** 处理 heartBeat 对数据库的操作 */
 int db_heartBeat(sqlite3 *db, const char *token);
 
 /** 处理 setShowName 对数据库的操作 */
 int db_setShowname(sqlite3 *db, const char *name, const char *showname);
+
+/** 处理 get Service list
+ */
+int db_getServiceList(sqlite3 *db, int offline, struct zkreg__Service ***services, int *n);
+int db_getServiceListByType(sqlite3 *db, int offline, const char *type, struct zkreg__Service ***service, int *n);
 
 #endif
