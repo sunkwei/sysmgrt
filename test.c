@@ -17,12 +17,13 @@ static void *proc_regHost(void *param)
 
 		struct zkreg__Host host;
 
-		snprintf(name, sizeof(name), "test_host_%d", i);
+		snprintf(name, sizeof(name), "test_host_with_ip_%d", i);
 		host.name = soap_strdup(&soap, name);
 		host.catalog = zkreg__Catalog__Host;
 		host.ips = (struct zkreg__Ips*)soap_malloc(&soap, sizeof(struct zkreg__Ips));
-		host.ips->__ptr = 0;
-		host.ips->__size = 0;
+		host.ips->__ptr = (char**)soap_malloc(&soap, 1 * sizeof(char*));
+		host.ips->__ptr[0] = (char*)soap_strdup(&soap, "192.168.1.10");
+		host.ips->__size = 1;
 		host.showname = 0;
 		
 		char *token = 0;
