@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include <pthread.h>
 #include "../soapStub.h"
-#include "../zkq.nsmap"
+#include "../zkreg.nsmap"
 #include "../dbhlp.h"
 #include "../heartBeatCheck.h"
 

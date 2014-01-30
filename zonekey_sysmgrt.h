@@ -2,11 +2,21 @@
 
   	add 
 # zonekey ...
-zkreg	= "urn:zonekey/sysmgrt/reg"
-zkq	= "urn:zonekey/sysmgrt/query"
+zkreg	= "urn:zkreg
+zkq	= "urn:zkquery
 
 to typemap.dat
  */
+
+//gsoap zkreg schema namespace: urn:zkreg
+//gsoap zkreg service namespace: urn:zkreg
+//gsoap zkreg service name: ZkReg
+//gsoap zkreg service type: ZkReg
+
+//gsoap zkq schema namespace: urn:zkquery
+//gsoap zkq service namespace: urn:zkq
+//gsoap zkq service name: ZkQuery
+//gsoap zkq service type: ZkQuery
 
 /******************************************************************************\
  *                                                                            *
@@ -175,6 +185,9 @@ struct zkreg__Logics
 };
 
 // 主机注册, token 为返回
+//gsoap zkreg  service method-protocol:   regHost SOAP
+//gsoap zkreg  service method-style:      regHost document
+//gsoap zkreg  service method-encoding:   regHost literal
 int zkreg__regHost(struct zkreg__Host *zkreg__regHostReq, xsd__token *token);
 int zkreg__unregHost(xsd__token zkreg__unRegHosttoken, int *code);
 

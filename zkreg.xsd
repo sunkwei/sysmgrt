@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
- <schema targetNamespace="http://tempuri.org/zkreg.xsd"
+ <schema targetNamespace="urn:zkreg"
   xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
   xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-  xmlns:zkreg="http://tempuri.org/zkreg.xsd"
-  xmlns:zkq="http://tempuri.org/zkq.xsd"
+  xmlns:zkreg="urn:zkreg"
+  xmlns:zkq="urn:zkquery"
   xmlns="http://www.w3.org/2001/XMLSchema"
   elementFormDefault="unqualified"
   attributeFormDefault="unqualified">
+  <import namespace="urn:zkquery"/>
   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
   <simpleType name="Catalog"><!-- zkreg__Catalog -->
 

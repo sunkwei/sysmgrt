@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions name="Service"
- targetNamespace="http://tempuri.org/zkreg.xsd/Service.wsdl"
- xmlns:tns="http://tempuri.org/zkreg.xsd/Service.wsdl"
+<definitions name="ZkReg"
+ targetNamespace="urn:zkreg"
+ xmlns:tns="urn:zkreg"
  xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
  xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
- xmlns:zkreg="http://tempuri.org/zkreg.xsd"
- xmlns:zkq="http://tempuri.org/zkq.xsd"
+ xmlns:zkreg="urn:zkreg"
+ xmlns:zkq="urn:zkquery"
  xmlns:SOAP="http://schemas.xmlsoap.org/wsdl/soap/"
  xmlns:HTTP="http://schemas.xmlsoap.org/wsdl/http/"
  xmlns:MIME="http://schemas.xmlsoap.org/wsdl/mime/"
@@ -17,16 +17,17 @@
 
 <types>
 
- <schema targetNamespace="http://tempuri.org/zkreg.xsd"
+ <schema targetNamespace="urn:zkreg"
   xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
   xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-  xmlns:zkreg="http://tempuri.org/zkreg.xsd"
-  xmlns:zkq="http://tempuri.org/zkq.xsd"
+  xmlns:zkreg="urn:zkreg"
+  xmlns:zkq="urn:zkquery"
   xmlns="http://www.w3.org/2001/XMLSchema"
   elementFormDefault="unqualified"
   attributeFormDefault="unqualified">
+  <import namespace="urn:zkquery"/>
   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
   <simpleType name="Catalog"><!-- zkreg__Catalog -->
 
@@ -275,16 +276,17 @@
   </element>
  </schema>
 
- <schema targetNamespace="http://tempuri.org/zkq.xsd"
+ <schema targetNamespace="urn:zkquery"
   xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
   xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-  xmlns:zkreg="http://tempuri.org/zkreg.xsd"
-  xmlns:zkq="http://tempuri.org/zkq.xsd"
+  xmlns:zkreg="urn:zkreg"
+  xmlns:zkq="urn:zkquery"
   xmlns="http://www.w3.org/2001/XMLSchema"
   elementFormDefault="unqualified"
   attributeFormDefault="unqualified">
+  <import namespace="urn:zkreg"/>
   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
   <complexType name="Ips"><!-- zkreg__Ips -->
 
@@ -402,7 +404,7 @@
  <part name="Body" element="zkreg:setShowNameResponse"/>
 </message>
 
-<portType name="ServicePortType">
+<portType name="ZkReg">
  <operation name="regHost">
   <documentation>Service definition of function zkreg__regHost</documentation>
   <input message="tns:regHostRequest"/>
@@ -445,7 +447,7 @@
  </operation>
 </portType>
 
-<binding name="Service" type="tns:ServicePortType">
+<binding name="ZkReg" type="tns:ZkReg">
  <SOAP:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
  <operation name="regHost">
   <SOAP:operation soapAction=""/>
@@ -521,9 +523,9 @@
  </operation>
 </binding>
 
-<service name="Service">
+<service name="ZkReg">
  <documentation>gSOAP 2.8.17r generated service definition</documentation>
- <port name="Service" binding="tns:Service">
+ <port name="ZkReg" binding="tns:ZkReg">
   <SOAP:address location="http://localhost:80"/>
  </port>
 </service>
