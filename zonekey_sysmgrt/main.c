@@ -13,7 +13,7 @@
 #include "../dbhlp.h"
 #include "../heartBeatCheck.h"
 
-// #define MULTITHREAD_SERVER
+#define MULTITHREAD_SERVER
 
 sqlite3 *_db = 0;
 

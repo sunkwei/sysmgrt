@@ -1,34 +1,15 @@
 /** zonekey system mgrt
-
-  	add 
-# zonekey ...
-zkreg	= "urn:zkreg
-zkq	= "urn:zkquery
-
-to typemap.dat
  */
 
-//gsoap zkreg schema namespace: urn:zkreg
-//gsoap zkreg service namespace: urn:zkreg
-//gsoap zkreg service name: ZkReg
-//gsoap zkreg service type: ZkReg
+//gsoap zkreg service namespace: http://www.zonekey.com/sysmgrt/register
+//gsoap zkreg service name: zkreg
+//gsoap zkreg service port: http://localhost:8899
+//gsoap zkreg schema form: qualified
+//gsoap zkreg schema namespace: http://www.zonekey.com/sysmgrt/register
 
-//gsoap zkq schema namespace: urn:zkquery
-//gsoap zkq service namespace: urn:zkq
-//gsoap zkq service name: ZkQuery
-//gsoap zkq service type: ZkQuery
-
-/******************************************************************************\
- *                                                                            *
- * Import                                                                     *
- *                                                                            *
-\******************************************************************************/
-
-/******************************************************************************\
- *                                                                            *
- * Built-in Schema Types and Top-Level Elements and Attributes                *
- *                                                                            *
-\******************************************************************************/
+//gsoap zkq service namespace: http://www.zonekey.com/sysmgrt/query
+//gsoap zkq service name: zkquery
+//gsoap zkq service port: http://localhost:8899
 
 
 /// Built-in type "SOAP-ENV:Envelope".
@@ -64,8 +45,8 @@ typedef char* xsd__integer;
 /// Primitive built-in type "xs:nonNegativeInteger"
 typedef char* xsd__nonNegativeInteger;
 
-/// Primitive built-in type "xs:token"
-typedef char* xsd__token;
+/// Primitive built-in type "xs:string"
+typedef char* xsd__string;
 
 // Imported element "http://www.w3.org/2004/08/xop/include":Include declared as _xop__Include
 
@@ -85,125 +66,122 @@ enum zkreg__Catalog
 // ip array
 struct zkreg__Ips
 {
-	xsd__token 		*__ptr		1;
-	int			__size		1;
+	xsd__string 		*__ptr		0;
+	int			__size		0;
 };
 
 // xaddr array
 struct zkreg__Urls
 {
-	xsd__anyURI 		*__ptr		1;
-	int			__size		1;
+	xsd__anyURI 		*__ptr		0;
+	int			__size		0;
 };
 
 /** 基类型
  */
 struct zkreg__Mse
 {
-	xsd__token		name		1;	// 唯一名字
+	xsd__string		name		1;	// 唯一名字
 	enum zkreg__Catalog	catalog		1;	// 类型
-	xsd__token		showname	0;	// 显示名字
+	xsd__string		showname	0;	// 显示名字
 };
 
 /** mse 列表 */
 struct zkreg__Mses
 {
-	struct zkreg__Mse	*__ptr		1;	
-	int			__size		1;
+	struct zkreg__Mse	*__ptr		0;	
+	int			__size		0;
 };
 
 /** 主机类型 */
 struct zkreg__Host
 {
-	xsd__token		name		1;
+	xsd__string		name		1;
 	enum zkreg__Catalog	catalog		1;	// 类别，必须为 zkreg__Catalog__Host
 	struct zkreg__Ips	*ips		1;
-	xsd__token		showname	0;
+	xsd__string		showname	0;
 };
 
 // 主机列表
 struct zkreg__Hosts
 {
-	struct zkreg__Host	*__ptr		1;
-	int			__size		1;
+	struct zkreg__Host	*__ptr		0;
+	int			__size		0;
 };
 
 /** 服务 */
 struct zkreg__Service
 {
-	xsd__token		name		1;	// 服务名字.
+	xsd__string		name		1;	// 服务名字.
 	enum zkreg__Catalog	catalog		1;	// 类别，必须为 zkreg__Catalog__Service
-	xsd__token		hostname	1;	// 绑定的主机名字.
-	xsd__token		type		1;	// 服务类型.
+	xsd__string		hostname	1;	// 绑定的主机名字.
+	xsd__string		type		1;	// 服务类型.
 	struct zkreg__Urls	*urls		1;	// 各种url
-	xsd__token		version		0;	// 版本号，可选.
-	xsd__token		showname	0;	// 可选的显示名字.
+	xsd__string		version		0;	// 版本号，可选.
+	xsd__string		showname	0;	// 可选的显示名字.
 };
 
 // 服务列表
 struct zkreg__Services
 {
-	struct zkreg__Service	*__ptr		1;
-	int			__size		1;
+	struct zkreg__Service	*__ptr		0;
+	int			__size		0;
 };
 
 /** 设备 */
 struct zkreg__Device
 {
-	xsd__token		name		1;
+	xsd__string		name		1;
 	enum zkreg__Catalog	catalog		1;	// 类别，必须为 zkreg__Catalog__Device
-	xsd__token		hostname	1;
-	xsd__token		type		1;	// 设备类型，如ptz, encoder ...
-	xsd__token		vendor		0;
-	xsd__token		model		0;
-	xsd__token		serial		0;
-	xsd__token		version		0;
-	xsd__token		showname	0;
+	xsd__string		hostname	1;
+	xsd__string		type		1;	// 设备类型，如ptz, encoder ...
+	xsd__string		vendor		0;
+	xsd__string		model		0;
+	xsd__string		serial		0;
+	xsd__string		version		0;
+	xsd__string		showname	0;
 };
 
 // 设备列表
 struct zkreg__Devices
 {
-	struct zkreg__Device	*__ptr		1;
-	int			__size		1;
+	struct zkreg__Device	*__ptr		0;
+	int			__size		0;
 };
 
 /** 逻辑服务 */
 struct zkreg__Logic
 {
-	xsd__token		name		1;
+	xsd__string		name		1;
 	enum zkreg__Catalog	catalog		1;	// 类别，必须为 zkreg__Catalog__Logic
 	struct zkreg__Mse	*parent		0;	// 可选的父对象
 	struct zkreg__Mses	*children	0;	// 可选的子对象
-	xsd__token		showname	0;
+	xsd__string		showname	0;
 };
 
 struct zkreg__Logics
 {
-	struct zkreg__Logic 	*__ptr		1;
-	int			__size		1;
+	struct zkreg__Logic 	*__ptr		0;
+	int			__size		0;
 };
 
 // 主机注册, token 为返回
-//gsoap zkreg  service method-protocol:   regHost SOAP
-//gsoap zkreg  service method-style:      regHost document
-//gsoap zkreg  service method-encoding:   regHost literal
-int zkreg__regHost(struct zkreg__Host *zkreg__regHostReq, xsd__token *token);
-int zkreg__unregHost(xsd__token zkreg__unRegHosttoken, int *code);
+int zkreg__regHost(struct zkreg__Host *zkreg__regHostReq, xsd__string *token);
+int zkreg__unregHost(xsd__string zkreg__unRegHoststring, int *code);
 
 // 服务注册
-int zkreg__regService(struct zkreg__Service *zkreg__regServiceReq, xsd__token *token);
-int zkreg__unregService(xsd__token zkreg__unregServicetoken, int *code);
+int zkreg__regService(struct zkreg__Service *zkreg__regServiceReq, xsd__string *token);
+int zkreg__unregService(xsd__string zkreg__unregServicestring, int *code);
 
 // 设备注册
-int zkreg__regDevice(struct zkreg__Device *zkreg__regDeviceReq, xsd__token *token);
-int zkreg__unregDevice(xsd__token zkreg__unregDevcietoken, int *code);
+int zkreg__regDevice(struct zkreg__Device *zkreg__regDeviceReq, xsd__string *token);
+int zkreg__unregDevice(xsd__string zkreg__unregDevciestring, int *code);
 
 // 心跳
-int zkreg__heartBeat(xsd__token zkreg__heartBeattoken, int *code);
+int zkreg__heartBeat(xsd__string zkreg__heartBeatstring, int *code);
 
 // 修改 mse 显示信息
-int zkreg__setShowName(xsd__token zkreg__setShowNameReq, xsd__token showname, int *code);
+int zkreg__setShowName(xsd__string zkreg__setShowNameReq, xsd__string showname, int *code);
 
 // 逻辑设备的绑定
 
@@ -225,5 +203,5 @@ int zkq__getAllDevices(enum xsd__boolean zkq__getAllDevicesoffline, struct zkreg
 int zkq__getAllLogics(enum xsd__boolean zkq__getAllLogicsoffline, struct zkreg__Logics *logics);
 
 // 根据服务类型查询服务
-int zkq__getServicesByType(enum xsd__boolean zkq__getServiceByTypeoffline, xsd__token type, struct zkreg__Services *services);
+int zkq__getServicesByType(enum xsd__boolean zkq__getServiceByTypeoffline, xsd__string type, struct zkreg__Services *services);
 

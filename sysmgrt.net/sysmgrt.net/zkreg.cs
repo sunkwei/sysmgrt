@@ -18,10 +18,10 @@
 /// <remarks>
 ///gSOAP 2.8.17r generated service definition
 ///</remarks>
-[System.Web.Services.WebServiceBinding(Name="ZkReg", Namespace="urn:zkreg")]
+[System.Web.Services.WebServiceBinding(Name="zkreg", Namespace="http://www.zonekey.com/sysmgrt/register")]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class ZkReg : System.Web.Services.Protocols.SoapHttpClientProtocol {
+public partial class zkreg : System.Web.Services.Protocols.SoapHttpClientProtocol {
     
     private System.Threading.SendOrPostCallback regHostOperationCompleted;
     
@@ -39,8 +39,8 @@ public partial class ZkReg : System.Web.Services.Protocols.SoapHttpClientProtoco
     
     private System.Threading.SendOrPostCallback setShowNameOperationCompleted;
     
-    public ZkReg() {
-        this.Url = "http://localhost:80";
+    public zkreg() {
+        this.Url = "http://localhost:8899";
     }
     
     public event regHostCompletedEventHandler regHostCompleted;
@@ -63,8 +63,8 @@ public partial class ZkReg : System.Web.Services.Protocols.SoapHttpClientProtoco
 ///Service definition of function zkreg__regHost
 ///</remarks>
     [System.Web.Services.Protocols.SoapDocumentMethodAttribute("", ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Bare, Use=System.Web.Services.Description.SoapBindingUse.Literal)]
-    [return: System.Xml.Serialization.XmlElementAttribute("regHostResponse", Namespace="urn:zkreg", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-    public MessageRegHostResponse regHost([System.Xml.Serialization.XmlElementAttribute(Namespace="urn:zkreg", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)] MessageRegHost regHost) {
+    [return: System.Xml.Serialization.XmlElementAttribute("regHostResponse", Namespace="http://www.zonekey.com/sysmgrt/register")]
+    public MessageRegHostResponse regHost([System.Xml.Serialization.XmlElementAttribute(Namespace="http://www.zonekey.com/sysmgrt/register")] MessageRegHost regHost) {
         object[] results = this.Invoke("regHost", new object[] {
                     regHost});
         return ((MessageRegHostResponse)(results[0]));
@@ -103,8 +103,8 @@ public partial class ZkReg : System.Web.Services.Protocols.SoapHttpClientProtoco
 ///Service definition of function zkreg__unregHost
 ///</remarks>
     [System.Web.Services.Protocols.SoapDocumentMethodAttribute("", ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Bare, Use=System.Web.Services.Description.SoapBindingUse.Literal)]
-    [return: System.Xml.Serialization.XmlElementAttribute("unregHostResponse", Namespace="urn:zkreg", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-    public MessageUnregHostResponse unregHost([System.Xml.Serialization.XmlElementAttribute(Namespace="urn:zkreg", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)] MessageUnregHost unregHost) {
+    [return: System.Xml.Serialization.XmlElementAttribute("unregHostResponse", Namespace="http://www.zonekey.com/sysmgrt/register")]
+    public MessageUnregHostResponse unregHost([System.Xml.Serialization.XmlElementAttribute(Namespace="http://www.zonekey.com/sysmgrt/register")] MessageUnregHost unregHost) {
         object[] results = this.Invoke("unregHost", new object[] {
                     unregHost});
         return ((MessageUnregHostResponse)(results[0]));
@@ -143,8 +143,8 @@ public partial class ZkReg : System.Web.Services.Protocols.SoapHttpClientProtoco
 ///Service definition of function zkreg__regService
 ///</remarks>
     [System.Web.Services.Protocols.SoapDocumentMethodAttribute("", ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Bare, Use=System.Web.Services.Description.SoapBindingUse.Literal)]
-    [return: System.Xml.Serialization.XmlElementAttribute("regServiceResponse", Namespace="urn:zkreg", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-    public MessageRegServiceResponse regService([System.Xml.Serialization.XmlElementAttribute(Namespace="urn:zkreg", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)] MessageRegService regService) {
+    [return: System.Xml.Serialization.XmlElementAttribute("regServiceResponse", Namespace="http://www.zonekey.com/sysmgrt/register")]
+    public MessageRegServiceResponse regService([System.Xml.Serialization.XmlElementAttribute(Namespace="http://www.zonekey.com/sysmgrt/register")] MessageRegService regService) {
         object[] results = this.Invoke("regService", new object[] {
                     regService});
         return ((MessageRegServiceResponse)(results[0]));
@@ -183,8 +183,8 @@ public partial class ZkReg : System.Web.Services.Protocols.SoapHttpClientProtoco
 ///Service definition of function zkreg__unregService
 ///</remarks>
     [System.Web.Services.Protocols.SoapDocumentMethodAttribute("", ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Bare, Use=System.Web.Services.Description.SoapBindingUse.Literal)]
-    [return: System.Xml.Serialization.XmlElementAttribute("unregServiceResponse", Namespace="urn:zkreg", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-    public MessageUnregServiceResponse unregService([System.Xml.Serialization.XmlElementAttribute(Namespace="urn:zkreg", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)] MessageUnregService unregService) {
+    [return: System.Xml.Serialization.XmlElementAttribute("unregServiceResponse", Namespace="http://www.zonekey.com/sysmgrt/register")]
+    public MessageUnregServiceResponse unregService([System.Xml.Serialization.XmlElementAttribute(Namespace="http://www.zonekey.com/sysmgrt/register")] MessageUnregService unregService) {
         object[] results = this.Invoke("unregService", new object[] {
                     unregService});
         return ((MessageUnregServiceResponse)(results[0]));
@@ -223,8 +223,8 @@ public partial class ZkReg : System.Web.Services.Protocols.SoapHttpClientProtoco
 ///Service definition of function zkreg__regDevice
 ///</remarks>
     [System.Web.Services.Protocols.SoapDocumentMethodAttribute("", ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Bare, Use=System.Web.Services.Description.SoapBindingUse.Literal)]
-    [return: System.Xml.Serialization.XmlElementAttribute("regDeviceResponse", Namespace="urn:zkreg", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-    public MessageRegDeviceResponse regDevice([System.Xml.Serialization.XmlElementAttribute(Namespace="urn:zkreg", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)] MessageRegDevice regDevice) {
+    [return: System.Xml.Serialization.XmlElementAttribute("regDeviceResponse", Namespace="http://www.zonekey.com/sysmgrt/register")]
+    public MessageRegDeviceResponse regDevice([System.Xml.Serialization.XmlElementAttribute(Namespace="http://www.zonekey.com/sysmgrt/register")] MessageRegDevice regDevice) {
         object[] results = this.Invoke("regDevice", new object[] {
                     regDevice});
         return ((MessageRegDeviceResponse)(results[0]));
@@ -263,8 +263,8 @@ public partial class ZkReg : System.Web.Services.Protocols.SoapHttpClientProtoco
 ///Service definition of function zkreg__unregDevice
 ///</remarks>
     [System.Web.Services.Protocols.SoapDocumentMethodAttribute("", ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Bare, Use=System.Web.Services.Description.SoapBindingUse.Literal)]
-    [return: System.Xml.Serialization.XmlElementAttribute("unregDeviceResponse", Namespace="urn:zkreg", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-    public MessageUnregDeviceResponse unregDevice([System.Xml.Serialization.XmlElementAttribute(Namespace="urn:zkreg", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)] MessageUnregDevice unregDevice) {
+    [return: System.Xml.Serialization.XmlElementAttribute("unregDeviceResponse", Namespace="http://www.zonekey.com/sysmgrt/register")]
+    public MessageUnregDeviceResponse unregDevice([System.Xml.Serialization.XmlElementAttribute(Namespace="http://www.zonekey.com/sysmgrt/register")] MessageUnregDevice unregDevice) {
         object[] results = this.Invoke("unregDevice", new object[] {
                     unregDevice});
         return ((MessageUnregDeviceResponse)(results[0]));
@@ -303,8 +303,8 @@ public partial class ZkReg : System.Web.Services.Protocols.SoapHttpClientProtoco
 ///Service definition of function zkreg__heartBeat
 ///</remarks>
     [System.Web.Services.Protocols.SoapDocumentMethodAttribute("", ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Bare, Use=System.Web.Services.Description.SoapBindingUse.Literal)]
-    [return: System.Xml.Serialization.XmlElementAttribute("heartBeatResponse", Namespace="urn:zkreg", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-    public MessageHeartBeatResponse heartBeat([System.Xml.Serialization.XmlElementAttribute(Namespace="urn:zkreg", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)] MessageHeartBeat heartBeat) {
+    [return: System.Xml.Serialization.XmlElementAttribute("heartBeatResponse", Namespace="http://www.zonekey.com/sysmgrt/register")]
+    public MessageHeartBeatResponse heartBeat([System.Xml.Serialization.XmlElementAttribute(Namespace="http://www.zonekey.com/sysmgrt/register")] MessageHeartBeat heartBeat) {
         object[] results = this.Invoke("heartBeat", new object[] {
                     heartBeat});
         return ((MessageHeartBeatResponse)(results[0]));
@@ -343,8 +343,8 @@ public partial class ZkReg : System.Web.Services.Protocols.SoapHttpClientProtoco
 ///Service definition of function zkreg__setShowName
 ///</remarks>
     [System.Web.Services.Protocols.SoapDocumentMethodAttribute("", ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Bare, Use=System.Web.Services.Description.SoapBindingUse.Literal)]
-    [return: System.Xml.Serialization.XmlElementAttribute("setShowNameResponse", Namespace="urn:zkreg", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-    public MessageSetShowNameResponse setShowName([System.Xml.Serialization.XmlElementAttribute(Namespace="urn:zkreg", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)] MessageSetShowName setShowName) {
+    [return: System.Xml.Serialization.XmlElementAttribute("setShowNameResponse", Namespace="http://www.zonekey.com/sysmgrt/register")]
+    public MessageSetShowNameResponse setShowName([System.Xml.Serialization.XmlElementAttribute(Namespace="http://www.zonekey.com/sysmgrt/register")] MessageSetShowName setShowName) {
         object[] results = this.Invoke("setShowName", new object[] {
                     setShowName});
         return ((MessageSetShowNameResponse)(results[0]));
@@ -385,14 +385,13 @@ public partial class ZkReg : System.Web.Services.Protocols.SoapHttpClientProtoco
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:zkreg")]
-[System.Xml.Serialization.XmlRootAttribute("regHost", Namespace="urn:zkreg")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.zonekey.com/sysmgrt/register")]
+[System.Xml.Serialization.XmlRootAttribute("regHost", Namespace="http://www.zonekey.com/sysmgrt/register")]
 public partial class MessageRegHost {
     
     private Host regHostReqField;
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
     public Host regHostReq {
         get {
             return this.regHostReqField;
@@ -408,8 +407,8 @@ public partial class MessageRegHost {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:zkreg")]
-[System.Xml.Serialization.XmlRootAttribute("regHostReq", Namespace="urn:zkreg")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.zonekey.com/sysmgrt/register")]
+[System.Xml.Serialization.XmlRootAttribute("regHostReq", Namespace="http://www.zonekey.com/sysmgrt/register")]
 public partial class Host {
     
     private string nameField;
@@ -421,7 +420,7 @@ public partial class Host {
     private string shownameField;
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=true, DataType="token")]
+    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
     public string name {
         get {
             return this.nameField;
@@ -432,7 +431,6 @@ public partial class Host {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
     public Catalog catalog {
         get {
             return this.catalogField;
@@ -443,8 +441,8 @@ public partial class Host {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlArray(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=true)]
-    [System.Xml.Serialization.XmlArrayItem(ElementName="item", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    [System.Xml.Serialization.XmlArray(IsNullable=true)]
+    [System.Xml.Serialization.XmlArrayItem(ElementName="item")]
     public string[] ips {
         get {
             return this.ipsField;
@@ -455,7 +453,7 @@ public partial class Host {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=true, DataType="token")]
+    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
     public string showname {
         get {
             return this.shownameField;
@@ -469,7 +467,7 @@ public partial class Host {
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.17020")]
 [System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:zkreg")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.zonekey.com/sysmgrt/register")]
 public enum Catalog {
     
     /// <remarks/>
@@ -490,14 +488,14 @@ public enum Catalog {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:zkreg")]
-[System.Xml.Serialization.XmlRootAttribute("regHostResponse", Namespace="urn:zkreg")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.zonekey.com/sysmgrt/register")]
+[System.Xml.Serialization.XmlRootAttribute("regHostResponse", Namespace="http://www.zonekey.com/sysmgrt/register")]
 public partial class MessageRegHostResponse {
     
     private string tokenField;
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=true, DataType="token")]
+    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
     public string token {
         get {
             return this.tokenField;
@@ -513,20 +511,19 @@ public partial class MessageRegHostResponse {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:zkreg")]
-[System.Xml.Serialization.XmlRootAttribute("unregHost", Namespace="urn:zkreg")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.zonekey.com/sysmgrt/register")]
+[System.Xml.Serialization.XmlRootAttribute("unregHost", Namespace="http://www.zonekey.com/sysmgrt/register")]
 public partial class MessageUnregHost {
     
-    private string unRegHosttokenField;
+    private string unRegHoststringField;
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, DataType="token")]
-    public string unRegHosttoken {
+    public string unRegHoststring {
         get {
-            return this.unRegHosttokenField;
+            return this.unRegHoststringField;
         }
         set {
-            this.unRegHosttokenField = value;
+            this.unRegHoststringField = value;
         }
     }
 }
@@ -536,8 +533,8 @@ public partial class MessageUnregHost {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:zkreg")]
-[System.Xml.Serialization.XmlRootAttribute("unregHostResponse", Namespace="urn:zkreg")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.zonekey.com/sysmgrt/register")]
+[System.Xml.Serialization.XmlRootAttribute("unregHostResponse", Namespace="http://www.zonekey.com/sysmgrt/register")]
 public partial class MessageUnregHostResponse {
     
     private System.Nullable<int> codeField;
@@ -545,7 +542,7 @@ public partial class MessageUnregHostResponse {
     private bool codeSpecifiedField;
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=true, DataType="int")]
+    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, DataType="int")]
     public System.Nullable<int> code {
         get {
             return this.codeField;
@@ -572,14 +569,13 @@ public partial class MessageUnregHostResponse {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:zkreg")]
-[System.Xml.Serialization.XmlRootAttribute("regService", Namespace="urn:zkreg")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.zonekey.com/sysmgrt/register")]
+[System.Xml.Serialization.XmlRootAttribute("regService", Namespace="http://www.zonekey.com/sysmgrt/register")]
 public partial class MessageRegService {
     
     private Service regServiceReqField;
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
     public Service regServiceReq {
         get {
             return this.regServiceReqField;
@@ -595,8 +591,8 @@ public partial class MessageRegService {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:zkreg")]
-[System.Xml.Serialization.XmlRootAttribute("regServiceReq", Namespace="urn:zkreg")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.zonekey.com/sysmgrt/register")]
+[System.Xml.Serialization.XmlRootAttribute("regServiceReq", Namespace="http://www.zonekey.com/sysmgrt/register")]
 public partial class Service {
     
     private string nameField1;
@@ -614,7 +610,7 @@ public partial class Service {
     private string shownameField1;
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=true, DataType="token")]
+    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
     public string name {
         get {
             return this.nameField1;
@@ -625,7 +621,6 @@ public partial class Service {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
     public Catalog catalog {
         get {
             return this.catalogField1;
@@ -636,7 +631,7 @@ public partial class Service {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=true, DataType="token")]
+    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
     public string hostname {
         get {
             return this.hostnameField;
@@ -647,7 +642,7 @@ public partial class Service {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=true, DataType="token")]
+    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
     public string type {
         get {
             return this.typeField;
@@ -658,8 +653,8 @@ public partial class Service {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlArray(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=true)]
-    [System.Xml.Serialization.XmlArrayItem(ElementName="item", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    [System.Xml.Serialization.XmlArray(IsNullable=true)]
+    [System.Xml.Serialization.XmlArrayItem(ElementName="item")]
     public string[] urls {
         get {
             return this.urlsField;
@@ -670,7 +665,7 @@ public partial class Service {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=true, DataType="token")]
+    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
     public string version {
         get {
             return this.versionField;
@@ -681,7 +676,7 @@ public partial class Service {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=true, DataType="token")]
+    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
     public string showname {
         get {
             return this.shownameField1;
@@ -697,14 +692,14 @@ public partial class Service {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:zkreg")]
-[System.Xml.Serialization.XmlRootAttribute("regServiceResponse", Namespace="urn:zkreg")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.zonekey.com/sysmgrt/register")]
+[System.Xml.Serialization.XmlRootAttribute("regServiceResponse", Namespace="http://www.zonekey.com/sysmgrt/register")]
 public partial class MessageRegServiceResponse {
     
     private string tokenField1;
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=true, DataType="token")]
+    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
     public string token {
         get {
             return this.tokenField1;
@@ -720,20 +715,19 @@ public partial class MessageRegServiceResponse {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:zkreg")]
-[System.Xml.Serialization.XmlRootAttribute("unregService", Namespace="urn:zkreg")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.zonekey.com/sysmgrt/register")]
+[System.Xml.Serialization.XmlRootAttribute("unregService", Namespace="http://www.zonekey.com/sysmgrt/register")]
 public partial class MessageUnregService {
     
-    private string unregServicetokenField;
+    private string unregServicestringField;
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, DataType="token")]
-    public string unregServicetoken {
+    public string unregServicestring {
         get {
-            return this.unregServicetokenField;
+            return this.unregServicestringField;
         }
         set {
-            this.unregServicetokenField = value;
+            this.unregServicestringField = value;
         }
     }
 }
@@ -743,8 +737,8 @@ public partial class MessageUnregService {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:zkreg")]
-[System.Xml.Serialization.XmlRootAttribute("unregServiceResponse", Namespace="urn:zkreg")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.zonekey.com/sysmgrt/register")]
+[System.Xml.Serialization.XmlRootAttribute("unregServiceResponse", Namespace="http://www.zonekey.com/sysmgrt/register")]
 public partial class MessageUnregServiceResponse {
     
     private System.Nullable<int> codeField1;
@@ -752,7 +746,7 @@ public partial class MessageUnregServiceResponse {
     private bool codeSpecifiedField1;
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=true, DataType="int")]
+    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, DataType="int")]
     public System.Nullable<int> code {
         get {
             return this.codeField1;
@@ -779,14 +773,13 @@ public partial class MessageUnregServiceResponse {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:zkreg")]
-[System.Xml.Serialization.XmlRootAttribute("regDevice", Namespace="urn:zkreg")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.zonekey.com/sysmgrt/register")]
+[System.Xml.Serialization.XmlRootAttribute("regDevice", Namespace="http://www.zonekey.com/sysmgrt/register")]
 public partial class MessageRegDevice {
     
     private Device regDeviceReqField;
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
     public Device regDeviceReq {
         get {
             return this.regDeviceReqField;
@@ -802,8 +795,8 @@ public partial class MessageRegDevice {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:zkreg")]
-[System.Xml.Serialization.XmlRootAttribute("regDeviceReq", Namespace="urn:zkreg")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.zonekey.com/sysmgrt/register")]
+[System.Xml.Serialization.XmlRootAttribute("regDeviceReq", Namespace="http://www.zonekey.com/sysmgrt/register")]
 public partial class Device {
     
     private string nameField2;
@@ -825,7 +818,7 @@ public partial class Device {
     private string shownameField2;
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=true, DataType="token")]
+    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
     public string name {
         get {
             return this.nameField2;
@@ -836,7 +829,6 @@ public partial class Device {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
     public Catalog catalog {
         get {
             return this.catalogField2;
@@ -847,7 +839,7 @@ public partial class Device {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=true, DataType="token")]
+    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
     public string hostname {
         get {
             return this.hostnameField1;
@@ -858,7 +850,7 @@ public partial class Device {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=true, DataType="token")]
+    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
     public string type {
         get {
             return this.typeField1;
@@ -869,7 +861,7 @@ public partial class Device {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=true, DataType="token")]
+    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
     public string vendor {
         get {
             return this.vendorField;
@@ -880,7 +872,7 @@ public partial class Device {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=true, DataType="token")]
+    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
     public string model {
         get {
             return this.modelField;
@@ -891,7 +883,7 @@ public partial class Device {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=true, DataType="token")]
+    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
     public string serial {
         get {
             return this.serialField;
@@ -902,7 +894,7 @@ public partial class Device {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=true, DataType="token")]
+    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
     public string version {
         get {
             return this.versionField1;
@@ -913,7 +905,7 @@ public partial class Device {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=true, DataType="token")]
+    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
     public string showname {
         get {
             return this.shownameField2;
@@ -929,14 +921,14 @@ public partial class Device {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:zkreg")]
-[System.Xml.Serialization.XmlRootAttribute("regDeviceResponse", Namespace="urn:zkreg")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.zonekey.com/sysmgrt/register")]
+[System.Xml.Serialization.XmlRootAttribute("regDeviceResponse", Namespace="http://www.zonekey.com/sysmgrt/register")]
 public partial class MessageRegDeviceResponse {
     
     private string tokenField2;
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=true, DataType="token")]
+    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
     public string token {
         get {
             return this.tokenField2;
@@ -952,20 +944,19 @@ public partial class MessageRegDeviceResponse {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:zkreg")]
-[System.Xml.Serialization.XmlRootAttribute("unregDevice", Namespace="urn:zkreg")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.zonekey.com/sysmgrt/register")]
+[System.Xml.Serialization.XmlRootAttribute("unregDevice", Namespace="http://www.zonekey.com/sysmgrt/register")]
 public partial class MessageUnregDevice {
     
-    private string unregDevcietokenField;
+    private string unregDevciestringField;
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, DataType="token")]
-    public string unregDevcietoken {
+    public string unregDevciestring {
         get {
-            return this.unregDevcietokenField;
+            return this.unregDevciestringField;
         }
         set {
-            this.unregDevcietokenField = value;
+            this.unregDevciestringField = value;
         }
     }
 }
@@ -975,8 +966,8 @@ public partial class MessageUnregDevice {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:zkreg")]
-[System.Xml.Serialization.XmlRootAttribute("unregDeviceResponse", Namespace="urn:zkreg")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.zonekey.com/sysmgrt/register")]
+[System.Xml.Serialization.XmlRootAttribute("unregDeviceResponse", Namespace="http://www.zonekey.com/sysmgrt/register")]
 public partial class MessageUnregDeviceResponse {
     
     private System.Nullable<int> codeField2;
@@ -984,7 +975,7 @@ public partial class MessageUnregDeviceResponse {
     private bool codeSpecifiedField2;
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=true, DataType="int")]
+    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, DataType="int")]
     public System.Nullable<int> code {
         get {
             return this.codeField2;
@@ -1011,20 +1002,19 @@ public partial class MessageUnregDeviceResponse {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:zkreg")]
-[System.Xml.Serialization.XmlRootAttribute("heartBeat", Namespace="urn:zkreg")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.zonekey.com/sysmgrt/register")]
+[System.Xml.Serialization.XmlRootAttribute("heartBeat", Namespace="http://www.zonekey.com/sysmgrt/register")]
 public partial class MessageHeartBeat {
     
-    private string heartBeattokenField;
+    private string heartBeatstringField;
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, DataType="token")]
-    public string heartBeattoken {
+    public string heartBeatstring {
         get {
-            return this.heartBeattokenField;
+            return this.heartBeatstringField;
         }
         set {
-            this.heartBeattokenField = value;
+            this.heartBeatstringField = value;
         }
     }
 }
@@ -1034,8 +1024,8 @@ public partial class MessageHeartBeat {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:zkreg")]
-[System.Xml.Serialization.XmlRootAttribute("heartBeatResponse", Namespace="urn:zkreg")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.zonekey.com/sysmgrt/register")]
+[System.Xml.Serialization.XmlRootAttribute("heartBeatResponse", Namespace="http://www.zonekey.com/sysmgrt/register")]
 public partial class MessageHeartBeatResponse {
     
     private System.Nullable<int> codeField3;
@@ -1043,7 +1033,7 @@ public partial class MessageHeartBeatResponse {
     private bool codeSpecifiedField3;
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=true, DataType="int")]
+    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, DataType="int")]
     public System.Nullable<int> code {
         get {
             return this.codeField3;
@@ -1070,8 +1060,8 @@ public partial class MessageHeartBeatResponse {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:zkreg")]
-[System.Xml.Serialization.XmlRootAttribute("setShowName", Namespace="urn:zkreg")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.zonekey.com/sysmgrt/register")]
+[System.Xml.Serialization.XmlRootAttribute("setShowName", Namespace="http://www.zonekey.com/sysmgrt/register")]
 public partial class MessageSetShowName {
     
     private string setShowNameReqField;
@@ -1079,7 +1069,6 @@ public partial class MessageSetShowName {
     private string shownameField3;
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, DataType="token")]
     public string setShowNameReq {
         get {
             return this.setShowNameReqField;
@@ -1090,7 +1079,7 @@ public partial class MessageSetShowName {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=true, DataType="token")]
+    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
     public string showname {
         get {
             return this.shownameField3;
@@ -1106,8 +1095,8 @@ public partial class MessageSetShowName {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:zkreg")]
-[System.Xml.Serialization.XmlRootAttribute("setShowNameResponse", Namespace="urn:zkreg")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.zonekey.com/sysmgrt/register")]
+[System.Xml.Serialization.XmlRootAttribute("setShowNameResponse", Namespace="http://www.zonekey.com/sysmgrt/register")]
 public partial class MessageSetShowNameResponse {
     
     private System.Nullable<int> codeField4;
@@ -1115,7 +1104,7 @@ public partial class MessageSetShowNameResponse {
     private bool codeSpecifiedField4;
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=true, DataType="int")]
+    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, DataType="int")]
     public System.Nullable<int> code {
         get {
             return this.codeField4;
