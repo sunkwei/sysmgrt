@@ -10,6 +10,8 @@
 //gsoap zkq service namespace: http://www.zonekey.com/sysmgrt/query
 //gsoap zkq service name: zkquery
 //gsoap zkq service port: http://localhost:8899
+//gsoap zkq schema form: qualified
+//gsoap zkq schema namespace: http://www.zonekey.com/sysmgrt/query
 
 
 /// Built-in type "SOAP-ENV:Envelope".
