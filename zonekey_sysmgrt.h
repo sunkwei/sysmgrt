@@ -8,35 +8,16 @@
 //gsoap zkreg schema namespace: http://www.zonekey.com/sysmgrt/register
 
 //gsoap zkq service namespace: http://www.zonekey.com/sysmgrt/query
-//gsoap zkq service name: zkquery
+//gsoap zkq service name: zkq
 //gsoap zkq service port: http://localhost:8899
 //gsoap zkq schema form: qualified
 //gsoap zkq schema namespace: http://www.zonekey.com/sysmgrt/query
 
-
 /// Built-in type "SOAP-ENV:Envelope".
 //struct SOAP_ENV__Envelope { struct SOAP_ENV__Header *SOAP_ENV__Header; _XML SOAP_ENV__Body; };
 
-/// Built-in type "xs:base64Binary".
-struct xsd__base64Binary
-{	unsigned char *__ptr;
-	int __size;
-	char *id, *type, *options; // NOTE: non-NULL for DIMEM/MIME/MTOM XOP attachments only
-};
-
 /// Built-in type "xs:boolean".
 enum xsd__boolean { xsd__boolean__false_, xsd__boolean__true_ };
-
-/// Built-in type "xs:hexBinary".
-struct xsd__hexBinary { unsigned char *__ptr; int __size; };
-
-// Imported type "http://www.w3.org/2005/08/addressing":EndpointReferenceType defined by wsa5__EndpointReferenceType
-
-/// Primitive built-in type "xs:NCName"
-typedef char* xsd__NCName;
-
-/// Primitive built-in type "xs:anySimpleType"
-typedef char* xsd__anySimpleType;
 
 /// Primitive built-in type "xs:anyURI"
 typedef char* xsd__anyURI;
@@ -44,16 +25,10 @@ typedef char* xsd__anyURI;
 /// Primitive built-in type "xs:integer"
 typedef char* xsd__integer;
 
-/// Primitive built-in type "xs:nonNegativeInteger"
-typedef char* xsd__nonNegativeInteger;
-
 /// Primitive built-in type "xs:string"
 typedef char* xsd__string;
 
 // Imported element "http://www.w3.org/2004/08/xop/include":Include declared as _xop__Include
-
-/// Built-in attribute "xml:lang".
-typedef char* _xml__lang;
 
 /** 声明 */
 /** Host，Service, Device, Logic  */
@@ -68,15 +43,15 @@ enum zkreg__Catalog
 // ip array
 struct zkreg__Ips
 {
-	xsd__string 		*__ptr		0;
-	int			__size		0;
+	xsd__string 		*__ptr		1;
+	int			__size		1;
 };
 
 // xaddr array
 struct zkreg__Urls
 {
-	xsd__anyURI 		*__ptr		0;
-	int			__size		0;
+	xsd__anyURI 		*__ptr		1;
+	int			__size		1;
 };
 
 /** 基类型
@@ -91,8 +66,8 @@ struct zkreg__Mse
 /** mse 列表 */
 struct zkreg__Mses
 {
-	struct zkreg__Mse	*__ptr		0;	
-	int			__size		0;
+	struct zkreg__Mse	*__ptr		1;	
+	int			__size		1;
 };
 
 /** 主机类型 */
@@ -107,8 +82,8 @@ struct zkreg__Host
 // 主机列表
 struct zkreg__Hosts
 {
-	struct zkreg__Host	*__ptr		0;
-	int			__size		0;
+	struct zkreg__Host	*__ptr		1;
+	int			__size		1;
 };
 
 /** 服务 */
@@ -126,8 +101,8 @@ struct zkreg__Service
 // 服务列表
 struct zkreg__Services
 {
-	struct zkreg__Service	*__ptr		0;
-	int			__size		0;
+	struct zkreg__Service	*__ptr		1;
+	int			__size		1;
 };
 
 /** 设备 */
@@ -147,8 +122,8 @@ struct zkreg__Device
 // 设备列表
 struct zkreg__Devices
 {
-	struct zkreg__Device	*__ptr		0;
-	int			__size		0;
+	struct zkreg__Device	*__ptr		1;
+	int			__size		1;
 };
 
 /** 逻辑服务 */
@@ -163,8 +138,8 @@ struct zkreg__Logic
 
 struct zkreg__Logics
 {
-	struct zkreg__Logic 	*__ptr		0;
-	int			__size		0;
+	struct zkreg__Logic 	*__ptr		1;
+	int			__size		1;
 };
 
 // 主机注册, token 为返回

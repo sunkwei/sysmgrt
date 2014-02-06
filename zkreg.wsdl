@@ -284,8 +284,8 @@
   xmlns:zkreg="http://www.zonekey.com/sysmgrt/register"
   xmlns:zkq="http://www.zonekey.com/sysmgrt/query"
   xmlns="http://www.w3.org/2001/XMLSchema"
-  elementFormDefault="unqualified"
-  attributeFormDefault="unqualified">
+  elementFormDefault="qualified"
+  attributeFormDefault="qualified">
   <import namespace="http://www.zonekey.com/sysmgrt/register"/>
   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
   <complexType name="Ips"><!-- zkreg__Ips -->
