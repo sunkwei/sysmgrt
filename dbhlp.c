@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include <alloca.h>
+#include <malloc.h>
 #include "dbhlp.h"
 #include "heartBeatCheck.h"
 
@@ -18,15 +18,17 @@
  */
 int db_exec_select(sqlite3 *db, const char *sql, int (*callback)(void *opaque, size_t row, sqlite3_stmt *stmt), void *opaque)
 {
+    size_t row = 0;
     sqlite3_stmt *stmt;
-    if (sqlite3_prepare_v2(db, sql, (int)strlen(sql), &stmt, 0) != SQLITE_OK) {
+	int rc;
+
+	if (sqlite3_prepare_v2(db, sql, (int)strlen(sql), &stmt, 0) != SQLITE_OK) {
         fprintf(stderr, "%s: sqlite3_prepare_v2 err\n", __func__);
         exit(-1);
         return -1;
     }
     
-    size_t row = 0;
-    int rc = sqlite3_step(stmt);
+    rc = sqlite3_step(stmt);
     while (rc == SQLITE_ROW) {
         if (callback(opaque, row++, stmt) < 0)
             break;
@@ -67,9 +69,11 @@ static int cb_select_count(void *opaque, size_t row, sqlite3_stmt *stmt)
 static int db_table_exist(sqlite3 *db, const char *name)
 {
     char sql[128];
+	int rc;
     struct cbparamSelectCount cnt = { 0 };
-    snprintf(sql, sizeof(sql), "SELECT COUNT(*) FROM sqlite_master where name=\"%s\"", name);
-    int rc = db_exec_select(db, sql, cb_select_count, &cnt);
+    
+	_snprintf(sql, sizeof(sql), "SELECT COUNT(*) FROM sqlite_master where name=\"%s\"", name);
+    rc = db_exec_select(db, sql, cb_select_count, &cnt);
     if (rc != SQLITE_OK) {
         fprintf(stderr, "ERR: %s: db_exec_select err, %d\n", __func__, rc);
     }
@@ -85,7 +89,6 @@ int db_init(sqlite3 *db)
     /** 检查是否存在 host, service, 等...
      */
     if (!db_table_exist(db, "mse")) {
-        fprintf(stdout, "INFO:   to create mse table\n");
         const char *sql = SQL_CREATE_MSE;
         int rc = db_exec_sql(db, sql);
         if (rc != SQLITE_OK) {
@@ -94,7 +97,6 @@ int db_init(sqlite3 *db)
     }
     
     if (!db_table_exist(db, "host")) {
-        fprintf(stdout, "INFO:    to create host table\n");
         const char *sql = SQL_CREATE_HOST;
         int rc = db_exec_sql(db, sql);
         if (rc != SQLITE_OK) {
@@ -103,7 +105,6 @@ int db_init(sqlite3 *db)
     }
     
     if (!db_table_exist(db, "service")) {
-        fprintf(stdout, "INFO:    to create service table\n");
         const char *sql = SQL_CREATE_SERVICE;
         int rc = db_exec_sql(db, sql);
         if (rc != SQLITE_OK) {
@@ -112,7 +113,6 @@ int db_init(sqlite3 *db)
     }
     
     if (!db_table_exist(db, "token")) {
-        fprintf(stdout, "INFO:    to create token table\n");
         const char *sql = SQL_CREATE_TOKEN_MAP;
         int rc = db_exec_sql(db, sql);
         if (rc != SQLITE_OK) {
@@ -122,11 +122,12 @@ int db_init(sqlite3 *db)
     
     // 清空 token table 中所有超时的
     fprintf(stdout, "INFO:    to remove timeouted tokens\n");
-    unsigned curr = (unsigned)time(0) - CHECK_INTERVAL;
-    char *sql = (char*)alloca(1024);
-    snprintf(sql, 1024, "DELETE FROM token WHERE last_stamp < %u", curr);
-    db_exec_sql(db, sql);
-    
+	{
+		unsigned curr = (unsigned)time(0) - CHECK_INTERVAL;
+		char *sql = (char*)alloca(1024);
+		_snprintf(sql, 1024, "DELETE FROM token WHERE last_stamp < %u", curr);
+		db_exec_sql(db, sql);
+	}
     fprintf(stdout, "\tOK\n");
     
     return 0;

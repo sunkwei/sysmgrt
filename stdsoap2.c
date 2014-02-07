@@ -57,6 +57,7 @@ A commercial use license is available from Genivia, Inc., contact@genivia.com
 # pragma convert(819)	/* EBCDIC to ASCII */
 #endif
 
+#include <stdint.h>
 #include "stdsoap2.h"
 #if defined(VXWORKS) && defined(WM_SECURE_KEY_STORAGE)
 #include <ipcom_key_db.h>
@@ -15412,11 +15413,13 @@ SOAP_FMAC1
 char*
 SOAP_FMAC2
 soap_get_http_body(struct soap *soap, size_t *len)
-{ if (len)
+{ 
+  size_t l = 0, n = 0;
+  char *s;
+
+  if (len)
     *len = 0;
 #ifndef WITH_LEAN
-  register size_t l = 0, n = 0;
-  register char *s;
   /* get HTTP body length */
   if (!(soap->mode & SOAP_ENC_ZLIB) && (soap->mode & SOAP_IO) != SOAP_IO_CHUNK)
   { n = soap->length;

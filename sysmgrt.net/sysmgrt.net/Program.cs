@@ -19,10 +19,10 @@ namespace sysmgrt.net
 				host.ips [0] = "192.168.1.10";
 				host.showname = "汉字";
 
-				MessageRegHost mreg = new MessageRegHost ();
+			    regHost mreg = new regHost ();
 				mreg.regHostReq = host;
 
-				MessageRegHostResponse mres = reg.regHost (mreg);
+				regHostResponse mres = reg.regHost (mreg);
 
 				Console.Write (".");
 			}
@@ -44,22 +44,26 @@ namespace sysmgrt.net
 			}
 			#endif
 
-			// 使用 zkquery获取 hosts 列表
-			zkquery.zkq query = new zkquery.zkq ();
-			query.Url = "http://localhost:8899";
-			zkquery.MessageGetAllHosts req = new zkquery.MessageGetAllHosts ();
-			req.getAllHostsoffline = true;
-			zkquery.MessageGetAllHostsResponse res = query.getAllHosts (req);
+            for (int i = 0; i < 10; i++) {
 
-			int num = 0;
-			if (res.hosts == null) {
-				Console.WriteLine ("None hosts");
-			} else {
-				foreach (zkquery.Host host in res.hosts) {
-					Console.WriteLine (num + ": token=" + host.name);
-					num++;
-				}
-			}
+                // 使用 zkquery获取 hosts 列表
+                zkquery.zkq query = new zkquery.zkq();
+                query.Url = "http://172.16.1.119:8899";
+                zkquery.getAllHosts req = new zkquery.getAllHosts();
+                req.getAllHostsoffline = true;
+                zkquery.getAllHostsResponse res = query.getAllHosts(req);
+
+                int num = 0;
+                if (res.hosts == null) {
+                    Console.WriteLine("None hosts");
+                }
+                else {
+                    foreach (zkquery.Host host in res.hosts) {
+                        Console.WriteLine(num + ": token=" + host.name);
+                        num++;
+                    }
+                }
+            }
 		}
 	}
 }

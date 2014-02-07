@@ -6,6 +6,7 @@
 //  Copyright (c) 2014年 sunkw. All rights reserved.
 //
 
+#ifdef linux
 #include <stdio.h>
 #include <unistd.h>
 #include <time.h>
@@ -26,3 +27,4 @@ void *heartBeatCheck_run(void *param)
     
     return 0;
 }
+#endif

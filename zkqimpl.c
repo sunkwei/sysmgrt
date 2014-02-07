@@ -27,7 +27,7 @@ int zkq__getAllMses(struct soap *soap, enum xsd__boolean offline, struct zkreg__
         return SOAP_OK;
     }
     
-    // 从 p._p 中复制到 mses 中
+    // 从 p._p 中复制到 mses 中.
     mses->__size = n;
     mses->__ptr = (struct zkreg__Mse*)soap_malloc(soap, sizeof(struct zkreg__Mse) * n);
     for (i = 0; i < n; i++) {
@@ -36,7 +36,7 @@ int zkq__getAllMses(struct soap *soap, enum xsd__boolean offline, struct zkreg__
         mses->__ptr[i].showname = soap_strdup(soap, m[i]->showname);
     }
     
-    // 释放 p._p 的内存
+    // 释放 p._p 的内存.
     for (i = 0; i < n; i++) {
         free(m[i]->name);
         free(m[i]->showname);
@@ -56,7 +56,7 @@ int zkq__getAllHosts(struct soap *soap, enum xsd__boolean offline, struct zkreg_
         //
     }
     
-    // 从 _p 复制到 hosts 中
+    // 从 _p 复制到 hosts 中.
     hosts->__size = n;
     hosts->__ptr = (struct zkreg__Host*)soap_malloc(soap, sizeof(struct zkreg__Host) * n);
     for (i = 0; i < n; i++) {

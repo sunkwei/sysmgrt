@@ -9,54 +9,58 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <uuid/uuid.h>
-#include <strings.h>
-#include <alloca.h>
+#include <malloc.h>
 #include "dboper.h"
 
-/** 用于判断是否存在，一般执行
+#ifdef WIN32
+#  include <Windows.h>
+#  define snprintf _snprintf
+#else
+#  include <uuid/uuid.h>
+#endif
+/** 用于判断是否存在，一般执行: 
         SELECT COUNT(*) FROM table WHERE .... 
-    的查询
+    的查询.
  */
 static int cb_exist(void *opaque, size_t row, sqlite3_stmt *stmt)
 {
-    *(int*)opaque = sqlite3_column_int(stmt, 0);    // 总是 COUNT(*)
-    return -1;  // 总是中断，
+    *(int*)opaque = sqlite3_column_int(stmt, 0);
+    return -1;
 }
 
 int db_regHost(sqlite3 *db, struct zkreg__Host *host, const char *token)
 {
     char *st = (char*)alloca(1024);
-    char *ips = (char*)alloca(128); // FIXME: 应该足够了吧 :)
-    int exist = 0;
+    char *ips = (char*)alloca(128); // FIXME: 应该足够了吧 :).
+    int exist = 0, i;
     unsigned now = (unsigned)time(0);
     
     ips[0] = 0;
     
-    // 串行化ips
+    // 串行化ips.
     if (host->ips->__size > 0)
         strcpy(ips, host->ips->__ptr[0]);
-    for (int i = 1; i < host->ips->__size; i++) {
+    for (i = 1; i < host->ips->__size; i++) {
         strcat(ips, ",");
         strcat(ips, host->ips->__ptr[i]);
     }
     
-    // FIXME: 总是从 token 中删除 name
-    snprintf(st, 1024, "DELETE FROM token WHERE name='%s'", host->name);
+    // FIXME: 总是从 token 中删除 name.
+    _snprintf(st, 1024, "DELETE FROM token WHERE name='%s'", host->name);
     db_exec_sql(db, st);
     
     /** 查询，如果 mse和host中有 name，则更新，name，showname 和 reg_stamp 字段不更新 */
-    snprintf(st, 1024, "SELECT COUNT(*) FROM host JOIN mse ON host.name=mse.name WHERE host.name='%s'", host->name);
+    _snprintf(st, 1024, "SELECT COUNT(*) FROM host JOIN mse ON host.name=mse.name WHERE host.name='%s'", host->name);
     db_exec_select(db, st, cb_exist, &exist);
     
     if (!exist) {
-        // 不管三七二十一，删除可能的垃圾记录
-        snprintf(st, 1024, "DELETE FROM mse WHERE name='%s';"
+        // 不管三七二十一，删除可能的垃圾记录.
+        _snprintf(st, 1024, "DELETE FROM mse WHERE name='%s';"
                  "DELETE FROM host WHERE name='%s';",
                  host->name, host->name);
         db_exec_sql(db, st);
         
-        // 新建记录
+        // 新建记录.
         snprintf(st, 1024, "INSERT INTO host (name, ips) VALUES ('%s', '%s')", host->name, ips);
         db_exec_sql(db, st);
         
@@ -66,7 +70,7 @@ int db_regHost(sqlite3 *db, struct zkreg__Host *host, const char *token)
         db_exec_sql(db, st);
     }
     else {
-        // 更新记录
+        // 更新记录.
         snprintf(st, 1024, "UPDATE host SET ips='%s' WHERE name='%s'", ips, host->name);
         db_exec_sql(db, st);
         
@@ -74,7 +78,7 @@ int db_regHost(sqlite3 *db, struct zkreg__Host *host, const char *token)
         db_exec_sql(db, st);
     }
     
-    // 新建 token 记录
+    // 新建 token 记录.
     snprintf(st, 1024, "INSERT INTO token (token, name, last_stamp)"
              " VALUES('%s', '%s', %u)",
              token, host->name, now);
@@ -90,8 +94,8 @@ int db_regService(sqlite3 *db, struct zkreg__Service *service, const char *token
 
 int db_unregXXX(sqlite3 *db, const char *token)
 {
-    /** 对于 unRegXXX: 仅仅在 token 中删除，而不会删除 mse/host 表中的记录 
-        永远返回0，不管 token 是否存在 :)
+    /** 对于 unRegXXX: 仅仅在 token 中删除，而不会删除 mse/host 表中的记录 .
+        永远返回0，不管 token 是否存在 :).
      */
     char *st = (char*)alloca(1024);
     snprintf(st, 1024, "DELETE FROM token WHERE token='%s'", token);
@@ -148,6 +152,7 @@ struct paramGetMses
 static int cb_get_mses(void *opaque, size_t row, sqlite3_stmt *stmt)
 {
     struct paramGetMses *p = (struct paramGetMses*)opaque;
+	struct zkreg__Mse *mse;
     
     // name, catalog, showname
     p->_n = (int)row+1;     // 行数
@@ -155,7 +160,7 @@ static int cb_get_mses(void *opaque, size_t row, sqlite3_stmt *stmt)
     p->_p[row] = (struct zkreg__Mse*)malloc(sizeof(struct zkreg__Mse));
     
     // 提取行记录
-    struct zkreg__Mse *mse = p->_p[row];
+    mse = p->_p[row];
     mse->name = strdup((const char *)sqlite3_column_text(stmt, 0));
     mse->catalog = sqlite3_column_int(stmt, 1);
     mse->showname = strdup((const char*)sqlite3_column_text(stmt, 2));
@@ -165,9 +170,11 @@ static int cb_get_mses(void *opaque, size_t row, sqlite3_stmt *stmt)
 
 int db_getAllMses(sqlite3 *db, int offline, struct zkreg__Mse ***mses, int *n)
 {
-    *mses = 0, *n = 0;
-    
     char *st = (char*)alloca(1024);
+    struct paramGetMses p = { 0, 0 };
+
+	*mses = 0, *n = 0;
+    
     if (offline) {
         snprintf(st, 1024, "SELECT * FROM mse");
     }
@@ -175,7 +182,6 @@ int db_getAllMses(sqlite3 *db, int offline, struct zkreg__Mse ***mses, int *n)
         snprintf(st, 1024, "SELECT mse.* FROM mse JOIN token ON token.name=mse.name");
     }
     
-    struct paramGetMses p = { 0, 0 };
     db_exec_select(db, st, cb_get_mses, &p);
     *mses = p._p;
     *n = p._n;
@@ -192,16 +198,18 @@ struct paramGetHosts
 static int cb_get_hosts(void *opaque, size_t row, sqlite3_stmt *stmt)
 {
     struct paramGetHosts *p = (struct paramGetHosts*)opaque;
+	struct zkreg__Host *host;
+	char *ips, *ip;
     
-    /** FIXME: 将每行保存到 hosts 中，
+    /** FIXME: 将每行保存到 hosts 中.
      这里采用非常低效的内存分配方式 :(
      */
-    p->_n = (int)row+1;  // 行数；
+    p->_n = (int)row+1;  // 行数.
     p->_p = (struct zkreg__Host**)realloc(p->_p, p->_n * sizeof(struct zkreg__Host*));
     p->_p[row] = (struct zkreg__Host*)malloc(sizeof(struct zkreg__Host));
     
-    // 提取行记录
-    struct zkreg__Host *host = p->_p[row];
+    // 提取行记录.
+    host = p->_p[row];
     host->catalog = zkreg__Catalog__Host;
     host->name = strdup((const char*)sqlite3_column_text(stmt, 0));
     host->showname = strdup((const char *)sqlite3_column_text(stmt, 2));
@@ -209,8 +217,8 @@ static int cb_get_hosts(void *opaque, size_t row, sqlite3_stmt *stmt)
     host->ips->__ptr = 0;
     host->ips->__size = 0;
     
-    char *ips = strdup((const char*)sqlite3_column_text(stmt, 1));
-    char *ip = strtok(ips, ",");
+    ips = strdup((const char*)sqlite3_column_text(stmt, 1));
+    ip = strtok(ips, ",");
     while (ip) {
         host->ips->__size++;
         host->ips->__ptr = (char**)realloc(host->ips->__ptr, host->ips->__size*sizeof(char*));
@@ -218,17 +226,19 @@ static int cb_get_hosts(void *opaque, size_t row, sqlite3_stmt *stmt)
         
         ip = strtok(0, ",");
     }
+	free(ips);
     
     return 0;
 }
 
 int db_getAllHosts(sqlite3 *db, int offline, struct zkreg__Host ***host, int *n)
 {
+    char *st = (char*)alloca(1024);
+    struct paramGetHosts p = { 0, 0 };
     *host = 0, *n = 0;
 
     /** 根据 offline，从 host, mse, token 中返回查询记录，从将每行信息分配保存到 zkreg__Host 结构中.
      */
-    char *st = (char*)alloca(1024);
     if (offline) {
         snprintf(st, 1024, "SELECT host.*,mse.showname FROM host"
                  " JOIN mse ON mse.name=host.name");
@@ -239,7 +249,6 @@ int db_getAllHosts(sqlite3 *db, int offline, struct zkreg__Host ***host, int *n)
                  " JOIN token ON token.name=host.name");
     }
     
-    struct paramGetHosts p = { 0, 0 };
     db_exec_select(db, st, cb_get_hosts, &p);
     *host = p._p;
     *n = p._n;
@@ -261,8 +270,10 @@ struct paramGetServices
 static int cb_get_services(void *opaque, size_t row, sqlite3_stmt *stmt)
 {
     struct paramGetServices *p = (struct paramGetServices*)opaque;
+	struct zkreg__Service *s;
+	char *urls, *t;
     
-    /** 从 stmt 中提取，并保存到 p 中
+    /** 从 stmt 中提取，并保存到 p 中.
      
      name, hostname, type, urls, version, showname
      */
@@ -270,7 +281,7 @@ static int cb_get_services(void *opaque, size_t row, sqlite3_stmt *stmt)
     p->_p = (struct zkreg__Service**)realloc(p->_p, p->_n);
     p->_p[p->_n] = (struct zkreg__Service*)malloc(sizeof(struct zkreg__Service));
     
-    struct zkreg__Service *s = p->_p[p->_n];
+    s = p->_p[p->_n];
     
     s->name = strdup((const char*)sqlite3_column_text(stmt, 0));
     s->hostname = strdup((const char*)sqlite3_column_text(stmt, 1));
@@ -283,8 +294,8 @@ static int cb_get_services(void *opaque, size_t row, sqlite3_stmt *stmt)
     s->urls->__size = 0;
     s->urls->__ptr = 0;
     
-    char *urls = strdup((const char*)sqlite3_column_text(stmt, 4));
-    char *t = strtok(urls, ",");    // FIXME: url 使用“，”分割合理么？
+    urls = strdup((const char*)sqlite3_column_text(stmt, 4));
+    t = strtok(urls, ",");    // FIXME: url 使用“，”分割合理么.
     while (t) {
         s->urls->__size ++;
         s->urls->__ptr = ((char**)realloc(s->urls->__ptr, s->urls->__size * sizeof(char*)));
@@ -301,9 +312,10 @@ static int cb_get_services(void *opaque, size_t row, sqlite3_stmt *stmt)
 
 int db_getServiceListByType(sqlite3 *db, int offline, const char *type, struct zkreg__Service ***service, int *n)
 {
+    char *st = (char*)alloca(1024);
+    struct paramGetServices p = { 0, 0 };
     *service = 0, *n = 0;
     
-    char *st = (char*)alloca(1024);
     if (offline) {
         if (type) {
             snprintf(st, 1024, "SELECT service.*,mse.showname FROM service"
@@ -329,7 +341,6 @@ int db_getServiceListByType(sqlite3 *db, int offline, const char *type, struct z
         }
     }
     
-    struct paramGetServices p = { 0, 0 };
     db_exec_select(db, st, cb_get_services, &p);
     *service = p._p;
     *n = p._n;

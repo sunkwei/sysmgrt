@@ -10,6 +10,10 @@
 #ifndef zonekey_sysmgrt_storage_h
 #define zonekey_sysmgrt_storage_h
 
+#ifndef __func__
+#  define __func__ __FUNCTION__
+#endif
+
 #include <sqlite3.h>
 
 extern sqlite3 *_db;    // 方便全局使用
