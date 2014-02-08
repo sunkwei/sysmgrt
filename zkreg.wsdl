@@ -140,7 +140,7 @@
     <element name="item" type="zkreg:Logic" minOccurs="0" maxOccurs="unbounded" nillable="false"/>
    </sequence>
   </complexType>
-  <complexType name="keys"><!-- zkcfg__keys -->
+  <complexType name="Keys"><!-- zkcfg__Keys -->
 
    <sequence>
     <element name="item" type="xsd:string" minOccurs="0" maxOccurs="unbounded" nillable="true"/>
@@ -341,7 +341,7 @@
     <element name="item" type="zkreg:Logic" minOccurs="0" maxOccurs="unbounded" nillable="false"/>
    </sequence>
   </complexType>
-  <complexType name="keys"><!-- zkcfg__keys -->
+  <complexType name="Keys"><!-- zkcfg__Keys -->
 
    <sequence>
     <element name="item" type="xsd:string" minOccurs="0" maxOccurs="unbounded" nillable="true"/>
@@ -411,15 +411,25 @@
     <element name="item" type="zkreg:Logic" minOccurs="0" maxOccurs="unbounded" nillable="false"/>
    </sequence>
   </complexType>
-  <complexType name="keys"><!-- zkcfg__keys -->
+  <complexType name="Keys"><!-- zkcfg__Keys -->
 
    <sequence>
     <element name="item" type="xsd:string" minOccurs="0" maxOccurs="unbounded" nillable="true"/>
    </sequence>
   </complexType>
-  <element name="getValuekey" type="xsd:string"/>
-  <element name="setValuekey" type="xsd:string"/>
-  <element name="delKeyKey" type="xsd:string"/>
+  <complexType name="Ret"><!-- zkcfg__Ret -->
+
+   <sequence>
+     <element name="result" type="xsd:int" minOccurs="1" maxOccurs="1"/><!-- zkcfg__Ret::result -->
+     <element name="value" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/><!-- zkcfg__Ret::value -->
+   </sequence>
+  </complexType>
+  <element name="KeysRes" type="zkcfg:Keys"/>
+  <element name="getValueReq" type="xsd:string"/>
+  <element name="setValueReq" type="xsd:string"/>
+  <element name="delKeyReq" type="xsd:string"/>
+  <!-- operation response element -->
+  <element name="RetRes" type="zkcfg:Ret"/>
  </schema>
 
 </types>
@@ -610,7 +620,7 @@
 <service name="zkreg">
  <documentation>gSOAP 2.8.17r generated service definition</documentation>
  <port name="zkreg" binding="tns:zkreg">
-  <SOAP:address location="http://localhost:8899"/>
+  <SOAP:address location="http://localhost:80"/>
  </port>
 </service>
 

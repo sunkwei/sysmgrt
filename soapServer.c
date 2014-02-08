@@ -17,7 +17,7 @@ compiling, linking, and/or using OpenSSL is allowed.
 extern "C" {
 #endif
 
-SOAP_SOURCE_STAMP("@(#) soapServer.c ver 2.8.17r 2014-02-08 05:46:34 GMT")
+SOAP_SOURCE_STAMP("@(#) soapServer.c ver 2.8.17r 2014-02-08 08:24:09 GMT")
 
 
 SOAP_FMAC5 int SOAP_FMAC6 soap_serve(struct soap *soap)
@@ -718,10 +718,10 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_serve_zkq__getServicesByType(struct soap *soap)
 SOAP_FMAC5 int SOAP_FMAC6 soap_serve_zkcfg__getAllKeys(struct soap *soap)
 {	struct zkcfg__getAllKeys soap_tmp_zkcfg__getAllKeys;
 	struct zkcfg__getAllKeysResponse soap_tmp_zkcfg__getAllKeysResponse;
-	struct zkcfg__keys soap_tmp_zkcfg__keys;
+	struct zkcfg__Keys soap_tmp_zkcfg__Keys;
 	soap_default_zkcfg__getAllKeysResponse(soap, &soap_tmp_zkcfg__getAllKeysResponse);
-	soap_default_zkcfg__keys(soap, &soap_tmp_zkcfg__keys);
-	soap_tmp_zkcfg__getAllKeysResponse.keys = &soap_tmp_zkcfg__keys;
+	soap_default_zkcfg__Keys(soap, &soap_tmp_zkcfg__Keys);
+	soap_tmp_zkcfg__getAllKeysResponse.zkcfg__KeysRes = &soap_tmp_zkcfg__Keys;
 	soap_default_zkcfg__getAllKeys(soap, &soap_tmp_zkcfg__getAllKeys);
 	if (!soap_get_zkcfg__getAllKeys(soap, &soap_tmp_zkcfg__getAllKeys, "zkcfg:getAllKeys", NULL))
 		return soap->error;
@@ -729,7 +729,7 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_serve_zkcfg__getAllKeys(struct soap *soap)
 	 || soap_envelope_end_in(soap)
 	 || soap_end_recv(soap))
 		return soap->error;
-	soap->error = zkcfg__getAllKeys(soap, soap_tmp_zkcfg__getAllKeys.notuse, soap_tmp_zkcfg__getAllKeysResponse.keys);
+	soap->error = zkcfg__getAllKeys(soap, soap_tmp_zkcfg__getAllKeys.notuse, soap_tmp_zkcfg__getAllKeysResponse.zkcfg__KeysRes);
 	if (soap->error)
 		return soap->error;
 	soap->encodingStyle = NULL;
@@ -761,11 +761,8 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_serve_zkcfg__getAllKeys(struct soap *soap)
 
 SOAP_FMAC5 int SOAP_FMAC6 soap_serve_zkcfg__getValue(struct soap *soap)
 {	struct zkcfg__getValue soap_tmp_zkcfg__getValue;
-	struct zkcfg__getValueResponse soap_tmp_zkcfg__getValueResponse;
-	char * soap_tmp_xsd__string;
-	soap_default_zkcfg__getValueResponse(soap, &soap_tmp_zkcfg__getValueResponse);
-	soap_tmp_xsd__string = NULL;
-	soap_tmp_zkcfg__getValueResponse.value = &soap_tmp_xsd__string;
+	struct zkcfg__Ret zkcfg__RetRes;
+	soap_default_zkcfg__Ret(soap, &zkcfg__RetRes);
 	soap_default_zkcfg__getValue(soap, &soap_tmp_zkcfg__getValue);
 	if (!soap_get_zkcfg__getValue(soap, &soap_tmp_zkcfg__getValue, "zkcfg:getValue", NULL))
 		return soap->error;
@@ -773,19 +770,19 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_serve_zkcfg__getValue(struct soap *soap)
 	 || soap_envelope_end_in(soap)
 	 || soap_end_recv(soap))
 		return soap->error;
-	soap->error = zkcfg__getValue(soap, soap_tmp_zkcfg__getValue.zkcfg__getValuekey, soap_tmp_zkcfg__getValueResponse.value);
+	soap->error = zkcfg__getValue(soap, soap_tmp_zkcfg__getValue.zkcfg__getValueReq, &zkcfg__RetRes);
 	if (soap->error)
 		return soap->error;
 	soap->encodingStyle = NULL;
 	soap_serializeheader(soap);
-	soap_serialize_zkcfg__getValueResponse(soap, &soap_tmp_zkcfg__getValueResponse);
+	soap_serialize_zkcfg__Ret(soap, &zkcfg__RetRes);
 	if (soap_begin_count(soap))
 		return soap->error;
 	if (soap->mode & SOAP_IO_LENGTH)
 	{	if (soap_envelope_begin_out(soap)
 		 || soap_putheader(soap)
 		 || soap_body_begin_out(soap)
-		 || soap_put_zkcfg__getValueResponse(soap, &soap_tmp_zkcfg__getValueResponse, "zkcfg:getValueResponse", NULL)
+		 || soap_put_zkcfg__Ret(soap, &zkcfg__RetRes, "zkcfg:RetRes", NULL)
 		 || soap_body_end_out(soap)
 		 || soap_envelope_end_out(soap))
 			 return soap->error;
@@ -795,7 +792,7 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_serve_zkcfg__getValue(struct soap *soap)
 	 || soap_envelope_begin_out(soap)
 	 || soap_putheader(soap)
 	 || soap_body_begin_out(soap)
-	 || soap_put_zkcfg__getValueResponse(soap, &soap_tmp_zkcfg__getValueResponse, "zkcfg:getValueResponse", NULL)
+	 || soap_put_zkcfg__Ret(soap, &zkcfg__RetRes, "zkcfg:RetRes", NULL)
 	 || soap_body_end_out(soap)
 	 || soap_envelope_end_out(soap)
 	 || soap_end_send(soap))
@@ -805,6 +802,8 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_serve_zkcfg__getValue(struct soap *soap)
 
 SOAP_FMAC5 int SOAP_FMAC6 soap_serve_zkcfg__setValue(struct soap *soap)
 {	struct zkcfg__setValue soap_tmp_zkcfg__setValue;
+	struct zkcfg__Ret zkcfg__RetRes;
+	soap_default_zkcfg__Ret(soap, &zkcfg__RetRes);
 	soap_default_zkcfg__setValue(soap, &soap_tmp_zkcfg__setValue);
 	if (!soap_get_zkcfg__setValue(soap, &soap_tmp_zkcfg__setValue, "zkcfg:setValue", NULL))
 		return soap->error;
@@ -812,14 +811,40 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_serve_zkcfg__setValue(struct soap *soap)
 	 || soap_envelope_end_in(soap)
 	 || soap_end_recv(soap))
 		return soap->error;
-	soap->error = zkcfg__setValue(soap, soap_tmp_zkcfg__setValue.zkcfg__setValuekey, soap_tmp_zkcfg__setValue.value);
+	soap->error = zkcfg__setValue(soap, soap_tmp_zkcfg__setValue.zkcfg__setValueReq, soap_tmp_zkcfg__setValue.value, &zkcfg__RetRes);
 	if (soap->error)
+		return soap->error;
+	soap->encodingStyle = NULL;
+	soap_serializeheader(soap);
+	soap_serialize_zkcfg__Ret(soap, &zkcfg__RetRes);
+	if (soap_begin_count(soap))
+		return soap->error;
+	if (soap->mode & SOAP_IO_LENGTH)
+	{	if (soap_envelope_begin_out(soap)
+		 || soap_putheader(soap)
+		 || soap_body_begin_out(soap)
+		 || soap_put_zkcfg__Ret(soap, &zkcfg__RetRes, "zkcfg:RetRes", NULL)
+		 || soap_body_end_out(soap)
+		 || soap_envelope_end_out(soap))
+			 return soap->error;
+	};
+	if (soap_end_count(soap)
+	 || soap_response(soap, SOAP_OK)
+	 || soap_envelope_begin_out(soap)
+	 || soap_putheader(soap)
+	 || soap_body_begin_out(soap)
+	 || soap_put_zkcfg__Ret(soap, &zkcfg__RetRes, "zkcfg:RetRes", NULL)
+	 || soap_body_end_out(soap)
+	 || soap_envelope_end_out(soap)
+	 || soap_end_send(soap))
 		return soap->error;
 	return soap_closesock(soap);
 }
 
 SOAP_FMAC5 int SOAP_FMAC6 soap_serve_zkcfg__delKey(struct soap *soap)
 {	struct zkcfg__delKey soap_tmp_zkcfg__delKey;
+	struct zkcfg__Ret zkcfg__RetRes;
+	soap_default_zkcfg__Ret(soap, &zkcfg__RetRes);
 	soap_default_zkcfg__delKey(soap, &soap_tmp_zkcfg__delKey);
 	if (!soap_get_zkcfg__delKey(soap, &soap_tmp_zkcfg__delKey, "zkcfg:delKey", NULL))
 		return soap->error;
@@ -827,8 +852,32 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_serve_zkcfg__delKey(struct soap *soap)
 	 || soap_envelope_end_in(soap)
 	 || soap_end_recv(soap))
 		return soap->error;
-	soap->error = zkcfg__delKey(soap, soap_tmp_zkcfg__delKey.zkcfg__delKeyKey);
+	soap->error = zkcfg__delKey(soap, soap_tmp_zkcfg__delKey.zkcfg__delKeyReq, &zkcfg__RetRes);
 	if (soap->error)
+		return soap->error;
+	soap->encodingStyle = NULL;
+	soap_serializeheader(soap);
+	soap_serialize_zkcfg__Ret(soap, &zkcfg__RetRes);
+	if (soap_begin_count(soap))
+		return soap->error;
+	if (soap->mode & SOAP_IO_LENGTH)
+	{	if (soap_envelope_begin_out(soap)
+		 || soap_putheader(soap)
+		 || soap_body_begin_out(soap)
+		 || soap_put_zkcfg__Ret(soap, &zkcfg__RetRes, "zkcfg:RetRes", NULL)
+		 || soap_body_end_out(soap)
+		 || soap_envelope_end_out(soap))
+			 return soap->error;
+	};
+	if (soap_end_count(soap)
+	 || soap_response(soap, SOAP_OK)
+	 || soap_envelope_begin_out(soap)
+	 || soap_putheader(soap)
+	 || soap_body_begin_out(soap)
+	 || soap_put_zkcfg__Ret(soap, &zkcfg__RetRes, "zkcfg:RetRes", NULL)
+	 || soap_body_end_out(soap)
+	 || soap_envelope_end_out(soap)
+	 || soap_end_send(soap))
 		return soap->error;
 	return soap_closesock(soap);
 }

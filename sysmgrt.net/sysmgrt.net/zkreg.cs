@@ -45,7 +45,7 @@ public partial class zkreg : System.Web.Services.Protocols.SoapHttpClientProtoco
     
     /// <remarks/>
     public zkreg() {
-        this.Url = "http://localhost:8899";
+        this.Url = "http://localhost:80";
     }
     
     /// <remarks/>

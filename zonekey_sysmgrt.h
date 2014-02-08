@@ -3,13 +3,11 @@
 
 //gsoap zkreg service namespace: http://www.zonekey.com/sysmgrt/register
 //gsoap zkreg service name: zkreg
-//gsoap zkreg service port: http://localhost:8899
 //gsoap zkreg schema form: qualified
 //gsoap zkreg schema namespace: http://www.zonekey.com/sysmgrt/register
 
 //gsoap zkq service namespace: http://www.zonekey.com/sysmgrt/query
 //gsoap zkq service name: zkq
-//gsoap zkq service port: http://localhost:8899
 //gsoap zkq schema form: qualified
 //gsoap zkq schema namespace: http://www.zonekey.com/sysmgrt/query
 
@@ -147,13 +145,6 @@ struct zkreg__Logics
 	int			__size		1;
 };
 
-// 返回配置项 keys
-struct zkcfg__keys
-{
-	xsd__string 	*__ptr		1;
-	int		__size		1;
-};
-
 // 主机注册, token 为返回
 int zkreg__regHost(struct zkreg__Host *zkreg__regHostReq, xsd__string *token);
 int zkreg__unregHost(xsd__string zkreg__unRegHoststring, int *code);
@@ -195,8 +186,21 @@ int zkq__getAllLogics(enum xsd__boolean zkq__getAllLogicsoffline, struct zkreg__
 int zkq__getServicesByType(enum xsd__boolean zkq__getServiceByTypeoffline, xsd__string type, struct zkreg__Services *services);
 
 //////////////////////////////////////////////////////////
-int zkcfg__getAllKeys(void *notuse, struct zkcfg__keys *keys);
-int zkcfg__getValue(xsd__string zkcfg__getValuekey, xsd__string *value);
-int zkcfg__setValue(xsd__string zkcfg__setValuekey, xsd__string value, void *notused);
-int zkcfg__delKey(xsd__string zkcfg__delKeyKey, void *notused);
+// 返回配置项 keys
+struct zkcfg__Keys
+{
+	xsd__string 	*__ptr		1;
+	int		__size		1;
+};
+
+struct zkcfg__Ret
+{
+	int		result		1;
+	xsd__string	value		0;
+};
+
+int zkcfg__getAllKeys(void *notuse, struct zkcfg__Keys *zkcfg__KeysRes);
+int zkcfg__getValue(char *zkcfg__getValueReq, struct zkcfg__Ret *zkcfg__RetRes);
+int zkcfg__setValue(char *zkcfg__setValueReq, char *value, struct zkcfg__Ret *zkcfg__RetRes);
+int zkcfg__delKey(char *zkcfg__delKeyReq, struct zkcfg__Ret *zkcfg__RetRes);
 
