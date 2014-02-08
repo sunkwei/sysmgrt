@@ -62,10 +62,10 @@ int zkcfg__getValue(struct soap *soap, char *key, struct zkcfg__Ret *res)
 int zkcfg__setValue(struct soap *soap, char *key, char *value, struct zkcfg__Ret *res)
 {
 	char *sql = (char*)alloca(1024);
-	char *v;
-	zkcfg__getValue(soap, key, &v);
+	struct zkcfg__Ret ret;
+	zkcfg__getValue(soap, key, &ret);
 
-	if (v) {
+	if (ret.value) {
 		// ¸üÐÂ
 		_snprintf(sql, 1024, "UPDATE config SET value='%s' WHERE key='%s'", 
 			value, key);

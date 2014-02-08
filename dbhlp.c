@@ -191,7 +191,7 @@ int db_exec_select2(sqlite3 *db, const char *sql, struct dbhlpColumn col_desc[],
 	struct tmpParam param = { col_desc, cn, 0, 0 };
 
 	int rc = db_exec_select(db, sql, db_select_cb, &param);
-	if (rc > 0) {
+	if (rc >= 0) {
 		*cols = param.cols;
 		*rows = param.rows;
 	}

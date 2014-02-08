@@ -200,7 +200,7 @@ struct zkcfg__Ret
 };
 
 int zkcfg__getAllKeys(void *notuse, struct zkcfg__Keys *zkcfg__KeysRes);
-int zkcfg__getValue(char *zkcfg__getValueReq, struct zkcfg__Ret *zkcfg__RetRes);
-int zkcfg__setValue(char *zkcfg__setValueReq, char *value, struct zkcfg__Ret *zkcfg__RetRes);
-int zkcfg__delKey(char *zkcfg__delKeyReq, struct zkcfg__Ret *zkcfg__RetRes);
+int zkcfg__getValue(char *zkcfg__getValueKeyRequest, struct zkcfg__Ret *zkcfg__RetRes);
+int zkcfg__setValue(char *zkcfg__setValueKeyRequest, char *value, struct zkcfg__Ret *zkcfg__RetRes);
+int zkcfg__delKey(char *zkcfg__delKeyRequest, struct zkcfg__Ret *zkcfg__RetRes);
 
