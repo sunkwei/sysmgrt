@@ -491,7 +491,7 @@ struct zkcfg__getAllKeys
 /* zkcfg:getValue */
 struct zkcfg__getValue
 {
-	char *zkcfg__getValueReq;	/* optional element of type xsd:string */
+	char *zkcfg__getValueKeyRequest;	/* optional element of type xsd:string */
 };
 #endif
 
@@ -500,7 +500,7 @@ struct zkcfg__getValue
 /* zkcfg:setValue */
 struct zkcfg__setValue
 {
-	char *zkcfg__setValueReq;	/* optional element of type xsd:string */
+	char *zkcfg__setValueKeyRequest;	/* optional element of type xsd:string */
 	char *value;	/* optional element of type xsd:string */
 };
 #endif
@@ -510,7 +510,7 @@ struct zkcfg__setValue
 /* zkcfg:delKey */
 struct zkcfg__delKey
 {
-	char *zkcfg__delKeyReq;	/* optional element of type xsd:string */
+	char *zkcfg__delKeyRequest;	/* optional element of type xsd:string */
 };
 #endif
 
@@ -668,11 +668,11 @@ SOAP_FMAC5 int SOAP_FMAC6 zkq__getServicesByType(struct soap*, enum xsd__boolean
 
 SOAP_FMAC5 int SOAP_FMAC6 zkcfg__getAllKeys(struct soap*, void *notuse, struct zkcfg__Keys *zkcfg__KeysRes);
 
-SOAP_FMAC5 int SOAP_FMAC6 zkcfg__getValue(struct soap*, char *zkcfg__getValueReq, struct zkcfg__Ret *zkcfg__RetRes);
+SOAP_FMAC5 int SOAP_FMAC6 zkcfg__getValue(struct soap*, char *zkcfg__getValueKeyRequest, struct zkcfg__Ret *zkcfg__RetRes);
 
-SOAP_FMAC5 int SOAP_FMAC6 zkcfg__setValue(struct soap*, char *zkcfg__setValueReq, char *value, struct zkcfg__Ret *zkcfg__RetRes);
+SOAP_FMAC5 int SOAP_FMAC6 zkcfg__setValue(struct soap*, char *zkcfg__setValueKeyRequest, char *value, struct zkcfg__Ret *zkcfg__RetRes);
 
-SOAP_FMAC5 int SOAP_FMAC6 zkcfg__delKey(struct soap*, char *zkcfg__delKeyReq, struct zkcfg__Ret *zkcfg__RetRes);
+SOAP_FMAC5 int SOAP_FMAC6 zkcfg__delKey(struct soap*, char *zkcfg__delKeyRequest, struct zkcfg__Ret *zkcfg__RetRes);
 
 /******************************************************************************\
  *                                                                            *
@@ -757,11 +757,11 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_call_zkq__getServicesByType(struct soap *soap, co
 
 SOAP_FMAC5 int SOAP_FMAC6 soap_call_zkcfg__getAllKeys(struct soap *soap, const char *soap_endpoint, const char *soap_action, void *notuse, struct zkcfg__Keys *zkcfg__KeysRes);
 
-SOAP_FMAC5 int SOAP_FMAC6 soap_call_zkcfg__getValue(struct soap *soap, const char *soap_endpoint, const char *soap_action, char *zkcfg__getValueReq, struct zkcfg__Ret *zkcfg__RetRes);
+SOAP_FMAC5 int SOAP_FMAC6 soap_call_zkcfg__getValue(struct soap *soap, const char *soap_endpoint, const char *soap_action, char *zkcfg__getValueKeyRequest, struct zkcfg__Ret *zkcfg__RetRes);
 
-SOAP_FMAC5 int SOAP_FMAC6 soap_call_zkcfg__setValue(struct soap *soap, const char *soap_endpoint, const char *soap_action, char *zkcfg__setValueReq, char *value, struct zkcfg__Ret *zkcfg__RetRes);
+SOAP_FMAC5 int SOAP_FMAC6 soap_call_zkcfg__setValue(struct soap *soap, const char *soap_endpoint, const char *soap_action, char *zkcfg__setValueKeyRequest, char *value, struct zkcfg__Ret *zkcfg__RetRes);
 
-SOAP_FMAC5 int SOAP_FMAC6 soap_call_zkcfg__delKey(struct soap *soap, const char *soap_endpoint, const char *soap_action, char *zkcfg__delKeyReq, struct zkcfg__Ret *zkcfg__RetRes);
+SOAP_FMAC5 int SOAP_FMAC6 soap_call_zkcfg__delKey(struct soap *soap, const char *soap_endpoint, const char *soap_action, char *zkcfg__delKeyRequest, struct zkcfg__Ret *zkcfg__RetRes);
 
 #ifdef __cplusplus
 }

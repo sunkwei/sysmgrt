@@ -17,7 +17,7 @@ compiling, linking, and/or using OpenSSL is allowed.
 extern "C" {
 #endif
 
-SOAP_SOURCE_STAMP("@(#) soapServer.c ver 2.8.17r 2014-02-08 08:24:09 GMT")
+SOAP_SOURCE_STAMP("@(#) soapServer.c ver 2.8.17r 2014-02-08 09:03:03 GMT")
 
 
 SOAP_FMAC5 int SOAP_FMAC6 soap_serve(struct soap *soap)
@@ -770,7 +770,7 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_serve_zkcfg__getValue(struct soap *soap)
 	 || soap_envelope_end_in(soap)
 	 || soap_end_recv(soap))
 		return soap->error;
-	soap->error = zkcfg__getValue(soap, soap_tmp_zkcfg__getValue.zkcfg__getValueReq, &zkcfg__RetRes);
+	soap->error = zkcfg__getValue(soap, soap_tmp_zkcfg__getValue.zkcfg__getValueKeyRequest, &zkcfg__RetRes);
 	if (soap->error)
 		return soap->error;
 	soap->encodingStyle = NULL;
@@ -811,7 +811,7 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_serve_zkcfg__setValue(struct soap *soap)
 	 || soap_envelope_end_in(soap)
 	 || soap_end_recv(soap))
 		return soap->error;
-	soap->error = zkcfg__setValue(soap, soap_tmp_zkcfg__setValue.zkcfg__setValueReq, soap_tmp_zkcfg__setValue.value, &zkcfg__RetRes);
+	soap->error = zkcfg__setValue(soap, soap_tmp_zkcfg__setValue.zkcfg__setValueKeyRequest, soap_tmp_zkcfg__setValue.value, &zkcfg__RetRes);
 	if (soap->error)
 		return soap->error;
 	soap->encodingStyle = NULL;
@@ -852,7 +852,7 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_serve_zkcfg__delKey(struct soap *soap)
 	 || soap_envelope_end_in(soap)
 	 || soap_end_recv(soap))
 		return soap->error;
-	soap->error = zkcfg__delKey(soap, soap_tmp_zkcfg__delKey.zkcfg__delKeyReq, &zkcfg__RetRes);
+	soap->error = zkcfg__delKey(soap, soap_tmp_zkcfg__delKey.zkcfg__delKeyRequest, &zkcfg__RetRes);
 	if (soap->error)
 		return soap->error;
 	soap->encodingStyle = NULL;

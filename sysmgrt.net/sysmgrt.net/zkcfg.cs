@@ -299,15 +299,15 @@ public partial class getAllKeysResponse {
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.zonekey.com/sysmgrt/config")]
 public partial class getValue {
     
-    private string getValueReqField;
+    private string getValueKeyRequestField;
     
     /// <remarks/>
-    public string getValueReq {
+    public string getValueKeyRequest {
         get {
-            return this.getValueReqField;
+            return this.getValueKeyRequestField;
         }
         set {
-            this.getValueReqField = value;
+            this.getValueKeyRequestField = value;
         }
     }
 }
@@ -320,17 +320,17 @@ public partial class getValue {
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.zonekey.com/sysmgrt/config")]
 public partial class setValue {
     
-    private string setValueReqField;
+    private string setValueKeyRequestField;
     
     private string valueField;
     
     /// <remarks/>
-    public string setValueReq {
+    public string setValueKeyRequest {
         get {
-            return this.setValueReqField;
+            return this.setValueKeyRequestField;
         }
         set {
-            this.setValueReqField = value;
+            this.setValueKeyRequestField = value;
         }
     }
     
@@ -354,15 +354,15 @@ public partial class setValue {
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.zonekey.com/sysmgrt/config")]
 public partial class delKey {
     
-    private string delKeyReqField;
+    private string delKeyRequestField;
     
     /// <remarks/>
-    public string delKeyReq {
+    public string delKeyRequest {
         get {
-            return this.delKeyReqField;
+            return this.delKeyRequestField;
         }
         set {
-            this.delKeyReqField = value;
+            this.delKeyRequestField = value;
         }
     }
 }

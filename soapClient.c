@@ -17,7 +17,7 @@ compiling, linking, and/or using OpenSSL is allowed.
 extern "C" {
 #endif
 
-SOAP_SOURCE_STAMP("@(#) soapClient.c ver 2.8.17r 2014-02-08 08:24:09 GMT")
+SOAP_SOURCE_STAMP("@(#) soapClient.c ver 2.8.17r 2014-02-08 09:03:03 GMT")
 
 
 SOAP_FMAC5 int SOAP_FMAC6 soap_call_zkreg__regHost(struct soap *soap, const char *soap_endpoint, const char *soap_action, struct zkreg__Host *zkreg__regHostReq, char **token)
@@ -772,11 +772,11 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_call_zkcfg__getAllKeys(struct soap *soap, const c
 	return soap_closesock(soap);
 }
 
-SOAP_FMAC5 int SOAP_FMAC6 soap_call_zkcfg__getValue(struct soap *soap, const char *soap_endpoint, const char *soap_action, char *zkcfg__getValueReq, struct zkcfg__Ret *zkcfg__RetRes)
+SOAP_FMAC5 int SOAP_FMAC6 soap_call_zkcfg__getValue(struct soap *soap, const char *soap_endpoint, const char *soap_action, char *zkcfg__getValueKeyRequest, struct zkcfg__Ret *zkcfg__RetRes)
 {	struct zkcfg__getValue soap_tmp_zkcfg__getValue;
 	soap_begin(soap);
 	soap->encodingStyle = NULL;
-	soap_tmp_zkcfg__getValue.zkcfg__getValueReq = zkcfg__getValueReq;
+	soap_tmp_zkcfg__getValue.zkcfg__getValueKeyRequest = zkcfg__getValueKeyRequest;
 	soap_serializeheader(soap);
 	soap_serialize_zkcfg__getValue(soap, &soap_tmp_zkcfg__getValue);
 	if (soap_begin_count(soap))
@@ -819,11 +819,11 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_call_zkcfg__getValue(struct soap *soap, const cha
 	return soap_closesock(soap);
 }
 
-SOAP_FMAC5 int SOAP_FMAC6 soap_call_zkcfg__setValue(struct soap *soap, const char *soap_endpoint, const char *soap_action, char *zkcfg__setValueReq, char *value, struct zkcfg__Ret *zkcfg__RetRes)
+SOAP_FMAC5 int SOAP_FMAC6 soap_call_zkcfg__setValue(struct soap *soap, const char *soap_endpoint, const char *soap_action, char *zkcfg__setValueKeyRequest, char *value, struct zkcfg__Ret *zkcfg__RetRes)
 {	struct zkcfg__setValue soap_tmp_zkcfg__setValue;
 	soap_begin(soap);
 	soap->encodingStyle = NULL;
-	soap_tmp_zkcfg__setValue.zkcfg__setValueReq = zkcfg__setValueReq;
+	soap_tmp_zkcfg__setValue.zkcfg__setValueKeyRequest = zkcfg__setValueKeyRequest;
 	soap_tmp_zkcfg__setValue.value = value;
 	soap_serializeheader(soap);
 	soap_serialize_zkcfg__setValue(soap, &soap_tmp_zkcfg__setValue);
@@ -867,11 +867,11 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_call_zkcfg__setValue(struct soap *soap, const cha
 	return soap_closesock(soap);
 }
 
-SOAP_FMAC5 int SOAP_FMAC6 soap_call_zkcfg__delKey(struct soap *soap, const char *soap_endpoint, const char *soap_action, char *zkcfg__delKeyReq, struct zkcfg__Ret *zkcfg__RetRes)
+SOAP_FMAC5 int SOAP_FMAC6 soap_call_zkcfg__delKey(struct soap *soap, const char *soap_endpoint, const char *soap_action, char *zkcfg__delKeyRequest, struct zkcfg__Ret *zkcfg__RetRes)
 {	struct zkcfg__delKey soap_tmp_zkcfg__delKey;
 	soap_begin(soap);
 	soap->encodingStyle = NULL;
-	soap_tmp_zkcfg__delKey.zkcfg__delKeyReq = zkcfg__delKeyReq;
+	soap_tmp_zkcfg__delKey.zkcfg__delKeyRequest = zkcfg__delKeyRequest;
 	soap_serializeheader(soap);
 	soap_serialize_zkcfg__delKey(soap, &soap_tmp_zkcfg__delKey);
 	if (soap_begin_count(soap))

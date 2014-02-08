@@ -425,9 +425,9 @@
    </sequence>
   </complexType>
   <element name="KeysRes" type="zkcfg:Keys"/>
-  <element name="getValueReq" type="xsd:string"/>
-  <element name="setValueReq" type="xsd:string"/>
-  <element name="delKeyReq" type="xsd:string"/>
+  <element name="getValueKeyRequest" type="xsd:string"/>
+  <element name="setValueKeyRequest" type="xsd:string"/>
+  <element name="delKeyRequest" type="xsd:string"/>
   <!-- operation response element -->
   <element name="RetRes" type="zkcfg:Ret"/>
  </schema>
