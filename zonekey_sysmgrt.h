@@ -13,6 +13,11 @@
 //gsoap zkq schema form: qualified
 //gsoap zkq schema namespace: http://www.zonekey.com/sysmgrt/query
 
+//gsoap zkcfg service namespace: http://www.zonekey.com/sysmgrt/config
+//gsoap zkcfg service name: zkcfg
+//gsoap zkcfg schema form: qualified
+//gsoap zkcfg schema namespace: http://www.zonekey.com/sysmgrt/config
+
 /// Built-in type "SOAP-ENV:Envelope".
 //struct SOAP_ENV__Envelope { struct SOAP_ENV__Header *SOAP_ENV__Header; _XML SOAP_ENV__Body; };
 
@@ -36,7 +41,7 @@ enum zkreg__Catalog
 {
 	zkreg__Catalog__Host,		// 主机类型
 	zkreg__Catalog__Service,	// 服务类型
-	zkreg__Catalog__Device,	// 设备类型
+	zkreg__Catalog__Device,		// 设备类型
 	zkreg__Catalog__Logic,		// 逻辑类型
 };
 
@@ -142,6 +147,13 @@ struct zkreg__Logics
 	int			__size		1;
 };
 
+// 返回配置项 keys
+struct zkcfg__keys
+{
+	xsd__string 	*__ptr		1;
+	int		__size		1;
+};
+
 // 主机注册, token 为返回
 int zkreg__regHost(struct zkreg__Host *zkreg__regHostReq, xsd__string *token);
 int zkreg__unregHost(xsd__string zkreg__unRegHoststring, int *code);
@@ -181,4 +193,10 @@ int zkq__getAllLogics(enum xsd__boolean zkq__getAllLogicsoffline, struct zkreg__
 
 // 根据服务类型查询服务
 int zkq__getServicesByType(enum xsd__boolean zkq__getServiceByTypeoffline, xsd__string type, struct zkreg__Services *services);
+
+//////////////////////////////////////////////////////////
+int zkcfg__getAllKeys(void *notuse, struct zkcfg__keys *keys);
+int zkcfg__getValue(xsd__string zkcfg__getValuekey, xsd__string *value);
+int zkcfg__setValue(xsd__string zkcfg__setValuekey, xsd__string value, void *notused);
+int zkcfg__delKey(xsd__string zkcfg__delKeyKey, void *notused);
 

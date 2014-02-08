@@ -19,7 +19,7 @@ compiling, linking, and/or using OpenSSL is allowed.
 extern "C" {
 #endif
 
-SOAP_SOURCE_STAMP("@(#) soapC.c ver 2.8.17r 2014-02-06 23:52:54 GMT")
+SOAP_SOURCE_STAMP("@(#) soapC.c ver 2.8.17r 2014-02-08 05:46:34 GMT")
 
 
 #ifndef WITH_NOGLOBAL
@@ -195,6 +195,18 @@ SOAP_FMAC3 void * SOAP_FMAC4 soap_getelement(struct soap *soap, int *type)
 		return soap_in_zkreg__Catalog(soap, NULL, NULL, "zkreg:Catalog");
 	case SOAP_TYPE_xsd__boolean:
 		return soap_in_xsd__boolean(soap, NULL, NULL, "xsd:boolean");
+	case SOAP_TYPE_zkcfg__delKey:
+		return soap_in_zkcfg__delKey(soap, NULL, NULL, "zkcfg:delKey");
+	case SOAP_TYPE_zkcfg__setValue:
+		return soap_in_zkcfg__setValue(soap, NULL, NULL, "zkcfg:setValue");
+	case SOAP_TYPE_zkcfg__getValue:
+		return soap_in_zkcfg__getValue(soap, NULL, NULL, "zkcfg:getValue");
+	case SOAP_TYPE_zkcfg__getValueResponse:
+		return soap_in_zkcfg__getValueResponse(soap, NULL, NULL, "zkcfg:getValueResponse");
+	case SOAP_TYPE_zkcfg__getAllKeys:
+		return soap_in_zkcfg__getAllKeys(soap, NULL, NULL, "zkcfg:getAllKeys");
+	case SOAP_TYPE_zkcfg__getAllKeysResponse:
+		return soap_in_zkcfg__getAllKeysResponse(soap, NULL, NULL, "zkcfg:getAllKeysResponse");
 	case SOAP_TYPE_zkq__getServicesByType:
 		return soap_in_zkq__getServicesByType(soap, NULL, NULL, "zkq:getServicesByType");
 	case SOAP_TYPE_zkq__getServicesByTypeResponse:
@@ -251,6 +263,8 @@ SOAP_FMAC3 void * SOAP_FMAC4 soap_getelement(struct soap *soap, int *type)
 		return soap_in_zkreg__regHost(soap, NULL, NULL, "zkreg:regHost");
 	case SOAP_TYPE_zkreg__regHostResponse:
 		return soap_in_zkreg__regHostResponse(soap, NULL, NULL, "zkreg:regHostResponse");
+	case SOAP_TYPE_zkcfg__keys:
+		return soap_in_zkcfg__keys(soap, NULL, NULL, "zkcfg:keys");
 	case SOAP_TYPE_zkreg__Logics:
 		return soap_in_zkreg__Logics(soap, NULL, NULL, "zkreg:Logics");
 	case SOAP_TYPE_zkreg__Logic:
@@ -275,6 +289,8 @@ SOAP_FMAC3 void * SOAP_FMAC4 soap_getelement(struct soap *soap, int *type)
 		return soap_in_zkreg__Urls(soap, NULL, NULL, "zkreg:Urls");
 	case SOAP_TYPE_zkreg__Ips:
 		return soap_in_zkreg__Ips(soap, NULL, NULL, "zkreg:Ips");
+	case SOAP_TYPE_PointerTozkcfg__keys:
+		return soap_in_PointerTozkcfg__keys(soap, NULL, NULL, "zkcfg:keys");
 	case SOAP_TYPE_PointerTozkreg__Logics:
 		return soap_in_PointerTozkreg__Logics(soap, NULL, NULL, "zkreg:Logics");
 	case SOAP_TYPE_PointerTozkreg__Devices:
@@ -352,6 +368,30 @@ SOAP_FMAC3 void * SOAP_FMAC4 soap_getelement(struct soap *soap, int *type)
 		if (!soap_match_tag(soap, t, "xsd:boolean"))
 		{	*type = SOAP_TYPE_xsd__boolean;
 			return soap_in_xsd__boolean(soap, NULL, NULL, NULL);
+		}
+		if (!soap_match_tag(soap, t, "zkcfg:delKey"))
+		{	*type = SOAP_TYPE_zkcfg__delKey;
+			return soap_in_zkcfg__delKey(soap, NULL, NULL, NULL);
+		}
+		if (!soap_match_tag(soap, t, "zkcfg:setValue"))
+		{	*type = SOAP_TYPE_zkcfg__setValue;
+			return soap_in_zkcfg__setValue(soap, NULL, NULL, NULL);
+		}
+		if (!soap_match_tag(soap, t, "zkcfg:getValue"))
+		{	*type = SOAP_TYPE_zkcfg__getValue;
+			return soap_in_zkcfg__getValue(soap, NULL, NULL, NULL);
+		}
+		if (!soap_match_tag(soap, t, "zkcfg:getValueResponse"))
+		{	*type = SOAP_TYPE_zkcfg__getValueResponse;
+			return soap_in_zkcfg__getValueResponse(soap, NULL, NULL, NULL);
+		}
+		if (!soap_match_tag(soap, t, "zkcfg:getAllKeys"))
+		{	*type = SOAP_TYPE_zkcfg__getAllKeys;
+			return soap_in_zkcfg__getAllKeys(soap, NULL, NULL, NULL);
+		}
+		if (!soap_match_tag(soap, t, "zkcfg:getAllKeysResponse"))
+		{	*type = SOAP_TYPE_zkcfg__getAllKeysResponse;
+			return soap_in_zkcfg__getAllKeysResponse(soap, NULL, NULL, NULL);
 		}
 		if (!soap_match_tag(soap, t, "zkq:getServicesByType"))
 		{	*type = SOAP_TYPE_zkq__getServicesByType;
@@ -464,6 +504,10 @@ SOAP_FMAC3 void * SOAP_FMAC4 soap_getelement(struct soap *soap, int *type)
 		if (!soap_match_tag(soap, t, "zkreg:regHostResponse"))
 		{	*type = SOAP_TYPE_zkreg__regHostResponse;
 			return soap_in_zkreg__regHostResponse(soap, NULL, NULL, NULL);
+		}
+		if (!soap_match_tag(soap, t, "zkcfg:keys"))
+		{	*type = SOAP_TYPE_zkcfg__keys;
+			return soap_in_zkcfg__keys(soap, NULL, NULL, NULL);
 		}
 		if (!soap_match_tag(soap, t, "zkreg:Logics"))
 		{	*type = SOAP_TYPE_zkreg__Logics;
@@ -608,6 +652,18 @@ SOAP_FMAC3 int SOAP_FMAC4 soap_putelement(struct soap *soap, const void *ptr, co
 		return soap_out_zkreg__Catalog(soap, tag, id, (const enum zkreg__Catalog *)ptr, "zkreg:Catalog");
 	case SOAP_TYPE_xsd__boolean:
 		return soap_out_xsd__boolean(soap, tag, id, (const enum xsd__boolean *)ptr, "xsd:boolean");
+	case SOAP_TYPE_zkcfg__delKey:
+		return soap_out_zkcfg__delKey(soap, tag, id, (const struct zkcfg__delKey *)ptr, "zkcfg:delKey");
+	case SOAP_TYPE_zkcfg__setValue:
+		return soap_out_zkcfg__setValue(soap, tag, id, (const struct zkcfg__setValue *)ptr, "zkcfg:setValue");
+	case SOAP_TYPE_zkcfg__getValue:
+		return soap_out_zkcfg__getValue(soap, tag, id, (const struct zkcfg__getValue *)ptr, "zkcfg:getValue");
+	case SOAP_TYPE_zkcfg__getValueResponse:
+		return soap_out_zkcfg__getValueResponse(soap, tag, id, (const struct zkcfg__getValueResponse *)ptr, "zkcfg:getValueResponse");
+	case SOAP_TYPE_zkcfg__getAllKeys:
+		return soap_out_zkcfg__getAllKeys(soap, tag, id, (const struct zkcfg__getAllKeys *)ptr, "zkcfg:getAllKeys");
+	case SOAP_TYPE_zkcfg__getAllKeysResponse:
+		return soap_out_zkcfg__getAllKeysResponse(soap, tag, id, (const struct zkcfg__getAllKeysResponse *)ptr, "zkcfg:getAllKeysResponse");
 	case SOAP_TYPE_zkq__getServicesByType:
 		return soap_out_zkq__getServicesByType(soap, tag, id, (const struct zkq__getServicesByType *)ptr, "zkq:getServicesByType");
 	case SOAP_TYPE_zkq__getServicesByTypeResponse:
@@ -664,6 +720,8 @@ SOAP_FMAC3 int SOAP_FMAC4 soap_putelement(struct soap *soap, const void *ptr, co
 		return soap_out_zkreg__regHost(soap, tag, id, (const struct zkreg__regHost *)ptr, "zkreg:regHost");
 	case SOAP_TYPE_zkreg__regHostResponse:
 		return soap_out_zkreg__regHostResponse(soap, tag, id, (const struct zkreg__regHostResponse *)ptr, "zkreg:regHostResponse");
+	case SOAP_TYPE_zkcfg__keys:
+		return soap_out_zkcfg__keys(soap, tag, id, (const struct zkcfg__keys *)ptr, "zkcfg:keys");
 	case SOAP_TYPE_zkreg__Logics:
 		return soap_out_zkreg__Logics(soap, tag, id, (const struct zkreg__Logics *)ptr, "zkreg:Logics");
 	case SOAP_TYPE_zkreg__Logic:
@@ -688,6 +746,8 @@ SOAP_FMAC3 int SOAP_FMAC4 soap_putelement(struct soap *soap, const void *ptr, co
 		return soap_out_zkreg__Urls(soap, tag, id, (const struct zkreg__Urls *)ptr, "zkreg:Urls");
 	case SOAP_TYPE_zkreg__Ips:
 		return soap_out_zkreg__Ips(soap, tag, id, (const struct zkreg__Ips *)ptr, "zkreg:Ips");
+	case SOAP_TYPE_PointerTozkcfg__keys:
+		return soap_out_PointerTozkcfg__keys(soap, tag, id, (struct zkcfg__keys *const*)ptr, "zkcfg:keys");
 	case SOAP_TYPE_PointerTozkreg__Logics:
 		return soap_out_PointerTozkreg__Logics(soap, tag, id, (struct zkreg__Logics *const*)ptr, "zkreg:Logics");
 	case SOAP_TYPE_PointerTozkreg__Devices:
@@ -738,6 +798,24 @@ SOAP_FMAC3 void SOAP_FMAC4 soap_markelement(struct soap *soap, const void *ptr, 
 	(void)soap; (void)ptr; (void)type; /* appease -Wall -Werror */
 	switch (type)
 	{
+	case SOAP_TYPE_zkcfg__delKey:
+		soap_serialize_zkcfg__delKey(soap, (const struct zkcfg__delKey *)ptr);
+		break;
+	case SOAP_TYPE_zkcfg__setValue:
+		soap_serialize_zkcfg__setValue(soap, (const struct zkcfg__setValue *)ptr);
+		break;
+	case SOAP_TYPE_zkcfg__getValue:
+		soap_serialize_zkcfg__getValue(soap, (const struct zkcfg__getValue *)ptr);
+		break;
+	case SOAP_TYPE_zkcfg__getValueResponse:
+		soap_serialize_zkcfg__getValueResponse(soap, (const struct zkcfg__getValueResponse *)ptr);
+		break;
+	case SOAP_TYPE_zkcfg__getAllKeys:
+		soap_serialize_zkcfg__getAllKeys(soap, (const struct zkcfg__getAllKeys *)ptr);
+		break;
+	case SOAP_TYPE_zkcfg__getAllKeysResponse:
+		soap_serialize_zkcfg__getAllKeysResponse(soap, (const struct zkcfg__getAllKeysResponse *)ptr);
+		break;
 	case SOAP_TYPE_zkq__getServicesByType:
 		soap_serialize_zkq__getServicesByType(soap, (const struct zkq__getServicesByType *)ptr);
 		break;
@@ -822,6 +900,9 @@ SOAP_FMAC3 void SOAP_FMAC4 soap_markelement(struct soap *soap, const void *ptr, 
 	case SOAP_TYPE_zkreg__regHostResponse:
 		soap_serialize_zkreg__regHostResponse(soap, (const struct zkreg__regHostResponse *)ptr);
 		break;
+	case SOAP_TYPE_zkcfg__keys:
+		soap_serialize_zkcfg__keys(soap, (const struct zkcfg__keys *)ptr);
+		break;
 	case SOAP_TYPE_zkreg__Logics:
 		soap_serialize_zkreg__Logics(soap, (const struct zkreg__Logics *)ptr);
 		break;
@@ -857,6 +938,9 @@ SOAP_FMAC3 void SOAP_FMAC4 soap_markelement(struct soap *soap, const void *ptr, 
 		break;
 	case SOAP_TYPE_zkreg__Ips:
 		soap_serialize_zkreg__Ips(soap, (const struct zkreg__Ips *)ptr);
+		break;
+	case SOAP_TYPE_PointerTozkcfg__keys:
+		soap_serialize_PointerTozkcfg__keys(soap, (struct zkcfg__keys *const*)ptr);
 		break;
 	case SOAP_TYPE_PointerTozkreg__Logics:
 		soap_serialize_PointerTozkreg__Logics(soap, (struct zkreg__Logics *const*)ptr);
@@ -1655,6 +1739,472 @@ SOAP_FMAC3 struct SOAP_ENV__Header * SOAP_FMAC4 soap_get_SOAP_ENV__Header(struct
 }
 
 #endif
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_default_zkcfg__delKey(struct soap *soap, struct zkcfg__delKey *a)
+{
+	(void)soap; (void)a; /* appease -Wall -Werror */
+	soap_default_xsd__string(soap, &a->zkcfg__delKeyKey);
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_zkcfg__delKey(struct soap *soap, const struct zkcfg__delKey *a)
+{
+#ifndef WITH_NOIDREF
+	(void)soap; (void)a; /* appease -Wall -Werror */
+	soap_serialize_xsd__string(soap, &a->zkcfg__delKeyKey);
+#endif
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_zkcfg__delKey(struct soap *soap, const char *tag, int id, const struct zkcfg__delKey *a, const char *type)
+{
+	(void)soap; (void)tag; (void)id; (void)type;
+	if (soap_element_begin_out(soap, tag, soap_embedded_id(soap, id, a, SOAP_TYPE_zkcfg__delKey), type))
+		return soap->error;
+	if (soap_out_xsd__string(soap, "zkcfg:delKeyKey", -1, &a->zkcfg__delKeyKey, ""))
+		return soap->error;
+	return soap_element_end_out(soap, tag);
+}
+
+SOAP_FMAC3 struct zkcfg__delKey * SOAP_FMAC4 soap_in_zkcfg__delKey(struct soap *soap, const char *tag, struct zkcfg__delKey *a, const char *type)
+{
+	size_t soap_flag_zkcfg__delKeyKey = 1;
+	if (soap_element_begin_in(soap, tag, 0, type))
+		return NULL;
+	a = (struct zkcfg__delKey *)soap_id_enter(soap, soap->id, a, SOAP_TYPE_zkcfg__delKey, sizeof(struct zkcfg__delKey), 0, NULL, NULL, NULL);
+	if (!a)
+		return NULL;
+	soap_default_zkcfg__delKey(soap, a);
+	if (soap->body && !*soap->href)
+	{
+		for (;;)
+		{	soap->error = SOAP_TAG_MISMATCH;
+			if (soap_flag_zkcfg__delKeyKey && (soap->error == SOAP_TAG_MISMATCH || soap->error == SOAP_NO_TAG))
+				if (soap_in_xsd__string(soap, "zkcfg:delKeyKey", &a->zkcfg__delKeyKey, "xsd:string"))
+				{	soap_flag_zkcfg__delKeyKey--;
+					continue;
+				}
+			if (soap->error == SOAP_TAG_MISMATCH)
+				soap->error = soap_ignore_element(soap);
+			if (soap->error == SOAP_NO_TAG)
+				break;
+			if (soap->error)
+				return NULL;
+		}
+		if (soap_element_end_in(soap, tag))
+			return NULL;
+	}
+	else
+	{	a = (struct zkcfg__delKey *)soap_id_forward(soap, soap->href, (void*)a, 0, SOAP_TYPE_zkcfg__delKey, 0, sizeof(struct zkcfg__delKey), 0, NULL);
+		if (soap->body && soap_element_end_in(soap, tag))
+			return NULL;
+	}
+	return a;
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_zkcfg__delKey(struct soap *soap, const struct zkcfg__delKey *a, const char *tag, const char *type)
+{
+	register int id = soap_embed(soap, (void*)a, NULL, 0, tag, SOAP_TYPE_zkcfg__delKey);
+	if (soap_out_zkcfg__delKey(soap, tag?tag:"zkcfg:delKey", id, a, type))
+		return soap->error;
+	return soap_putindependent(soap);
+}
+
+SOAP_FMAC3 struct zkcfg__delKey * SOAP_FMAC4 soap_get_zkcfg__delKey(struct soap *soap, struct zkcfg__delKey *p, const char *tag, const char *type)
+{
+	if ((p = soap_in_zkcfg__delKey(soap, tag, p, type)))
+		if (soap_getindependent(soap))
+			return NULL;
+	return p;
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_default_zkcfg__setValue(struct soap *soap, struct zkcfg__setValue *a)
+{
+	(void)soap; (void)a; /* appease -Wall -Werror */
+	soap_default_xsd__string(soap, &a->zkcfg__setValuekey);
+	soap_default_xsd__string(soap, &a->value);
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_zkcfg__setValue(struct soap *soap, const struct zkcfg__setValue *a)
+{
+#ifndef WITH_NOIDREF
+	(void)soap; (void)a; /* appease -Wall -Werror */
+	soap_serialize_xsd__string(soap, &a->zkcfg__setValuekey);
+	soap_serialize_xsd__string(soap, &a->value);
+#endif
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_zkcfg__setValue(struct soap *soap, const char *tag, int id, const struct zkcfg__setValue *a, const char *type)
+{
+	(void)soap; (void)tag; (void)id; (void)type;
+	if (soap_element_begin_out(soap, tag, soap_embedded_id(soap, id, a, SOAP_TYPE_zkcfg__setValue), type))
+		return soap->error;
+	if (soap_out_xsd__string(soap, "zkcfg:setValuekey", -1, &a->zkcfg__setValuekey, ""))
+		return soap->error;
+	if (soap_out_xsd__string(soap, "zkcfg:value", -1, &a->value, ""))
+		return soap->error;
+	return soap_element_end_out(soap, tag);
+}
+
+SOAP_FMAC3 struct zkcfg__setValue * SOAP_FMAC4 soap_in_zkcfg__setValue(struct soap *soap, const char *tag, struct zkcfg__setValue *a, const char *type)
+{
+	size_t soap_flag_zkcfg__setValuekey = 1;
+	size_t soap_flag_value = 1;
+	if (soap_element_begin_in(soap, tag, 0, type))
+		return NULL;
+	a = (struct zkcfg__setValue *)soap_id_enter(soap, soap->id, a, SOAP_TYPE_zkcfg__setValue, sizeof(struct zkcfg__setValue), 0, NULL, NULL, NULL);
+	if (!a)
+		return NULL;
+	soap_default_zkcfg__setValue(soap, a);
+	if (soap->body && !*soap->href)
+	{
+		for (;;)
+		{	soap->error = SOAP_TAG_MISMATCH;
+			if (soap_flag_zkcfg__setValuekey && (soap->error == SOAP_TAG_MISMATCH || soap->error == SOAP_NO_TAG))
+				if (soap_in_xsd__string(soap, "zkcfg:setValuekey", &a->zkcfg__setValuekey, "xsd:string"))
+				{	soap_flag_zkcfg__setValuekey--;
+					continue;
+				}
+			if (soap_flag_value && (soap->error == SOAP_TAG_MISMATCH || soap->error == SOAP_NO_TAG))
+				if (soap_in_xsd__string(soap, "zkcfg:value", &a->value, "xsd:string"))
+				{	soap_flag_value--;
+					continue;
+				}
+			if (soap->error == SOAP_TAG_MISMATCH)
+				soap->error = soap_ignore_element(soap);
+			if (soap->error == SOAP_NO_TAG)
+				break;
+			if (soap->error)
+				return NULL;
+		}
+		if (soap_element_end_in(soap, tag))
+			return NULL;
+	}
+	else
+	{	a = (struct zkcfg__setValue *)soap_id_forward(soap, soap->href, (void*)a, 0, SOAP_TYPE_zkcfg__setValue, 0, sizeof(struct zkcfg__setValue), 0, NULL);
+		if (soap->body && soap_element_end_in(soap, tag))
+			return NULL;
+	}
+	return a;
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_zkcfg__setValue(struct soap *soap, const struct zkcfg__setValue *a, const char *tag, const char *type)
+{
+	register int id = soap_embed(soap, (void*)a, NULL, 0, tag, SOAP_TYPE_zkcfg__setValue);
+	if (soap_out_zkcfg__setValue(soap, tag?tag:"zkcfg:setValue", id, a, type))
+		return soap->error;
+	return soap_putindependent(soap);
+}
+
+SOAP_FMAC3 struct zkcfg__setValue * SOAP_FMAC4 soap_get_zkcfg__setValue(struct soap *soap, struct zkcfg__setValue *p, const char *tag, const char *type)
+{
+	if ((p = soap_in_zkcfg__setValue(soap, tag, p, type)))
+		if (soap_getindependent(soap))
+			return NULL;
+	return p;
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_default_zkcfg__getValue(struct soap *soap, struct zkcfg__getValue *a)
+{
+	(void)soap; (void)a; /* appease -Wall -Werror */
+	soap_default_xsd__string(soap, &a->zkcfg__getValuekey);
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_zkcfg__getValue(struct soap *soap, const struct zkcfg__getValue *a)
+{
+#ifndef WITH_NOIDREF
+	(void)soap; (void)a; /* appease -Wall -Werror */
+	soap_serialize_xsd__string(soap, &a->zkcfg__getValuekey);
+#endif
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_zkcfg__getValue(struct soap *soap, const char *tag, int id, const struct zkcfg__getValue *a, const char *type)
+{
+	(void)soap; (void)tag; (void)id; (void)type;
+	if (soap_element_begin_out(soap, tag, soap_embedded_id(soap, id, a, SOAP_TYPE_zkcfg__getValue), type))
+		return soap->error;
+	if (soap_out_xsd__string(soap, "zkcfg:getValuekey", -1, &a->zkcfg__getValuekey, ""))
+		return soap->error;
+	return soap_element_end_out(soap, tag);
+}
+
+SOAP_FMAC3 struct zkcfg__getValue * SOAP_FMAC4 soap_in_zkcfg__getValue(struct soap *soap, const char *tag, struct zkcfg__getValue *a, const char *type)
+{
+	size_t soap_flag_zkcfg__getValuekey = 1;
+	if (soap_element_begin_in(soap, tag, 0, type))
+		return NULL;
+	a = (struct zkcfg__getValue *)soap_id_enter(soap, soap->id, a, SOAP_TYPE_zkcfg__getValue, sizeof(struct zkcfg__getValue), 0, NULL, NULL, NULL);
+	if (!a)
+		return NULL;
+	soap_default_zkcfg__getValue(soap, a);
+	if (soap->body && !*soap->href)
+	{
+		for (;;)
+		{	soap->error = SOAP_TAG_MISMATCH;
+			if (soap_flag_zkcfg__getValuekey && (soap->error == SOAP_TAG_MISMATCH || soap->error == SOAP_NO_TAG))
+				if (soap_in_xsd__string(soap, "zkcfg:getValuekey", &a->zkcfg__getValuekey, "xsd:string"))
+				{	soap_flag_zkcfg__getValuekey--;
+					continue;
+				}
+			if (soap->error == SOAP_TAG_MISMATCH)
+				soap->error = soap_ignore_element(soap);
+			if (soap->error == SOAP_NO_TAG)
+				break;
+			if (soap->error)
+				return NULL;
+		}
+		if (soap_element_end_in(soap, tag))
+			return NULL;
+	}
+	else
+	{	a = (struct zkcfg__getValue *)soap_id_forward(soap, soap->href, (void*)a, 0, SOAP_TYPE_zkcfg__getValue, 0, sizeof(struct zkcfg__getValue), 0, NULL);
+		if (soap->body && soap_element_end_in(soap, tag))
+			return NULL;
+	}
+	return a;
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_zkcfg__getValue(struct soap *soap, const struct zkcfg__getValue *a, const char *tag, const char *type)
+{
+	register int id = soap_embed(soap, (void*)a, NULL, 0, tag, SOAP_TYPE_zkcfg__getValue);
+	if (soap_out_zkcfg__getValue(soap, tag?tag:"zkcfg:getValue", id, a, type))
+		return soap->error;
+	return soap_putindependent(soap);
+}
+
+SOAP_FMAC3 struct zkcfg__getValue * SOAP_FMAC4 soap_get_zkcfg__getValue(struct soap *soap, struct zkcfg__getValue *p, const char *tag, const char *type)
+{
+	if ((p = soap_in_zkcfg__getValue(soap, tag, p, type)))
+		if (soap_getindependent(soap))
+			return NULL;
+	return p;
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_default_zkcfg__getValueResponse(struct soap *soap, struct zkcfg__getValueResponse *a)
+{
+	(void)soap; (void)a; /* appease -Wall -Werror */
+	a->value = NULL;
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_zkcfg__getValueResponse(struct soap *soap, const struct zkcfg__getValueResponse *a)
+{
+#ifndef WITH_NOIDREF
+	(void)soap; (void)a; /* appease -Wall -Werror */
+	soap_serialize_PointerToxsd__string(soap, &a->value);
+#endif
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_zkcfg__getValueResponse(struct soap *soap, const char *tag, int id, const struct zkcfg__getValueResponse *a, const char *type)
+{
+	(void)soap; (void)tag; (void)id; (void)type;
+	if (soap_element_begin_out(soap, tag, soap_embedded_id(soap, id, a, SOAP_TYPE_zkcfg__getValueResponse), type))
+		return soap->error;
+	if (a->value)
+		soap_element_result(soap, "zkcfg:value");
+	if (soap_out_PointerToxsd__string(soap, "zkcfg:value", -1, &a->value, ""))
+		return soap->error;
+	return soap_element_end_out(soap, tag);
+}
+
+SOAP_FMAC3 struct zkcfg__getValueResponse * SOAP_FMAC4 soap_in_zkcfg__getValueResponse(struct soap *soap, const char *tag, struct zkcfg__getValueResponse *a, const char *type)
+{
+	size_t soap_flag_value = 1;
+	if (soap_element_begin_in(soap, tag, 0, type))
+		return NULL;
+	a = (struct zkcfg__getValueResponse *)soap_id_enter(soap, soap->id, a, SOAP_TYPE_zkcfg__getValueResponse, sizeof(struct zkcfg__getValueResponse), 0, NULL, NULL, NULL);
+	if (!a)
+		return NULL;
+	soap_default_zkcfg__getValueResponse(soap, a);
+	if (soap->body && !*soap->href)
+	{
+		for (;;)
+		{	soap->error = SOAP_TAG_MISMATCH;
+			if (soap_flag_value && soap->error == SOAP_TAG_MISMATCH)
+				if (soap_in_PointerToxsd__string(soap, "zkcfg:value", &a->value, "xsd:string"))
+				{	soap_flag_value--;
+					continue;
+				}
+			soap_check_result(soap, "zkcfg:value");
+			if (soap->error == SOAP_TAG_MISMATCH)
+				soap->error = soap_ignore_element(soap);
+			if (soap->error == SOAP_NO_TAG)
+				break;
+			if (soap->error)
+				return NULL;
+		}
+		if (soap_element_end_in(soap, tag))
+			return NULL;
+	}
+	else
+	{	a = (struct zkcfg__getValueResponse *)soap_id_forward(soap, soap->href, (void*)a, 0, SOAP_TYPE_zkcfg__getValueResponse, 0, sizeof(struct zkcfg__getValueResponse), 0, NULL);
+		if (soap->body && soap_element_end_in(soap, tag))
+			return NULL;
+	}
+	return a;
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_zkcfg__getValueResponse(struct soap *soap, const struct zkcfg__getValueResponse *a, const char *tag, const char *type)
+{
+	register int id = soap_embed(soap, (void*)a, NULL, 0, tag, SOAP_TYPE_zkcfg__getValueResponse);
+	if (soap_out_zkcfg__getValueResponse(soap, tag?tag:"zkcfg:getValueResponse", id, a, type))
+		return soap->error;
+	return soap_putindependent(soap);
+}
+
+SOAP_FMAC3 struct zkcfg__getValueResponse * SOAP_FMAC4 soap_get_zkcfg__getValueResponse(struct soap *soap, struct zkcfg__getValueResponse *p, const char *tag, const char *type)
+{
+	if ((p = soap_in_zkcfg__getValueResponse(soap, tag, p, type)))
+		if (soap_getindependent(soap))
+			return NULL;
+	return p;
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_default_zkcfg__getAllKeys(struct soap *soap, struct zkcfg__getAllKeys *a)
+{
+	(void)soap; (void)a; /* appease -Wall -Werror */
+	/* transient notuse skipped */
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_zkcfg__getAllKeys(struct soap *soap, const struct zkcfg__getAllKeys *a)
+{
+#ifndef WITH_NOIDREF
+	(void)soap; (void)a; /* appease -Wall -Werror */
+	/* transient notuse skipped */
+#endif
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_zkcfg__getAllKeys(struct soap *soap, const char *tag, int id, const struct zkcfg__getAllKeys *a, const char *type)
+{
+	(void)soap; (void)tag; (void)id; (void)type;
+	if (soap_element_begin_out(soap, tag, soap_embedded_id(soap, id, a, SOAP_TYPE_zkcfg__getAllKeys), type))
+		return soap->error;
+	/* transient notuse skipped */
+	return soap_element_end_out(soap, tag);
+}
+
+SOAP_FMAC3 struct zkcfg__getAllKeys * SOAP_FMAC4 soap_in_zkcfg__getAllKeys(struct soap *soap, const char *tag, struct zkcfg__getAllKeys *a, const char *type)
+{
+	if (soap_element_begin_in(soap, tag, 0, type))
+		return NULL;
+	a = (struct zkcfg__getAllKeys *)soap_id_enter(soap, soap->id, a, SOAP_TYPE_zkcfg__getAllKeys, sizeof(struct zkcfg__getAllKeys), 0, NULL, NULL, NULL);
+	if (!a)
+		return NULL;
+	soap_default_zkcfg__getAllKeys(soap, a);
+	if (soap->body && !*soap->href)
+	{
+		for (;;)
+		{	soap->error = SOAP_TAG_MISMATCH;
+		/* transient notuse skipped */
+			if (soap->error == SOAP_TAG_MISMATCH)
+				soap->error = soap_ignore_element(soap);
+			if (soap->error == SOAP_NO_TAG)
+				break;
+			if (soap->error)
+				return NULL;
+		}
+		if (soap_element_end_in(soap, tag))
+			return NULL;
+	}
+	else
+	{	a = (struct zkcfg__getAllKeys *)soap_id_forward(soap, soap->href, (void*)a, 0, SOAP_TYPE_zkcfg__getAllKeys, 0, sizeof(struct zkcfg__getAllKeys), 0, NULL);
+		if (soap->body && soap_element_end_in(soap, tag))
+			return NULL;
+	}
+	return a;
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_zkcfg__getAllKeys(struct soap *soap, const struct zkcfg__getAllKeys *a, const char *tag, const char *type)
+{
+	register int id = soap_embed(soap, (void*)a, NULL, 0, tag, SOAP_TYPE_zkcfg__getAllKeys);
+	if (soap_out_zkcfg__getAllKeys(soap, tag?tag:"zkcfg:getAllKeys", id, a, type))
+		return soap->error;
+	return soap_putindependent(soap);
+}
+
+SOAP_FMAC3 struct zkcfg__getAllKeys * SOAP_FMAC4 soap_get_zkcfg__getAllKeys(struct soap *soap, struct zkcfg__getAllKeys *p, const char *tag, const char *type)
+{
+	if ((p = soap_in_zkcfg__getAllKeys(soap, tag, p, type)))
+		if (soap_getindependent(soap))
+			return NULL;
+	return p;
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_default_zkcfg__getAllKeysResponse(struct soap *soap, struct zkcfg__getAllKeysResponse *a)
+{
+	(void)soap; (void)a; /* appease -Wall -Werror */
+	a->keys = NULL;
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_zkcfg__getAllKeysResponse(struct soap *soap, const struct zkcfg__getAllKeysResponse *a)
+{
+#ifndef WITH_NOIDREF
+	(void)soap; (void)a; /* appease -Wall -Werror */
+	soap_serialize_PointerTozkcfg__keys(soap, &a->keys);
+#endif
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_zkcfg__getAllKeysResponse(struct soap *soap, const char *tag, int id, const struct zkcfg__getAllKeysResponse *a, const char *type)
+{
+	(void)soap; (void)tag; (void)id; (void)type;
+	if (soap_element_begin_out(soap, tag, soap_embedded_id(soap, id, a, SOAP_TYPE_zkcfg__getAllKeysResponse), type))
+		return soap->error;
+	if (a->keys)
+		soap_element_result(soap, "zkcfg:keys");
+	if (soap_out_PointerTozkcfg__keys(soap, "zkcfg:keys", -1, &a->keys, ""))
+		return soap->error;
+	return soap_element_end_out(soap, tag);
+}
+
+SOAP_FMAC3 struct zkcfg__getAllKeysResponse * SOAP_FMAC4 soap_in_zkcfg__getAllKeysResponse(struct soap *soap, const char *tag, struct zkcfg__getAllKeysResponse *a, const char *type)
+{
+	size_t soap_flag_keys = 1;
+	if (soap_element_begin_in(soap, tag, 0, type))
+		return NULL;
+	a = (struct zkcfg__getAllKeysResponse *)soap_id_enter(soap, soap->id, a, SOAP_TYPE_zkcfg__getAllKeysResponse, sizeof(struct zkcfg__getAllKeysResponse), 0, NULL, NULL, NULL);
+	if (!a)
+		return NULL;
+	soap_default_zkcfg__getAllKeysResponse(soap, a);
+	if (soap->body && !*soap->href)
+	{
+		for (;;)
+		{	soap->error = SOAP_TAG_MISMATCH;
+			if (soap_flag_keys && soap->error == SOAP_TAG_MISMATCH)
+				if (soap_in_PointerTozkcfg__keys(soap, "zkcfg:keys", &a->keys, "zkcfg:keys"))
+				{	soap_flag_keys--;
+					continue;
+				}
+			soap_check_result(soap, "zkcfg:keys");
+			if (soap->error == SOAP_TAG_MISMATCH)
+				soap->error = soap_ignore_element(soap);
+			if (soap->error == SOAP_NO_TAG)
+				break;
+			if (soap->error)
+				return NULL;
+		}
+		if (soap_element_end_in(soap, tag))
+			return NULL;
+	}
+	else
+	{	a = (struct zkcfg__getAllKeysResponse *)soap_id_forward(soap, soap->href, (void*)a, 0, SOAP_TYPE_zkcfg__getAllKeysResponse, 0, sizeof(struct zkcfg__getAllKeysResponse), 0, NULL);
+		if (soap->body && soap_element_end_in(soap, tag))
+			return NULL;
+	}
+	return a;
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_zkcfg__getAllKeysResponse(struct soap *soap, const struct zkcfg__getAllKeysResponse *a, const char *tag, const char *type)
+{
+	register int id = soap_embed(soap, (void*)a, NULL, 0, tag, SOAP_TYPE_zkcfg__getAllKeysResponse);
+	if (soap_out_zkcfg__getAllKeysResponse(soap, tag?tag:"zkcfg:getAllKeysResponse", id, a, type))
+		return soap->error;
+	return soap_putindependent(soap);
+}
+
+SOAP_FMAC3 struct zkcfg__getAllKeysResponse * SOAP_FMAC4 soap_get_zkcfg__getAllKeysResponse(struct soap *soap, struct zkcfg__getAllKeysResponse *p, const char *tag, const char *type)
+{
+	if ((p = soap_in_zkcfg__getAllKeysResponse(soap, tag, p, type)))
+		if (soap_getindependent(soap))
+			return NULL;
+	return p;
+}
 
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_zkq__getServicesByType(struct soap *soap, struct zkq__getServicesByType *a)
 {
@@ -3864,6 +4414,131 @@ SOAP_FMAC3 struct zkreg__regHostResponse * SOAP_FMAC4 soap_get_zkreg__regHostRes
 	return p;
 }
 
+SOAP_FMAC3 void SOAP_FMAC4 soap_default_zkcfg__keys(struct soap *soap, struct zkcfg__keys *a)
+{	(void)soap;
+	(void)soap; /* appease -Wall -Werror */
+	a->__size = 0;
+	a->__ptr = NULL;
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_zkcfg__keys(struct soap *soap, struct zkcfg__keys const*a)
+{
+#ifndef WITH_NOIDREF
+	int i;
+	if (a->__ptr && !soap_array_reference(soap, a, (struct soap_array*)&a->__ptr, 1, SOAP_TYPE_zkcfg__keys))
+		for (i = 0; i < a->__size; i++)
+		{
+			soap_serialize_xsd__string(soap, a->__ptr + i);
+		}
+#endif
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_zkcfg__keys(struct soap *soap, const char *tag, int id, const struct zkcfg__keys *a, const char *type)
+{
+	int i, n = a->__size;
+	id = soap_element_id(soap, tag, id, a, (struct soap_array*)&a->__ptr, 1, type, SOAP_TYPE_zkcfg__keys);
+	if (id < 0)
+		return soap->error;
+	if (soap_element_begin_out(soap, tag, id, type))
+		return soap->error;
+	for (i = 0; i < n; i++)
+	{
+		soap_out_xsd__string(soap, "zkcfg:item", -1, &a->__ptr[i], "");
+	}
+	return soap_element_end_out(soap, tag);
+}
+
+SOAP_FMAC3 struct zkcfg__keys * SOAP_FMAC4 soap_in_zkcfg__keys(struct soap *soap, const char *tag, struct zkcfg__keys *a, const char *type)
+{	int i, j;
+	char **p;
+	if (soap_element_begin_in(soap, tag, 1, NULL))
+		return NULL;
+	if (*soap->type && soap_match_array(soap, "xsd:string") && soap_match_tag(soap, soap->type, type))
+	{	soap->error = SOAP_TYPE;
+		return NULL;
+	}
+	a = (struct zkcfg__keys *)soap_id_enter(soap, soap->id, a, SOAP_TYPE_zkcfg__keys, sizeof(struct zkcfg__keys), 0, NULL, NULL, NULL);
+	if (!a)
+		return NULL;
+	soap_default_zkcfg__keys(soap, a);
+	if (soap->body && !*soap->href)
+	{
+		a->__size = soap_getsize(soap->arraySize, soap->arrayOffset, &j);
+		if ((soap->mode & SOAP_XML_STRICT) && a->__size >= 0 && a->__size < 1)
+		{	soap->error = SOAP_OCCURS;
+			return NULL;
+		}
+		if (a->__size >= 0)
+		{	a->__ptr = (char **)soap_malloc(soap, sizeof(char *) * a->__size);
+			for (i = 0; i < a->__size; i++)
+				a->__ptr[i] = NULL;
+			for (i = 0; i < a->__size; i++)
+			{	soap_peek_element(soap);
+				if (soap->position)
+				{	i = soap->positions[0]-j;
+					if (i < 0 || i >= a->__size)
+					{	soap->error = SOAP_IOB;
+						return NULL;
+					}
+				}
+				if (!soap_in_xsd__string(soap, NULL, a->__ptr + i, "xsd:string"))
+				{	if (soap->error != SOAP_NO_TAG)
+						return NULL;
+					soap->error = SOAP_OK;
+					break;
+				}
+			}
+		}
+		else
+		{	if (soap_new_block(soap) == NULL)
+				return NULL;
+			for (a->__size = 0; ; a->__size++)
+			{	p = (char **)soap_push_block(soap, NULL, sizeof(char *));
+				if (!p)
+					return NULL;
+				*p = NULL;
+				if (!soap_in_xsd__string(soap, NULL, p, "xsd:string"))
+				{	if (soap->error != SOAP_NO_TAG)
+						return NULL;
+					soap->error = SOAP_OK;
+					break;
+				}
+			}
+			soap_pop_block(soap, NULL);
+			if ((soap->mode & SOAP_XML_STRICT) && a->__size < 1)
+			{	soap->error = SOAP_OCCURS;
+				return NULL;
+			}
+			a->__ptr = (char **)soap_malloc(soap, soap->blist->size);
+			soap_save_block(soap, NULL, (char*)a->__ptr, 1);
+		}
+		if (soap_element_end_in(soap, tag))
+			return NULL;
+	}
+	else
+	{	a = (struct zkcfg__keys *)soap_id_forward(soap, soap->href, (void*)a, 0, SOAP_TYPE_zkcfg__keys, 0, sizeof(struct zkcfg__keys), 0, NULL);
+		if (soap->body && soap_element_end_in(soap, tag))
+			return NULL;
+	}
+	return a;
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_zkcfg__keys(struct soap *soap, const struct zkcfg__keys *a, const char *tag, const char *type)
+{
+	register int id = soap_embed(soap, (void*)a, (struct soap_array*)&a->__ptr, 1, tag, SOAP_TYPE_zkcfg__keys);
+	if (soap_out_zkcfg__keys(soap, tag?tag:"zkcfg:keys", id, a, type))
+		return soap->error;
+	return soap_putindependent(soap);
+}
+
+SOAP_FMAC3 struct zkcfg__keys * SOAP_FMAC4 soap_get_zkcfg__keys(struct soap *soap, struct zkcfg__keys *p, const char *tag, const char *type)
+{
+	if ((p = soap_in_zkcfg__keys(soap, tag, p, type)))
+		if (soap_getindependent(soap))
+			return NULL;
+	return p;
+}
+
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_zkreg__Logics(struct soap *soap, struct zkreg__Logics *a)
 {	(void)soap;
 	(void)soap; /* appease -Wall -Werror */
@@ -5578,6 +6253,59 @@ SOAP_FMAC3 struct SOAP_ENV__Code ** SOAP_FMAC4 soap_get_PointerToSOAP_ENV__Code(
 }
 
 #endif
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTozkcfg__keys(struct soap *soap, struct zkcfg__keys *const*a)
+{
+#ifndef WITH_NOIDREF
+	if (*a)
+		soap_serialize_zkcfg__keys(soap, *a);
+#endif
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTozkcfg__keys(struct soap *soap, const char *tag, int id, struct zkcfg__keys *const*a, const char *type)
+{
+	id = soap_element_id(soap, tag, id, *a, (struct soap_array*)&(*a)->__ptr, 1, type, SOAP_TYPE_zkcfg__keys);
+	if (id < 0)
+		return soap->error;
+	return soap_out_zkcfg__keys(soap, tag, id, *a, type);
+}
+
+SOAP_FMAC3 struct zkcfg__keys ** SOAP_FMAC4 soap_in_PointerTozkcfg__keys(struct soap *soap, const char *tag, struct zkcfg__keys **a, const char *type)
+{
+	if (soap_element_begin_in(soap, tag, 1, NULL))
+		return NULL;
+	if (!a)
+		if (!(a = (struct zkcfg__keys **)soap_malloc(soap, sizeof(struct zkcfg__keys *))))
+			return NULL;
+	*a = NULL;
+	if (!soap->null && *soap->href != '#')
+	{	soap_revert(soap);
+		if (!(*a = soap_in_zkcfg__keys(soap, tag, *a, type)))
+			return NULL;
+	}
+	else
+	{	a = (struct zkcfg__keys **)soap_id_lookup(soap, soap->href, (void**)a, SOAP_TYPE_zkcfg__keys, sizeof(struct zkcfg__keys), 0);
+		if (soap->body && soap_element_end_in(soap, tag))
+			return NULL;
+	}
+	return a;
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_PointerTozkcfg__keys(struct soap *soap, struct zkcfg__keys *const*a, const char *tag, const char *type)
+{
+	register int id = soap_embed(soap, (void*)a, NULL, 0, tag, SOAP_TYPE_PointerTozkcfg__keys);
+	if (soap_out_PointerTozkcfg__keys(soap, tag?tag:"zkcfg:keys", id, a, type))
+		return soap->error;
+	return soap_putindependent(soap);
+}
+
+SOAP_FMAC3 struct zkcfg__keys ** SOAP_FMAC4 soap_get_PointerTozkcfg__keys(struct soap *soap, struct zkcfg__keys **p, const char *tag, const char *type)
+{
+	if ((p = soap_in_PointerTozkcfg__keys(soap, tag, p, type)))
+		if (soap_getindependent(soap))
+			return NULL;
+	return p;
+}
 
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTozkreg__Logics(struct soap *soap, struct zkreg__Logics *const*a)
 {

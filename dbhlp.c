@@ -14,7 +14,7 @@
 #include "dbhlp.h"
 #include "heartBeatCheck.h"
 
-/** 执行 select 语句
+/** 执行 select 语句. 
  */
 int db_exec_select(sqlite3 *db, const char *sql, int (*callback)(void *opaque, size_t row, sqlite3_stmt *stmt), void *opaque)
 {
@@ -64,7 +64,7 @@ static int cb_select_count(void *opaque, size_t row, sqlite3_stmt *stmt)
     return -1;
 }
 
-/** 判断是否存在
+/** 判断是否存在. 
  */
 static int db_table_exist(sqlite3 *db, const char *name)
 {
@@ -81,7 +81,7 @@ static int db_table_exist(sqlite3 *db, const char *name)
     return cnt.cnt;
 }
 
-/** 初始化数据库
+/** 初始化数据库. 
  */
 int db_init(sqlite3 *db)
 {
@@ -119,8 +119,16 @@ int db_init(sqlite3 *db)
             
         }
     }
+
+	if (!db_table_exist(db, "config")) {
+		char *sql = SQL_CREATE_CONFIG;
+		int rc = db_exec_sql(db, sql);
+		if (rc != SQLITE_OK) {
+
+		}
+	}
     
-    // 清空 token table 中所有超时的
+    // 清空 token table 中所有超时的. 
     fprintf(stdout, "INFO:    to remove timeouted tokens\n");
 	{
 		unsigned curr = (unsigned)time(0) - CHECK_INTERVAL;
@@ -131,4 +139,87 @@ int db_init(sqlite3 *db)
     fprintf(stdout, "\tOK\n");
     
     return 0;
+}
+
+struct tmpParam
+{
+	struct dbhlpColumn *desc;
+	int cn;
+
+	struct dbhlpColumn **cols;
+	int rows;
+};
+
+static int db_select_cb(void *opaque, size_t row, sqlite3_stmt *stmt)
+{
+	int i;
+	struct tmpParam *p = (struct tmpParam*)opaque;
+	p->rows = row+1;
+	p->cols = (struct dbhlpColumn**)realloc(p->cols, p->rows * sizeof(struct dbhlpColumn*));
+
+	// 保存一行. 
+	p->cols[row] = (struct dbhlpColumn*)malloc(p->cn * sizeof(struct dbhlpColumn));
+	for (i = 0; i < p->cn; i++) {
+		
+		p->cols[row]->type = p->desc[i].type;
+
+		switch (p->desc[i].type) {
+		case DBT_INT:
+			p->cols[row]->data.i = sqlite3_column_int(stmt, i);
+			break;
+
+		case DBT_DOUBLE:
+			p->cols[row]->data.d = sqlite3_column_double(stmt, i);
+			break;
+
+		case DBT_STRING:
+			p->cols[row]->data.s = strdup((char*)sqlite3_column_text(stmt, i)); // FIXME: 此处返回的是 utf-8
+			break;
+
+		default:
+			fprintf(stderr, "ERR: %s: NOT supported type '%d'\n", __func__, p->desc[i].type);
+			exit(-1);
+			break;
+		}
+	}
+
+	return 0;
+}
+
+int db_exec_select2(sqlite3 *db, const char *sql, struct dbhlpColumn col_desc[], int cn, struct dbhlpColumn ***cols, int *rows)
+{
+	struct tmpParam param = { col_desc, cn, 0, 0 };
+
+	int rc = db_exec_select(db, sql, db_select_cb, &param);
+	if (rc > 0) {
+		*cols = param.cols;
+		*rows = param.rows;
+	}
+	else {
+		*cols = 0, *rows = 0;
+		return -1;
+	}
+
+	return 0;
+}
+
+void db_free_select2(struct dbhlpColumn col_desc[], int cn, struct dbhlpColumn **all, int rows)
+{
+	int r, c;
+
+	if (all) {
+		for (r = 0; r < rows; r++) {
+			struct dbhlpColumn *row = all[r];
+			for (c = 0; c < cn; c++) {
+				switch (row[c].type) {
+				case DBT_STRING:
+					free(row[c].data.s); // 对应着 strdup()
+					break;
+				}
+			}
+			free(row); // 对应着 malloc()
+		}
+
+		free(all); // 对应着 realloc() ..
+	}
 }

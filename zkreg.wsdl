@@ -8,6 +8,7 @@
  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
  xmlns:zkreg="http://www.zonekey.com/sysmgrt/register"
  xmlns:zkq="http://www.zonekey.com/sysmgrt/query"
+ xmlns:zkcfg="http://www.zonekey.com/sysmgrt/config"
  xmlns:SOAP="http://schemas.xmlsoap.org/wsdl/soap/"
  xmlns:HTTP="http://schemas.xmlsoap.org/wsdl/http/"
  xmlns:MIME="http://schemas.xmlsoap.org/wsdl/mime/"
@@ -24,10 +25,12 @@
   xmlns:xsd="http://www.w3.org/2001/XMLSchema"
   xmlns:zkreg="http://www.zonekey.com/sysmgrt/register"
   xmlns:zkq="http://www.zonekey.com/sysmgrt/query"
+  xmlns:zkcfg="http://www.zonekey.com/sysmgrt/config"
   xmlns="http://www.w3.org/2001/XMLSchema"
   elementFormDefault="qualified"
   attributeFormDefault="qualified">
   <import namespace="http://www.zonekey.com/sysmgrt/query"/>
+  <import namespace="http://www.zonekey.com/sysmgrt/config"/>
   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
   <simpleType name="Catalog"><!-- zkreg__Catalog -->
 
@@ -135,6 +138,12 @@
 
    <sequence>
     <element name="item" type="zkreg:Logic" minOccurs="0" maxOccurs="unbounded" nillable="false"/>
+   </sequence>
+  </complexType>
+  <complexType name="keys"><!-- zkcfg__keys -->
+
+   <sequence>
+    <element name="item" type="xsd:string" minOccurs="0" maxOccurs="unbounded" nillable="true"/>
    </sequence>
   </complexType>
   <element name="regHostReq" type="zkreg:Host"/>
@@ -283,10 +292,12 @@
   xmlns:xsd="http://www.w3.org/2001/XMLSchema"
   xmlns:zkreg="http://www.zonekey.com/sysmgrt/register"
   xmlns:zkq="http://www.zonekey.com/sysmgrt/query"
+  xmlns:zkcfg="http://www.zonekey.com/sysmgrt/config"
   xmlns="http://www.w3.org/2001/XMLSchema"
   elementFormDefault="qualified"
   attributeFormDefault="qualified">
   <import namespace="http://www.zonekey.com/sysmgrt/register"/>
+  <import namespace="http://www.zonekey.com/sysmgrt/config"/>
   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
   <complexType name="Ips"><!-- zkreg__Ips -->
 
@@ -330,12 +341,85 @@
     <element name="item" type="zkreg:Logic" minOccurs="0" maxOccurs="unbounded" nillable="false"/>
    </sequence>
   </complexType>
+  <complexType name="keys"><!-- zkcfg__keys -->
+
+   <sequence>
+    <element name="item" type="xsd:string" minOccurs="0" maxOccurs="unbounded" nillable="true"/>
+   </sequence>
+  </complexType>
   <element name="getAllMsesoffline" type="xsd:boolean"/>
   <element name="getAllHostsoffline" type="xsd:boolean"/>
   <element name="getAllServiceoffline" type="xsd:boolean"/>
   <element name="getAllDevicesoffline" type="xsd:boolean"/>
   <element name="getAllLogicsoffline" type="xsd:boolean"/>
   <element name="getServiceByTypeoffline" type="xsd:boolean"/>
+ </schema>
+
+ <schema targetNamespace="http://www.zonekey.com/sysmgrt/config"
+  xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+  xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:zkreg="http://www.zonekey.com/sysmgrt/register"
+  xmlns:zkq="http://www.zonekey.com/sysmgrt/query"
+  xmlns:zkcfg="http://www.zonekey.com/sysmgrt/config"
+  xmlns="http://www.w3.org/2001/XMLSchema"
+  elementFormDefault="qualified"
+  attributeFormDefault="qualified">
+  <import namespace="http://www.zonekey.com/sysmgrt/register"/>
+  <import namespace="http://www.zonekey.com/sysmgrt/query"/>
+  <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+  <complexType name="Ips"><!-- zkreg__Ips -->
+
+   <sequence>
+    <element name="item" type="xsd:string" minOccurs="0" maxOccurs="unbounded" nillable="true"/>
+   </sequence>
+  </complexType>
+  <complexType name="Urls"><!-- zkreg__Urls -->
+
+   <sequence>
+    <element name="item" type="xsd:anyURI" minOccurs="0" maxOccurs="unbounded" nillable="true"/>
+   </sequence>
+  </complexType>
+  <complexType name="Mses"><!-- zkreg__Mses -->
+
+   <sequence>
+    <element name="item" type="zkreg:Mse" minOccurs="0" maxOccurs="unbounded" nillable="false"/>
+   </sequence>
+  </complexType>
+  <complexType name="Hosts"><!-- zkreg__Hosts -->
+
+   <sequence>
+    <element name="item" type="zkreg:Host" minOccurs="0" maxOccurs="unbounded" nillable="false"/>
+   </sequence>
+  </complexType>
+  <complexType name="Services"><!-- zkreg__Services -->
+
+   <sequence>
+    <element name="item" type="zkreg:Service" minOccurs="0" maxOccurs="unbounded" nillable="false"/>
+   </sequence>
+  </complexType>
+  <complexType name="Devices"><!-- zkreg__Devices -->
+
+   <sequence>
+    <element name="item" type="zkreg:Device" minOccurs="0" maxOccurs="unbounded" nillable="false"/>
+   </sequence>
+  </complexType>
+  <complexType name="Logics"><!-- zkreg__Logics -->
+
+   <sequence>
+    <element name="item" type="zkreg:Logic" minOccurs="0" maxOccurs="unbounded" nillable="false"/>
+   </sequence>
+  </complexType>
+  <complexType name="keys"><!-- zkcfg__keys -->
+
+   <sequence>
+    <element name="item" type="xsd:string" minOccurs="0" maxOccurs="unbounded" nillable="true"/>
+   </sequence>
+  </complexType>
+  <element name="getValuekey" type="xsd:string"/>
+  <element name="setValuekey" type="xsd:string"/>
+  <element name="delKeyKey" type="xsd:string"/>
  </schema>
 
 </types>

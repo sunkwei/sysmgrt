@@ -6,10 +6,12 @@
   xmlns:xsd="http://www.w3.org/2001/XMLSchema"
   xmlns:zkreg="http://www.zonekey.com/sysmgrt/register"
   xmlns:zkq="http://www.zonekey.com/sysmgrt/query"
+  xmlns:zkcfg="http://www.zonekey.com/sysmgrt/config"
   xmlns="http://www.w3.org/2001/XMLSchema"
   elementFormDefault="qualified"
   attributeFormDefault="qualified">
   <import namespace="http://www.zonekey.com/sysmgrt/query"/>
+  <import namespace="http://www.zonekey.com/sysmgrt/config"/>
   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
   <simpleType name="Catalog"><!-- zkreg__Catalog -->
 
@@ -117,6 +119,12 @@
 
    <sequence>
     <element name="item" type="zkreg:Logic" minOccurs="0" maxOccurs="unbounded" nillable="false"/>
+   </sequence>
+  </complexType>
+  <complexType name="keys"><!-- zkcfg__keys -->
+
+   <sequence>
+    <element name="item" type="xsd:string" minOccurs="0" maxOccurs="unbounded" nillable="true"/>
    </sequence>
   </complexType>
   <element name="regHostReq" type="zkreg:Host"/>

@@ -52,6 +52,12 @@ extern sqlite3 *_db;    // 方便全局使用
  */
 #define SQL_CREATE_TOKEN_MAP "CREATE TABLE token(token char(40) primary key, name char(64), last_stamp int)"
 
+/** config: 保存配置信息
+		key: 唯一标识
+		value: 值
+ */
+#define SQL_CREATE_CONFIG "CREATE TABLE config(key char(64) primary key, value text)"
+
 /** 初始化 db，自动创建所需的表 */
 int db_init(sqlite3 *db);
 
@@ -63,5 +69,29 @@ int db_exec_select(sqlite3 *db, const char *sql, int (*callback)(void *opaque, s
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+typedef enum dbhlpColumnType
+{
+	DBT_INT,
+	DBT_STRING,
+	DBT_DOUBLE,
+} dbhlpColumnType ;
+
+/** 描述一个记录的字段
+ */
+struct dbhlpColumn
+{
+	union {
+		int i;
+		char *s;		// 使用完成，需要释放. 
+		double d;
+	} data;
+
+	enum dbhlpColumnType type;
+};
+
+/// 根据 col_desc，执行 sql select，将数据保存到 cols 中，行数保存在 rows 中
+int db_exec_select2(sqlite3 *db, const char *sql, struct dbhlpColumn col_desc[], int cn, struct dbhlpColumn ***cols, int *rows);
+void db_free_select2(struct dbhlpColumn col_desc[], int cn, struct dbhlpColumn **cols, int rows);
 
 #endif

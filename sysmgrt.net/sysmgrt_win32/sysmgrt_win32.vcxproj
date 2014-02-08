@@ -85,6 +85,7 @@
     <ClCompile Include="..\..\soapServer.c" />
     <ClCompile Include="..\..\sqlite3\sqlite3.c" />
     <ClCompile Include="..\..\stdsoap2.c" />
+    <ClCompile Include="..\..\zkcfgimpl.c" />
     <ClCompile Include="..\..\zkqimpl.c" />
     <ClCompile Include="..\..\zkregimpl.c" />
     <ClCompile Include="..\..\zonekey_sysmgrt\main.c" />
@@ -95,9 +96,6 @@
     <ClInclude Include="..\..\heartBeatCheck.h" />
     <ClInclude Include="..\..\soapH.h" />
     <ClInclude Include="..\..\soapStub.h" />
-    <ClInclude Include="..\..\sqlite3\sqlite3.h" />
-    <ClInclude Include="..\..\sqlite3\sqlite3ext.h" />
-    <ClInclude Include="..\..\stdsoap2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -17,7 +17,7 @@ compiling, linking, and/or using OpenSSL is allowed.
 extern "C" {
 #endif
 
-SOAP_SOURCE_STAMP("@(#) soapClient.c ver 2.8.17r 2014-02-06 23:52:54 GMT")
+SOAP_SOURCE_STAMP("@(#) soapClient.c ver 2.8.17r 2014-02-08 05:46:34 GMT")
 
 
 SOAP_FMAC5 int SOAP_FMAC6 soap_call_zkreg__regHost(struct soap *soap, const char *soap_endpoint, const char *soap_action, struct zkreg__Host *zkreg__regHostReq, char **token)
@@ -747,6 +747,211 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_call_zkq__getServicesByType(struct soap *soap, co
 		return soap_closesock(soap);
 	if (services && soap_tmp_zkq__getServicesByTypeResponse->services)
 		*services = *soap_tmp_zkq__getServicesByTypeResponse->services;
+	return soap_closesock(soap);
+}
+
+SOAP_FMAC5 int SOAP_FMAC6 soap_call_zkcfg__getAllKeys(struct soap *soap, const char *soap_endpoint, const char *soap_action, void *notuse, struct zkcfg__keys *keys)
+{	struct zkcfg__getAllKeys soap_tmp_zkcfg__getAllKeys;
+	struct zkcfg__getAllKeysResponse *soap_tmp_zkcfg__getAllKeysResponse;
+	soap_begin(soap);
+	soap->encodingStyle = NULL;
+	soap_tmp_zkcfg__getAllKeys.notuse = notuse;
+	soap_serializeheader(soap);
+	soap_serialize_zkcfg__getAllKeys(soap, &soap_tmp_zkcfg__getAllKeys);
+	if (soap_begin_count(soap))
+		return soap->error;
+	if (soap->mode & SOAP_IO_LENGTH)
+	{	if (soap_envelope_begin_out(soap)
+		 || soap_putheader(soap)
+		 || soap_body_begin_out(soap)
+		 || soap_put_zkcfg__getAllKeys(soap, &soap_tmp_zkcfg__getAllKeys, "zkcfg:getAllKeys", NULL)
+		 || soap_body_end_out(soap)
+		 || soap_envelope_end_out(soap))
+			 return soap->error;
+	}
+	if (soap_end_count(soap))
+		return soap->error;
+	if (soap_connect(soap, soap_url(soap, soap_endpoint, NULL), soap_action)
+	 || soap_envelope_begin_out(soap)
+	 || soap_putheader(soap)
+	 || soap_body_begin_out(soap)
+	 || soap_put_zkcfg__getAllKeys(soap, &soap_tmp_zkcfg__getAllKeys, "zkcfg:getAllKeys", NULL)
+	 || soap_body_end_out(soap)
+	 || soap_envelope_end_out(soap)
+	 || soap_end_send(soap))
+		return soap_closesock(soap);
+	if (!keys)
+		return soap_closesock(soap);
+	soap_default_zkcfg__keys(soap, keys);
+	if (soap_begin_recv(soap)
+	 || soap_envelope_begin_in(soap)
+	 || soap_recv_header(soap)
+	 || soap_body_begin_in(soap))
+		return soap_closesock(soap);
+	soap_tmp_zkcfg__getAllKeysResponse = soap_get_zkcfg__getAllKeysResponse(soap, NULL, "zkcfg:getAllKeysResponse", "");
+	if (!soap_tmp_zkcfg__getAllKeysResponse || soap->error)
+		return soap_recv_fault(soap, 0);
+	if (soap_body_end_in(soap)
+	 || soap_envelope_end_in(soap)
+	 || soap_end_recv(soap))
+		return soap_closesock(soap);
+	if (keys && soap_tmp_zkcfg__getAllKeysResponse->keys)
+		*keys = *soap_tmp_zkcfg__getAllKeysResponse->keys;
+	return soap_closesock(soap);
+}
+
+SOAP_FMAC5 int SOAP_FMAC6 soap_call_zkcfg__getValue(struct soap *soap, const char *soap_endpoint, const char *soap_action, char *zkcfg__getValuekey, char **value)
+{	struct zkcfg__getValue soap_tmp_zkcfg__getValue;
+	struct zkcfg__getValueResponse *soap_tmp_zkcfg__getValueResponse;
+	soap_begin(soap);
+	soap->encodingStyle = NULL;
+	soap_tmp_zkcfg__getValue.zkcfg__getValuekey = zkcfg__getValuekey;
+	soap_serializeheader(soap);
+	soap_serialize_zkcfg__getValue(soap, &soap_tmp_zkcfg__getValue);
+	if (soap_begin_count(soap))
+		return soap->error;
+	if (soap->mode & SOAP_IO_LENGTH)
+	{	if (soap_envelope_begin_out(soap)
+		 || soap_putheader(soap)
+		 || soap_body_begin_out(soap)
+		 || soap_put_zkcfg__getValue(soap, &soap_tmp_zkcfg__getValue, "zkcfg:getValue", NULL)
+		 || soap_body_end_out(soap)
+		 || soap_envelope_end_out(soap))
+			 return soap->error;
+	}
+	if (soap_end_count(soap))
+		return soap->error;
+	if (soap_connect(soap, soap_url(soap, soap_endpoint, NULL), soap_action)
+	 || soap_envelope_begin_out(soap)
+	 || soap_putheader(soap)
+	 || soap_body_begin_out(soap)
+	 || soap_put_zkcfg__getValue(soap, &soap_tmp_zkcfg__getValue, "zkcfg:getValue", NULL)
+	 || soap_body_end_out(soap)
+	 || soap_envelope_end_out(soap)
+	 || soap_end_send(soap))
+		return soap_closesock(soap);
+	if (!value)
+		return soap_closesock(soap);
+	*value = NULL;
+	if (soap_begin_recv(soap)
+	 || soap_envelope_begin_in(soap)
+	 || soap_recv_header(soap)
+	 || soap_body_begin_in(soap))
+		return soap_closesock(soap);
+	soap_tmp_zkcfg__getValueResponse = soap_get_zkcfg__getValueResponse(soap, NULL, "zkcfg:getValueResponse", "");
+	if (!soap_tmp_zkcfg__getValueResponse || soap->error)
+		return soap_recv_fault(soap, 0);
+	if (soap_body_end_in(soap)
+	 || soap_envelope_end_in(soap)
+	 || soap_end_recv(soap))
+		return soap_closesock(soap);
+	if (value && soap_tmp_zkcfg__getValueResponse->value)
+		*value = *soap_tmp_zkcfg__getValueResponse->value;
+	return soap_closesock(soap);
+}
+
+SOAP_FMAC5 int SOAP_FMAC6 soap_send_zkcfg__setValue(struct soap *soap, const char *soap_endpoint, const char *soap_action, char *zkcfg__setValuekey, char *value)
+{	struct zkcfg__setValue soap_tmp_zkcfg__setValue;
+	soap_begin(soap);
+	soap->encodingStyle = NULL;
+	soap_tmp_zkcfg__setValue.zkcfg__setValuekey = zkcfg__setValuekey;
+	soap_tmp_zkcfg__setValue.value = value;
+	soap_serializeheader(soap);
+	soap_serialize_zkcfg__setValue(soap, &soap_tmp_zkcfg__setValue);
+	if (soap_begin_count(soap))
+		return soap->error;
+	if (soap->mode & SOAP_IO_LENGTH)
+	{	if (soap_envelope_begin_out(soap)
+		 || soap_putheader(soap)
+		 || soap_body_begin_out(soap)
+		 || soap_put_zkcfg__setValue(soap, &soap_tmp_zkcfg__setValue, "zkcfg:setValue", NULL)
+		 || soap_body_end_out(soap)
+		 || soap_envelope_end_out(soap))
+			 return soap->error;
+	}
+	if (soap_end_count(soap))
+		return soap->error;
+	if (soap_connect(soap, soap_url(soap, soap_endpoint, NULL), soap_action)
+	 || soap_envelope_begin_out(soap)
+	 || soap_putheader(soap)
+	 || soap_body_begin_out(soap)
+	 || soap_put_zkcfg__setValue(soap, &soap_tmp_zkcfg__setValue, "zkcfg:setValue", NULL)
+	 || soap_body_end_out(soap)
+	 || soap_envelope_end_out(soap)
+	 || soap_end_send(soap))
+		return soap_closesock(soap);
+	return SOAP_OK;
+}
+
+SOAP_FMAC5 int SOAP_FMAC6 soap_recv_zkcfg__setValue(struct soap *soap, struct zkcfg__setValue *notused)
+{
+	soap_default_zkcfg__setValue(soap, notused);
+	soap_begin(soap);
+	if (soap_begin_recv(soap)
+	 || soap_envelope_begin_in(soap)
+	 || soap_recv_header(soap)
+	 || soap_body_begin_in(soap))
+		return soap_closesock(soap);
+	soap_get_zkcfg__setValue(soap, notused, "zkcfg:setValue", NULL);
+	if (soap->error == SOAP_TAG_MISMATCH && soap->level == 2)
+		soap->error = SOAP_OK;
+	if (soap->error
+	 || soap_body_end_in(soap)
+	 || soap_envelope_end_in(soap)
+	 || soap_end_recv(soap))
+		return soap_closesock(soap);
+	return soap_closesock(soap);
+}
+
+SOAP_FMAC5 int SOAP_FMAC6 soap_send_zkcfg__delKey(struct soap *soap, const char *soap_endpoint, const char *soap_action, char *zkcfg__delKeyKey)
+{	struct zkcfg__delKey soap_tmp_zkcfg__delKey;
+	soap_begin(soap);
+	soap->encodingStyle = NULL;
+	soap_tmp_zkcfg__delKey.zkcfg__delKeyKey = zkcfg__delKeyKey;
+	soap_serializeheader(soap);
+	soap_serialize_zkcfg__delKey(soap, &soap_tmp_zkcfg__delKey);
+	if (soap_begin_count(soap))
+		return soap->error;
+	if (soap->mode & SOAP_IO_LENGTH)
+	{	if (soap_envelope_begin_out(soap)
+		 || soap_putheader(soap)
+		 || soap_body_begin_out(soap)
+		 || soap_put_zkcfg__delKey(soap, &soap_tmp_zkcfg__delKey, "zkcfg:delKey", NULL)
+		 || soap_body_end_out(soap)
+		 || soap_envelope_end_out(soap))
+			 return soap->error;
+	}
+	if (soap_end_count(soap))
+		return soap->error;
+	if (soap_connect(soap, soap_url(soap, soap_endpoint, NULL), soap_action)
+	 || soap_envelope_begin_out(soap)
+	 || soap_putheader(soap)
+	 || soap_body_begin_out(soap)
+	 || soap_put_zkcfg__delKey(soap, &soap_tmp_zkcfg__delKey, "zkcfg:delKey", NULL)
+	 || soap_body_end_out(soap)
+	 || soap_envelope_end_out(soap)
+	 || soap_end_send(soap))
+		return soap_closesock(soap);
+	return SOAP_OK;
+}
+
+SOAP_FMAC5 int SOAP_FMAC6 soap_recv_zkcfg__delKey(struct soap *soap, struct zkcfg__delKey *notused)
+{
+	soap_default_zkcfg__delKey(soap, notused);
+	soap_begin(soap);
+	if (soap_begin_recv(soap)
+	 || soap_envelope_begin_in(soap)
+	 || soap_recv_header(soap)
+	 || soap_body_begin_in(soap))
+		return soap_closesock(soap);
+	soap_get_zkcfg__delKey(soap, notused, "zkcfg:delKey", NULL);
+	if (soap->error == SOAP_TAG_MISMATCH && soap->level == 2)
+		soap->error = SOAP_OK;
+	if (soap->error
+	 || soap_body_end_in(soap)
+	 || soap_envelope_end_in(soap)
+	 || soap_end_recv(soap))
+		return soap_closesock(soap);
 	return soap_closesock(soap);
 }
 
