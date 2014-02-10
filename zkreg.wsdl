@@ -62,6 +62,7 @@
    <sequence>
      <element name="name" type="xsd:string" minOccurs="1" maxOccurs="1" nillable="true"/><!-- zkreg__Mse::name -->
      <element name="catalog" type="zkreg:Catalog" minOccurs="1" maxOccurs="1"/><!-- zkreg__Mse::catalog -->
+     <element name="parent" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/><!-- zkreg__Mse::parent -->
      <element name="showname" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/><!-- zkreg__Mse::showname -->
    </sequence>
   </complexType>
@@ -152,7 +153,9 @@
   <element name="unregServicestring" type="xsd:string"/>
   <element name="regDeviceReq" type="zkreg:Device"/>
   <element name="unregDevciestring" type="xsd:string"/>
-  <element name="heartBeatstring" type="xsd:string"/>
+  <element name="regLogicReq" type="zkreg:Logic"/>
+  <element name="delMseNameReq" type="xsd:string"/>
+  <element name="heartBeatTokenReq" type="xsd:string"/>
   <element name="setShowNameReq" type="xsd:string"/>
   <!-- operation request element -->
   <element name="regHost">
@@ -251,10 +254,42 @@
    </complexType>
   </element>
   <!-- operation request element -->
+  <element name="regLogic">
+   <complexType>
+    <sequence>
+     <element ref="zkreg:regLogicReq" minOccurs="0" maxOccurs="1"/><!-- zkreg__regLogic::zkreg__regLogicReq -->
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="regLogicResponse">
+   <complexType>
+    <sequence>
+     <element name="token" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/><!-- zkreg__regLogic::token -->
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation request element -->
+  <element name="delMse">
+   <complexType>
+    <sequence>
+     <element ref="zkreg:delMseNameReq" minOccurs="0" maxOccurs="1"/><!-- zkreg__delMse::zkreg__delMseNameReq -->
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="delMseResponse">
+   <complexType>
+    <sequence>
+     <element name="code" type="xsd:int" minOccurs="0" maxOccurs="1" nillable="true"/><!-- zkreg__delMse::code -->
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation request element -->
   <element name="heartBeat">
    <complexType>
     <sequence>
-     <element ref="zkreg:heartBeatstring" minOccurs="0" maxOccurs="1"/><!-- zkreg__heartBeat::zkreg__heartBeatstring -->
+     <element ref="zkreg:heartBeatTokenReq" minOccurs="0" maxOccurs="1"/><!-- zkreg__heartBeat::zkreg__heartBeatTokenReq -->
     </sequence>
    </complexType>
   </element>
@@ -348,11 +383,13 @@
    </sequence>
   </complexType>
   <element name="getAllMsesoffline" type="xsd:boolean"/>
+  <element name="getMsesByShownameOffline" type="xsd:boolean"/>
   <element name="getAllHostsoffline" type="xsd:boolean"/>
   <element name="getAllServiceoffline" type="xsd:boolean"/>
   <element name="getAllDevicesoffline" type="xsd:boolean"/>
   <element name="getAllLogicsoffline" type="xsd:boolean"/>
   <element name="getServiceByTypeoffline" type="xsd:boolean"/>
+  <element name="getParentName" type="xsd:string"/>
  </schema>
 
  <schema targetNamespace="http://www.zonekey.com/sysmgrt/config"
@@ -482,6 +519,22 @@
  <part name="Body" element="zkreg:unregDeviceResponse"/>
 </message>
 
+<message name="regLogicRequest">
+ <part name="Body" element="zkreg:regLogic"/><!-- zkreg__regLogic::zkreg__regLogic -->
+</message>
+
+<message name="regLogicResponse">
+ <part name="Body" element="zkreg:regLogicResponse"/>
+</message>
+
+<message name="delMseRequest">
+ <part name="Body" element="zkreg:delMse"/><!-- zkreg__delMse::zkreg__delMse -->
+</message>
+
+<message name="delMseResponse">
+ <part name="Body" element="zkreg:delMseResponse"/>
+</message>
+
 <message name="heartBeatRequest">
  <part name="Body" element="zkreg:heartBeat"/><!-- zkreg__heartBeat::zkreg__heartBeat -->
 </message>
@@ -528,6 +581,16 @@
   <documentation>Service definition of function zkreg__unregDevice</documentation>
   <input message="tns:unregDeviceRequest"/>
   <output message="tns:unregDeviceResponse"/>
+ </operation>
+ <operation name="regLogic">
+  <documentation>Service definition of function zkreg__regLogic</documentation>
+  <input message="tns:regLogicRequest"/>
+  <output message="tns:regLogicResponse"/>
+ </operation>
+ <operation name="delMse">
+  <documentation>Service definition of function zkreg__delMse</documentation>
+  <input message="tns:delMseRequest"/>
+  <output message="tns:delMseResponse"/>
  </operation>
  <operation name="heartBeat">
   <documentation>Service definition of function zkreg__heartBeat</documentation>
@@ -589,6 +652,24 @@
   </output>
  </operation>
  <operation name="unregDevice">
+  <SOAP:operation soapAction=""/>
+  <input>
+     <SOAP:body parts="Body" use="literal"/>
+  </input>
+  <output>
+     <SOAP:body parts="Body" use="literal"/>
+  </output>
+ </operation>
+ <operation name="regLogic">
+  <SOAP:operation soapAction=""/>
+  <input>
+     <SOAP:body parts="Body" use="literal"/>
+  </input>
+  <output>
+     <SOAP:body parts="Body" use="literal"/>
+  </output>
+ </operation>
+ <operation name="delMse">
   <SOAP:operation soapAction=""/>
   <input>
      <SOAP:body parts="Body" use="literal"/>

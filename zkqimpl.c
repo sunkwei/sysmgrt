@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <malloc.h>
 #include "soapStub.h"
 #include "dbhlp.h"
 #include "dboper.h"
@@ -16,77 +17,129 @@
 int zkq__getAllMses(struct soap *soap, enum xsd__boolean offline, struct zkreg__Mses *mses)
 {
     /** 返回 mse table 的内容 */
+	char *st = (char*)alloca(1024);
+	struct dbhlpColumn desc[] = {
+		{ { 0 }, DBT_STRING },	// name
+		{ { 0 }, DBT_STRING },	// parent
+		{ { 0 }, DBT_INT },		// catalog
+		{ { 0 }, DBT_STRING },	// showname
+	};
+	struct dbhlpColumn **all = 0, **all_logic = 0;
+	int rows = 0, row_logic = 0, i;
 
-    struct zkreg__Mse **m;
-    int n, i;
-    
-    if (db_getAllMses(_db, offline, &m, &n) < 0) {
-        mses->__size = 0;
-        mses->__ptr = 0;
-        
-        return SOAP_OK;
-    }
-    
-    // 从 p._p 中复制到 mses 中.
-    mses->__size = n;
-    mses->__ptr = (struct zkreg__Mse*)soap_malloc(soap, sizeof(struct zkreg__Mse) * n);
-    for (i = 0; i < n; i++) {
-        mses->__ptr[i].name = soap_strdup(soap, m[i]->name);
-        mses->__ptr[i].catalog = m[i]->catalog;
-        mses->__ptr[i].showname = soap_strdup(soap, m[i]->showname);
-    }
-    
-    // 释放 p._p 的内存.
-    for (i = 0; i < n; i++) {
-        free(m[i]->name);
-        free(m[i]->showname);
-        free(m[i]);
-    }
-    free(m);
-    
-    return SOAP_OK;
+	if (offline) {
+		snprintf(st, 1024, "SELECT name,parent,catalog,showname FROM mse");
+	}
+	else {
+		// 这次仅仅返回 mse
+		snprintf(st, 1024, "SELECT mse.name,mse.parent,mse.catalog,mse.showname FROM mse JOIN token ON mse.name=token.name WHERE catalog!=%d", 
+			zkreg__Catalog__Logic);
+	}
+
+	db_exec_select2(_db, st, desc, 3, &all, &rows);
+
+	if (!offline) {
+		// 需要合并 logic
+		snprintf(st, 1024, "SELECT name,parent,catalog,showname FROM mse WHERE catalog=%d", zkreg__Catalog__Logic);
+		db_exec_select2(_db, st, desc, 3, &all_logic, &row_logic);
+	}
+
+	mses->__size = rows + row_logic;
+	mses->__ptr = (struct zkreg__Mse*)soap_malloc(soap, mses->__size * sizeof(struct zkreg__Mse));
+
+	for (i = 0; i < rows; i++) {
+		mses->__ptr[i].name = soap_strdup(soap, all[i][0].data.s);
+		mses->__ptr[i].parent = soap_strdup(soap, all[i][1].data.s);
+		mses->__ptr[i].catalog = (enum zkreg__Catalog)all[i][2].data.i;
+		mses->__ptr[i].showname = soap_strdup(soap, all[i][3].data.s);
+	}
+
+	for (i = 0; i < row_logic; i++) {
+		mses->__ptr[i+rows].name = soap_strdup(soap, all_logic[i][0].data.s);
+		mses->__ptr[i+rows].parent = soap_strdup(soap, all_logic[i][1].data.s);
+		mses->__ptr[i+rows].catalog = (enum zkreg__Catalog)all_logic[i][2].data.i;
+		mses->__ptr[i+rows].showname = soap_strdup(soap, all_logic[i][3].data.s);
+	}
+
+	db_free_select2(desc, 3, all, rows);
+	db_free_select2(desc, 3, all_logic, row_logic);
+
+	return SOAP_OK;
+}
+
+int zkq__getMsesByShowname(struct soap *soap, enum xsd__boolean offline, char *showname, struct zkreg__Mses *mses)
+{
+	char *sql = (char*)alloca(1024);
+
+
+	return SOAP_OK;
 }
 
 int zkq__getAllHosts(struct soap *soap, enum xsd__boolean offline, struct zkreg__Hosts *hosts)
 {
-    struct zkreg__Host **hs = 0;
-    int n = 0, i, j;
-    int rc = db_getAllHosts(_db, offline, &hs, &n);
-    if (rc < 0) {
-        //
+	char *st = (char*)alloca(1024);
+
+	struct dbhlpColumn desc[3] = {
+		{ { 0 }, DBT_STRING },	// host.name
+		{ { 0 }, DBT_STRING },	// host.ips
+		{ { 0 }, DBT_STRING },	// mse.showname
+	};
+
+	struct dbhlpColumn **all = 0;
+	int rows = 0, i, j;
+
+    /** 根据 offline，从 host, mse, token 中返回查询记录，从将每行信息分配保存到 zkreg__Host 结构中.
+     */
+    if (offline) {
+        snprintf(st, 1024, "SELECT host.name,host.ips,mse.showname FROM host"
+                 " JOIN mse ON mse.name=host.name");
     }
-    
-    // 从 _p 复制到 hosts 中.
-    hosts->__size = n;
-    hosts->__ptr = (struct zkreg__Host*)soap_malloc(soap, sizeof(struct zkreg__Host) * n);
-    for (i = 0; i < n; i++) {
-        struct zkreg__Host *host = &hosts->__ptr[i];
-        host->name = soap_strdup(soap, hs[i]->name);
-        host->catalog = hs[i]->catalog;
-        host->showname = soap_strdup(soap, hs[i]->showname);
-        host->ips = (struct zkreg__Ips*)soap_malloc(soap, sizeof(struct zkreg__Ips));
-        host->ips->__size = hs[i]->ips->__size;
-        host->ips->__ptr = (char**)soap_malloc(soap, sizeof(char*) * host->ips->__size);
-        for (j = 0; j < host->ips->__size; j++) {
-            host->ips->__ptr[j] = soap_strdup(soap, hs[i]->ips->__ptr[j]);
-        }
+    else {
+        snprintf(st, 1024, "SELECT host.name,host.ips,mse.showname FROM host"
+                 " JOIN mse ON mse.name=host.name"
+                 " JOIN token ON token.name=host.name");
     }
-    
-    // 释放 _p
-    for (i = 0; i < n; i++) {
-        free(hs[i]->name);
-        free(hs[i]->showname);
-        
-        for (j = 0; j < hs[i]->ips->__size; j++) {
-            free(hs[i]->ips->__ptr[j]);
-        }
-        free(hs[i]->ips->__ptr);
-        free(hs[i]->ips);
-        free(hs[i]);
-    }
-    free(hs);
-    
-    return SOAP_OK;
+
+	db_exec_select2(_db, st, desc, 3, &all, &rows);
+
+	hosts->__size = rows;
+	hosts->__ptr = (struct zkreg__Host*)soap_malloc(soap, sizeof(struct zkreg__Host) * rows);
+
+	for (i = 0; i < rows; i++) {
+		hosts->__ptr[i].name = soap_strdup(soap, all[i][0].data.s);
+		hosts->__ptr[i].catalog = zkreg__Catalog__Host;
+		hosts->__ptr[i].showname = soap_strdup(soap, all[i][2].data.s);
+		
+		// 使用 , 分割 ips
+		{
+			char **ptmp = 0;
+			int ntmp = 0;
+
+			// gsoap 没有提供 soap_realloc() ???
+			char *ip = strtok(all[i][1].data.s, ",");
+			while (ip) {
+				ntmp++;
+				ptmp = (char**)realloc(ptmp, ntmp * sizeof(char*));
+				ptmp[ntmp-1] = strdup(ip);
+
+				ip = strtok(0, ",");
+			}
+
+			hosts->__ptr[i].ips = (struct zkreg__Ips*)soap_malloc(soap, sizeof(struct zkreg__Ips));
+			hosts->__ptr[i].ips->__size = ntmp;
+			hosts->__ptr[i].ips->__ptr = (char**)soap_malloc(soap, ntmp*sizeof(char*));
+
+			for (j = 0; j < ntmp; j++) {
+				hosts->__ptr[i].ips->__ptr[j] = soap_strdup(soap, ptmp[j]);
+				free(ptmp[j]);	// strdup(ip)
+			}
+			free(ptmp);	// realloc
+		}
+	}
+
+	db_free_select2(desc, 3, all, rows);
+
+	return SOAP_OK;
 }
 
 static int copy_ss_and_release(struct soap *soap, struct zkreg__Service**ss, int n, struct zkreg__Services *services)
@@ -176,4 +229,10 @@ int zkq__getServicesByType(struct soap *soap, enum xsd__boolean offline, char *t
     copy_ss_and_release(soap, ss, n, services);
     
     return SOAP_OK;
+}
+
+int zkq__getParent(struct soap *soap, char *name, struct zkreg__Logic **logic)
+{
+	*logic = 0;
+	return SOAP_OK;
 }

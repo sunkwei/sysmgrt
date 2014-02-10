@@ -124,3 +124,16 @@ int zkreg__setShowName(struct soap *soap, char *name, char *showname, int *code)
     
     return SOAP_OK;
 }
+
+int zkreg__regLogic(struct soap *soap, struct zkreg__Logic *logic, char **token)
+{
+	*token = soap_strdup(soap, "000000");
+
+	return SOAP_OK;
+}
+
+int zkreg__delMse(struct soap *soap, char *name, int *code)
+{
+	// 删除记录
+	return SOAP_OK;
+}

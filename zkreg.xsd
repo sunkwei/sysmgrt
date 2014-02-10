@@ -43,6 +43,7 @@
    <sequence>
      <element name="name" type="xsd:string" minOccurs="1" maxOccurs="1" nillable="true"/><!-- zkreg__Mse::name -->
      <element name="catalog" type="zkreg:Catalog" minOccurs="1" maxOccurs="1"/><!-- zkreg__Mse::catalog -->
+     <element name="parent" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/><!-- zkreg__Mse::parent -->
      <element name="showname" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/><!-- zkreg__Mse::showname -->
    </sequence>
   </complexType>
@@ -133,7 +134,9 @@
   <element name="unregServicestring" type="xsd:string"/>
   <element name="regDeviceReq" type="zkreg:Device"/>
   <element name="unregDevciestring" type="xsd:string"/>
-  <element name="heartBeatstring" type="xsd:string"/>
+  <element name="regLogicReq" type="zkreg:Logic"/>
+  <element name="delMseNameReq" type="xsd:string"/>
+  <element name="heartBeatTokenReq" type="xsd:string"/>
   <element name="setShowNameReq" type="xsd:string"/>
   <!-- operation request element -->
   <element name="regHost">
@@ -232,10 +235,42 @@
    </complexType>
   </element>
   <!-- operation request element -->
+  <element name="regLogic">
+   <complexType>
+    <sequence>
+     <element ref="zkreg:regLogicReq" minOccurs="0" maxOccurs="1"/><!-- zkreg__regLogic::zkreg__regLogicReq -->
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="regLogicResponse">
+   <complexType>
+    <sequence>
+     <element name="token" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/><!-- zkreg__regLogic::token -->
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation request element -->
+  <element name="delMse">
+   <complexType>
+    <sequence>
+     <element ref="zkreg:delMseNameReq" minOccurs="0" maxOccurs="1"/><!-- zkreg__delMse::zkreg__delMseNameReq -->
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="delMseResponse">
+   <complexType>
+    <sequence>
+     <element name="code" type="xsd:int" minOccurs="0" maxOccurs="1" nillable="true"/><!-- zkreg__delMse::code -->
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation request element -->
   <element name="heartBeat">
    <complexType>
     <sequence>
-     <element ref="zkreg:heartBeatstring" minOccurs="0" maxOccurs="1"/><!-- zkreg__heartBeat::zkreg__heartBeatstring -->
+     <element ref="zkreg:heartBeatTokenReq" minOccurs="0" maxOccurs="1"/><!-- zkreg__heartBeat::zkreg__heartBeatTokenReq -->
     </sequence>
    </complexType>
   </element>

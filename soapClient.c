@@ -17,7 +17,7 @@ compiling, linking, and/or using OpenSSL is allowed.
 extern "C" {
 #endif
 
-SOAP_SOURCE_STAMP("@(#) soapClient.c ver 2.8.17r 2014-02-08 09:03:03 GMT")
+SOAP_SOURCE_STAMP("@(#) soapClient.c ver 2.8.17r 2014-02-10 03:16:34 GMT")
 
 
 SOAP_FMAC5 int SOAP_FMAC6 soap_call_zkreg__regHost(struct soap *soap, const char *soap_endpoint, const char *soap_action, struct zkreg__Host *zkreg__regHostReq, char **token)
@@ -320,12 +320,112 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_call_zkreg__unregDevice(struct soap *soap, const 
 	return soap_closesock(soap);
 }
 
-SOAP_FMAC5 int SOAP_FMAC6 soap_call_zkreg__heartBeat(struct soap *soap, const char *soap_endpoint, const char *soap_action, char *zkreg__heartBeatstring, int *code)
+SOAP_FMAC5 int SOAP_FMAC6 soap_call_zkreg__regLogic(struct soap *soap, const char *soap_endpoint, const char *soap_action, struct zkreg__Logic *zkreg__regLogicReq, char **token)
+{	struct zkreg__regLogic soap_tmp_zkreg__regLogic;
+	struct zkreg__regLogicResponse *soap_tmp_zkreg__regLogicResponse;
+	soap_begin(soap);
+	soap->encodingStyle = NULL;
+	soap_tmp_zkreg__regLogic.zkreg__regLogicReq = zkreg__regLogicReq;
+	soap_serializeheader(soap);
+	soap_serialize_zkreg__regLogic(soap, &soap_tmp_zkreg__regLogic);
+	if (soap_begin_count(soap))
+		return soap->error;
+	if (soap->mode & SOAP_IO_LENGTH)
+	{	if (soap_envelope_begin_out(soap)
+		 || soap_putheader(soap)
+		 || soap_body_begin_out(soap)
+		 || soap_put_zkreg__regLogic(soap, &soap_tmp_zkreg__regLogic, "zkreg:regLogic", NULL)
+		 || soap_body_end_out(soap)
+		 || soap_envelope_end_out(soap))
+			 return soap->error;
+	}
+	if (soap_end_count(soap))
+		return soap->error;
+	if (soap_connect(soap, soap_url(soap, soap_endpoint, NULL), soap_action)
+	 || soap_envelope_begin_out(soap)
+	 || soap_putheader(soap)
+	 || soap_body_begin_out(soap)
+	 || soap_put_zkreg__regLogic(soap, &soap_tmp_zkreg__regLogic, "zkreg:regLogic", NULL)
+	 || soap_body_end_out(soap)
+	 || soap_envelope_end_out(soap)
+	 || soap_end_send(soap))
+		return soap_closesock(soap);
+	if (!token)
+		return soap_closesock(soap);
+	*token = NULL;
+	if (soap_begin_recv(soap)
+	 || soap_envelope_begin_in(soap)
+	 || soap_recv_header(soap)
+	 || soap_body_begin_in(soap))
+		return soap_closesock(soap);
+	soap_tmp_zkreg__regLogicResponse = soap_get_zkreg__regLogicResponse(soap, NULL, "zkreg:regLogicResponse", "");
+	if (!soap_tmp_zkreg__regLogicResponse || soap->error)
+		return soap_recv_fault(soap, 0);
+	if (soap_body_end_in(soap)
+	 || soap_envelope_end_in(soap)
+	 || soap_end_recv(soap))
+		return soap_closesock(soap);
+	if (token && soap_tmp_zkreg__regLogicResponse->token)
+		*token = *soap_tmp_zkreg__regLogicResponse->token;
+	return soap_closesock(soap);
+}
+
+SOAP_FMAC5 int SOAP_FMAC6 soap_call_zkreg__delMse(struct soap *soap, const char *soap_endpoint, const char *soap_action, char *zkreg__delMseNameReq, int *code)
+{	struct zkreg__delMse soap_tmp_zkreg__delMse;
+	struct zkreg__delMseResponse *soap_tmp_zkreg__delMseResponse;
+	soap_begin(soap);
+	soap->encodingStyle = NULL;
+	soap_tmp_zkreg__delMse.zkreg__delMseNameReq = zkreg__delMseNameReq;
+	soap_serializeheader(soap);
+	soap_serialize_zkreg__delMse(soap, &soap_tmp_zkreg__delMse);
+	if (soap_begin_count(soap))
+		return soap->error;
+	if (soap->mode & SOAP_IO_LENGTH)
+	{	if (soap_envelope_begin_out(soap)
+		 || soap_putheader(soap)
+		 || soap_body_begin_out(soap)
+		 || soap_put_zkreg__delMse(soap, &soap_tmp_zkreg__delMse, "zkreg:delMse", NULL)
+		 || soap_body_end_out(soap)
+		 || soap_envelope_end_out(soap))
+			 return soap->error;
+	}
+	if (soap_end_count(soap))
+		return soap->error;
+	if (soap_connect(soap, soap_url(soap, soap_endpoint, NULL), soap_action)
+	 || soap_envelope_begin_out(soap)
+	 || soap_putheader(soap)
+	 || soap_body_begin_out(soap)
+	 || soap_put_zkreg__delMse(soap, &soap_tmp_zkreg__delMse, "zkreg:delMse", NULL)
+	 || soap_body_end_out(soap)
+	 || soap_envelope_end_out(soap)
+	 || soap_end_send(soap))
+		return soap_closesock(soap);
+	if (!code)
+		return soap_closesock(soap);
+	soap_default_int(soap, code);
+	if (soap_begin_recv(soap)
+	 || soap_envelope_begin_in(soap)
+	 || soap_recv_header(soap)
+	 || soap_body_begin_in(soap))
+		return soap_closesock(soap);
+	soap_tmp_zkreg__delMseResponse = soap_get_zkreg__delMseResponse(soap, NULL, "zkreg:delMseResponse", "");
+	if (!soap_tmp_zkreg__delMseResponse || soap->error)
+		return soap_recv_fault(soap, 0);
+	if (soap_body_end_in(soap)
+	 || soap_envelope_end_in(soap)
+	 || soap_end_recv(soap))
+		return soap_closesock(soap);
+	if (code && soap_tmp_zkreg__delMseResponse->code)
+		*code = *soap_tmp_zkreg__delMseResponse->code;
+	return soap_closesock(soap);
+}
+
+SOAP_FMAC5 int SOAP_FMAC6 soap_call_zkreg__heartBeat(struct soap *soap, const char *soap_endpoint, const char *soap_action, char *zkreg__heartBeatTokenReq, int *code)
 {	struct zkreg__heartBeat soap_tmp_zkreg__heartBeat;
 	struct zkreg__heartBeatResponse *soap_tmp_zkreg__heartBeatResponse;
 	soap_begin(soap);
 	soap->encodingStyle = NULL;
-	soap_tmp_zkreg__heartBeat.zkreg__heartBeatstring = zkreg__heartBeatstring;
+	soap_tmp_zkreg__heartBeat.zkreg__heartBeatTokenReq = zkreg__heartBeatTokenReq;
 	soap_serializeheader(soap);
 	soap_serialize_zkreg__heartBeat(soap, &soap_tmp_zkreg__heartBeat);
 	if (soap_begin_count(soap))
@@ -468,6 +568,57 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_call_zkq__getAllMses(struct soap *soap, const cha
 		return soap_closesock(soap);
 	if (mses && soap_tmp_zkq__getAllMsesResponse->mses)
 		*mses = *soap_tmp_zkq__getAllMsesResponse->mses;
+	return soap_closesock(soap);
+}
+
+SOAP_FMAC5 int SOAP_FMAC6 soap_call_zkq__getMsesByShowname(struct soap *soap, const char *soap_endpoint, const char *soap_action, enum xsd__boolean zkq__getMsesByShownameOffline, char *showname, struct zkreg__Mses *mses)
+{	struct zkq__getMsesByShowname soap_tmp_zkq__getMsesByShowname;
+	struct zkq__getMsesByShownameResponse *soap_tmp_zkq__getMsesByShownameResponse;
+	soap_begin(soap);
+	soap->encodingStyle = NULL;
+	soap_tmp_zkq__getMsesByShowname.zkq__getMsesByShownameOffline = zkq__getMsesByShownameOffline;
+	soap_tmp_zkq__getMsesByShowname.showname = showname;
+	soap_serializeheader(soap);
+	soap_serialize_zkq__getMsesByShowname(soap, &soap_tmp_zkq__getMsesByShowname);
+	if (soap_begin_count(soap))
+		return soap->error;
+	if (soap->mode & SOAP_IO_LENGTH)
+	{	if (soap_envelope_begin_out(soap)
+		 || soap_putheader(soap)
+		 || soap_body_begin_out(soap)
+		 || soap_put_zkq__getMsesByShowname(soap, &soap_tmp_zkq__getMsesByShowname, "zkq:getMsesByShowname", NULL)
+		 || soap_body_end_out(soap)
+		 || soap_envelope_end_out(soap))
+			 return soap->error;
+	}
+	if (soap_end_count(soap))
+		return soap->error;
+	if (soap_connect(soap, soap_url(soap, soap_endpoint, NULL), soap_action)
+	 || soap_envelope_begin_out(soap)
+	 || soap_putheader(soap)
+	 || soap_body_begin_out(soap)
+	 || soap_put_zkq__getMsesByShowname(soap, &soap_tmp_zkq__getMsesByShowname, "zkq:getMsesByShowname", NULL)
+	 || soap_body_end_out(soap)
+	 || soap_envelope_end_out(soap)
+	 || soap_end_send(soap))
+		return soap_closesock(soap);
+	if (!mses)
+		return soap_closesock(soap);
+	soap_default_zkreg__Mses(soap, mses);
+	if (soap_begin_recv(soap)
+	 || soap_envelope_begin_in(soap)
+	 || soap_recv_header(soap)
+	 || soap_body_begin_in(soap))
+		return soap_closesock(soap);
+	soap_tmp_zkq__getMsesByShownameResponse = soap_get_zkq__getMsesByShownameResponse(soap, NULL, "zkq:getMsesByShownameResponse", "");
+	if (!soap_tmp_zkq__getMsesByShownameResponse || soap->error)
+		return soap_recv_fault(soap, 0);
+	if (soap_body_end_in(soap)
+	 || soap_envelope_end_in(soap)
+	 || soap_end_recv(soap))
+		return soap_closesock(soap);
+	if (mses && soap_tmp_zkq__getMsesByShownameResponse->mses)
+		*mses = *soap_tmp_zkq__getMsesByShownameResponse->mses;
 	return soap_closesock(soap);
 }
 
@@ -719,6 +870,56 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_call_zkq__getServicesByType(struct soap *soap, co
 		return soap_closesock(soap);
 	if (services && soap_tmp_zkq__getServicesByTypeResponse->services)
 		*services = *soap_tmp_zkq__getServicesByTypeResponse->services;
+	return soap_closesock(soap);
+}
+
+SOAP_FMAC5 int SOAP_FMAC6 soap_call_zkq__getParent(struct soap *soap, const char *soap_endpoint, const char *soap_action, char *zkq__getParentName, struct zkreg__Logic **logic)
+{	struct zkq__getParent soap_tmp_zkq__getParent;
+	struct zkq__getParentResponse *soap_tmp_zkq__getParentResponse;
+	soap_begin(soap);
+	soap->encodingStyle = NULL;
+	soap_tmp_zkq__getParent.zkq__getParentName = zkq__getParentName;
+	soap_serializeheader(soap);
+	soap_serialize_zkq__getParent(soap, &soap_tmp_zkq__getParent);
+	if (soap_begin_count(soap))
+		return soap->error;
+	if (soap->mode & SOAP_IO_LENGTH)
+	{	if (soap_envelope_begin_out(soap)
+		 || soap_putheader(soap)
+		 || soap_body_begin_out(soap)
+		 || soap_put_zkq__getParent(soap, &soap_tmp_zkq__getParent, "zkq:getParent", NULL)
+		 || soap_body_end_out(soap)
+		 || soap_envelope_end_out(soap))
+			 return soap->error;
+	}
+	if (soap_end_count(soap))
+		return soap->error;
+	if (soap_connect(soap, soap_url(soap, soap_endpoint, NULL), soap_action)
+	 || soap_envelope_begin_out(soap)
+	 || soap_putheader(soap)
+	 || soap_body_begin_out(soap)
+	 || soap_put_zkq__getParent(soap, &soap_tmp_zkq__getParent, "zkq:getParent", NULL)
+	 || soap_body_end_out(soap)
+	 || soap_envelope_end_out(soap)
+	 || soap_end_send(soap))
+		return soap_closesock(soap);
+	if (!logic)
+		return soap_closesock(soap);
+	*logic = NULL;
+	if (soap_begin_recv(soap)
+	 || soap_envelope_begin_in(soap)
+	 || soap_recv_header(soap)
+	 || soap_body_begin_in(soap))
+		return soap_closesock(soap);
+	soap_tmp_zkq__getParentResponse = soap_get_zkq__getParentResponse(soap, NULL, "zkq:getParentResponse", "");
+	if (!soap_tmp_zkq__getParentResponse || soap->error)
+		return soap_recv_fault(soap, 0);
+	if (soap_body_end_in(soap)
+	 || soap_envelope_end_in(soap)
+	 || soap_end_recv(soap))
+		return soap_closesock(soap);
+	if (logic && soap_tmp_zkq__getParentResponse->logic)
+		*logic = *soap_tmp_zkq__getParentResponse->logic;
 	return soap_closesock(soap);
 }
 

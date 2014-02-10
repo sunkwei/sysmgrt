@@ -116,7 +116,7 @@ SOAP_FMAC3 enum xsd__boolean * SOAP_FMAC4 soap_get_xsd__boolean(struct soap*, en
 #ifndef WITH_NOGLOBAL
 
 #ifndef SOAP_TYPE_SOAP_ENV__Fault
-#define SOAP_TYPE_SOAP_ENV__Fault (101)
+#define SOAP_TYPE_SOAP_ENV__Fault (114)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_SOAP_ENV__Fault(struct soap*, struct SOAP_ENV__Fault *);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_SOAP_ENV__Fault(struct soap*, const struct SOAP_ENV__Fault *);
@@ -141,7 +141,7 @@ SOAP_FMAC3 struct SOAP_ENV__Fault * SOAP_FMAC4 soap_get_SOAP_ENV__Fault(struct s
 #ifndef WITH_NOGLOBAL
 
 #ifndef SOAP_TYPE_SOAP_ENV__Reason
-#define SOAP_TYPE_SOAP_ENV__Reason (100)
+#define SOAP_TYPE_SOAP_ENV__Reason (113)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_SOAP_ENV__Reason(struct soap*, struct SOAP_ENV__Reason *);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_SOAP_ENV__Reason(struct soap*, const struct SOAP_ENV__Reason *);
@@ -166,7 +166,7 @@ SOAP_FMAC3 struct SOAP_ENV__Reason * SOAP_FMAC4 soap_get_SOAP_ENV__Reason(struct
 #ifndef WITH_NOGLOBAL
 
 #ifndef SOAP_TYPE_SOAP_ENV__Detail
-#define SOAP_TYPE_SOAP_ENV__Detail (99)
+#define SOAP_TYPE_SOAP_ENV__Detail (112)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_SOAP_ENV__Detail(struct soap*, struct SOAP_ENV__Detail *);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_SOAP_ENV__Detail(struct soap*, const struct SOAP_ENV__Detail *);
@@ -191,7 +191,7 @@ SOAP_FMAC3 struct SOAP_ENV__Detail * SOAP_FMAC4 soap_get_SOAP_ENV__Detail(struct
 #ifndef WITH_NOGLOBAL
 
 #ifndef SOAP_TYPE_SOAP_ENV__Code
-#define SOAP_TYPE_SOAP_ENV__Code (97)
+#define SOAP_TYPE_SOAP_ENV__Code (110)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_SOAP_ENV__Code(struct soap*, struct SOAP_ENV__Code *);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_SOAP_ENV__Code(struct soap*, const struct SOAP_ENV__Code *);
@@ -216,7 +216,7 @@ SOAP_FMAC3 struct SOAP_ENV__Code * SOAP_FMAC4 soap_get_SOAP_ENV__Code(struct soa
 #ifndef WITH_NOGLOBAL
 
 #ifndef SOAP_TYPE_SOAP_ENV__Header
-#define SOAP_TYPE_SOAP_ENV__Header (96)
+#define SOAP_TYPE_SOAP_ENV__Header (109)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_SOAP_ENV__Header(struct soap*, struct SOAP_ENV__Header *);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_SOAP_ENV__Header(struct soap*, const struct SOAP_ENV__Header *);
@@ -239,7 +239,7 @@ SOAP_FMAC3 struct SOAP_ENV__Header * SOAP_FMAC4 soap_get_SOAP_ENV__Header(struct
 #endif
 
 #ifndef SOAP_TYPE_zkcfg__delKey
-#define SOAP_TYPE_zkcfg__delKey (95)
+#define SOAP_TYPE_zkcfg__delKey (108)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_zkcfg__delKey(struct soap*, struct zkcfg__delKey *);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_zkcfg__delKey(struct soap*, const struct zkcfg__delKey *);
@@ -260,7 +260,7 @@ SOAP_FMAC3 struct zkcfg__delKey * SOAP_FMAC4 soap_get_zkcfg__delKey(struct soap*
 
 
 #ifndef SOAP_TYPE_zkcfg__setValue
-#define SOAP_TYPE_zkcfg__setValue (93)
+#define SOAP_TYPE_zkcfg__setValue (106)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_zkcfg__setValue(struct soap*, struct zkcfg__setValue *);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_zkcfg__setValue(struct soap*, const struct zkcfg__setValue *);
@@ -281,7 +281,7 @@ SOAP_FMAC3 struct zkcfg__setValue * SOAP_FMAC4 soap_get_zkcfg__setValue(struct s
 
 
 #ifndef SOAP_TYPE_zkcfg__getValue
-#define SOAP_TYPE_zkcfg__getValue (91)
+#define SOAP_TYPE_zkcfg__getValue (104)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_zkcfg__getValue(struct soap*, struct zkcfg__getValue *);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_zkcfg__getValue(struct soap*, const struct zkcfg__getValue *);
@@ -302,7 +302,7 @@ SOAP_FMAC3 struct zkcfg__getValue * SOAP_FMAC4 soap_get_zkcfg__getValue(struct s
 
 
 #ifndef SOAP_TYPE_zkcfg__getAllKeys
-#define SOAP_TYPE_zkcfg__getAllKeys (88)
+#define SOAP_TYPE_zkcfg__getAllKeys (101)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_zkcfg__getAllKeys(struct soap*, struct zkcfg__getAllKeys *);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_zkcfg__getAllKeys(struct soap*, const struct zkcfg__getAllKeys *);
@@ -323,7 +323,7 @@ SOAP_FMAC3 struct zkcfg__getAllKeys * SOAP_FMAC4 soap_get_zkcfg__getAllKeys(stru
 
 
 #ifndef SOAP_TYPE_zkcfg__getAllKeysResponse
-#define SOAP_TYPE_zkcfg__getAllKeysResponse (87)
+#define SOAP_TYPE_zkcfg__getAllKeysResponse (100)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_zkcfg__getAllKeysResponse(struct soap*, struct zkcfg__getAllKeysResponse *);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_zkcfg__getAllKeysResponse(struct soap*, const struct zkcfg__getAllKeysResponse *);
@@ -344,7 +344,7 @@ SOAP_FMAC3 struct zkcfg__getAllKeysResponse * SOAP_FMAC4 soap_get_zkcfg__getAllK
 
 
 #ifndef SOAP_TYPE_zkcfg__Ret
-#define SOAP_TYPE_zkcfg__Ret (82)
+#define SOAP_TYPE_zkcfg__Ret (95)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_zkcfg__Ret(struct soap*, struct zkcfg__Ret *);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_zkcfg__Ret(struct soap*, const struct zkcfg__Ret *);
@@ -365,7 +365,7 @@ SOAP_FMAC3 struct zkcfg__Ret * SOAP_FMAC4 soap_get_zkcfg__Ret(struct soap*, stru
 
 
 #ifndef SOAP_TYPE_zkcfg__Keys
-#define SOAP_TYPE_zkcfg__Keys (81)
+#define SOAP_TYPE_zkcfg__Keys (94)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_zkcfg__Keys(struct soap*, struct zkcfg__Keys *);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_zkcfg__Keys(struct soap*, struct zkcfg__Keys const*);
@@ -385,8 +385,50 @@ SOAP_FMAC3 struct zkcfg__Keys * SOAP_FMAC4 soap_get_zkcfg__Keys(struct soap*, st
 #endif
 
 
+#ifndef SOAP_TYPE_zkq__getParent
+#define SOAP_TYPE_zkq__getParent (93)
+#endif
+SOAP_FMAC3 void SOAP_FMAC4 soap_default_zkq__getParent(struct soap*, struct zkq__getParent *);
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_zkq__getParent(struct soap*, const struct zkq__getParent *);
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_zkq__getParent(struct soap*, const char*, int, const struct zkq__getParent *, const char*);
+SOAP_FMAC3 struct zkq__getParent * SOAP_FMAC4 soap_in_zkq__getParent(struct soap*, const char*, struct zkq__getParent *, const char*);
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_zkq__getParent(struct soap*, const struct zkq__getParent *, const char*, const char*);
+
+#ifndef soap_write_zkq__getParent
+#define soap_write_zkq__getParent(soap, data) ( soap_free_temp(soap), soap_begin_send(soap) || (soap_serialize_zkq__getParent(soap, data),0) || soap_put_zkq__getParent(soap, data, "zkq:getParent", NULL) || soap_end_send(soap), (soap)->error )
+#endif
+
+SOAP_FMAC3 struct zkq__getParent * SOAP_FMAC4 soap_get_zkq__getParent(struct soap*, struct zkq__getParent *, const char*, const char*);
+
+#ifndef soap_read_zkq__getParent
+#define soap_read_zkq__getParent(soap, data) ( soap_begin_recv(soap) || !soap_get_zkq__getParent(soap, data, NULL, NULL) || soap_end_recv(soap), (soap)->error )
+#endif
+
+
+#ifndef SOAP_TYPE_zkq__getParentResponse
+#define SOAP_TYPE_zkq__getParentResponse (92)
+#endif
+SOAP_FMAC3 void SOAP_FMAC4 soap_default_zkq__getParentResponse(struct soap*, struct zkq__getParentResponse *);
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_zkq__getParentResponse(struct soap*, const struct zkq__getParentResponse *);
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_zkq__getParentResponse(struct soap*, const char*, int, const struct zkq__getParentResponse *, const char*);
+SOAP_FMAC3 struct zkq__getParentResponse * SOAP_FMAC4 soap_in_zkq__getParentResponse(struct soap*, const char*, struct zkq__getParentResponse *, const char*);
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_zkq__getParentResponse(struct soap*, const struct zkq__getParentResponse *, const char*, const char*);
+
+#ifndef soap_write_zkq__getParentResponse
+#define soap_write_zkq__getParentResponse(soap, data) ( soap_free_temp(soap), soap_begin_send(soap) || (soap_serialize_zkq__getParentResponse(soap, data),0) || soap_put_zkq__getParentResponse(soap, data, "zkq:getParentResponse", NULL) || soap_end_send(soap), (soap)->error )
+#endif
+
+SOAP_FMAC3 struct zkq__getParentResponse * SOAP_FMAC4 soap_get_zkq__getParentResponse(struct soap*, struct zkq__getParentResponse *, const char*, const char*);
+
+#ifndef soap_read_zkq__getParentResponse
+#define soap_read_zkq__getParentResponse(soap, data) ( soap_begin_recv(soap) || !soap_get_zkq__getParentResponse(soap, data, NULL, NULL) || soap_end_recv(soap), (soap)->error )
+#endif
+
+
 #ifndef SOAP_TYPE_zkq__getServicesByType
-#define SOAP_TYPE_zkq__getServicesByType (80)
+#define SOAP_TYPE_zkq__getServicesByType (89)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_zkq__getServicesByType(struct soap*, struct zkq__getServicesByType *);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_zkq__getServicesByType(struct soap*, const struct zkq__getServicesByType *);
@@ -407,7 +449,7 @@ SOAP_FMAC3 struct zkq__getServicesByType * SOAP_FMAC4 soap_get_zkq__getServicesB
 
 
 #ifndef SOAP_TYPE_zkq__getServicesByTypeResponse
-#define SOAP_TYPE_zkq__getServicesByTypeResponse (79)
+#define SOAP_TYPE_zkq__getServicesByTypeResponse (88)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_zkq__getServicesByTypeResponse(struct soap*, struct zkq__getServicesByTypeResponse *);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_zkq__getServicesByTypeResponse(struct soap*, const struct zkq__getServicesByTypeResponse *);
@@ -428,7 +470,7 @@ SOAP_FMAC3 struct zkq__getServicesByTypeResponse * SOAP_FMAC4 soap_get_zkq__getS
 
 
 #ifndef SOAP_TYPE_zkq__getAllLogics
-#define SOAP_TYPE_zkq__getAllLogics (77)
+#define SOAP_TYPE_zkq__getAllLogics (86)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_zkq__getAllLogics(struct soap*, struct zkq__getAllLogics *);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_zkq__getAllLogics(struct soap*, const struct zkq__getAllLogics *);
@@ -449,7 +491,7 @@ SOAP_FMAC3 struct zkq__getAllLogics * SOAP_FMAC4 soap_get_zkq__getAllLogics(stru
 
 
 #ifndef SOAP_TYPE_zkq__getAllLogicsResponse
-#define SOAP_TYPE_zkq__getAllLogicsResponse (76)
+#define SOAP_TYPE_zkq__getAllLogicsResponse (85)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_zkq__getAllLogicsResponse(struct soap*, struct zkq__getAllLogicsResponse *);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_zkq__getAllLogicsResponse(struct soap*, const struct zkq__getAllLogicsResponse *);
@@ -470,7 +512,7 @@ SOAP_FMAC3 struct zkq__getAllLogicsResponse * SOAP_FMAC4 soap_get_zkq__getAllLog
 
 
 #ifndef SOAP_TYPE_zkq__getAllDevices
-#define SOAP_TYPE_zkq__getAllDevices (73)
+#define SOAP_TYPE_zkq__getAllDevices (82)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_zkq__getAllDevices(struct soap*, struct zkq__getAllDevices *);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_zkq__getAllDevices(struct soap*, const struct zkq__getAllDevices *);
@@ -491,7 +533,7 @@ SOAP_FMAC3 struct zkq__getAllDevices * SOAP_FMAC4 soap_get_zkq__getAllDevices(st
 
 
 #ifndef SOAP_TYPE_zkq__getAllDevicesResponse
-#define SOAP_TYPE_zkq__getAllDevicesResponse (72)
+#define SOAP_TYPE_zkq__getAllDevicesResponse (81)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_zkq__getAllDevicesResponse(struct soap*, struct zkq__getAllDevicesResponse *);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_zkq__getAllDevicesResponse(struct soap*, const struct zkq__getAllDevicesResponse *);
@@ -512,7 +554,7 @@ SOAP_FMAC3 struct zkq__getAllDevicesResponse * SOAP_FMAC4 soap_get_zkq__getAllDe
 
 
 #ifndef SOAP_TYPE_zkq__getAllServices
-#define SOAP_TYPE_zkq__getAllServices (69)
+#define SOAP_TYPE_zkq__getAllServices (78)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_zkq__getAllServices(struct soap*, struct zkq__getAllServices *);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_zkq__getAllServices(struct soap*, const struct zkq__getAllServices *);
@@ -533,7 +575,7 @@ SOAP_FMAC3 struct zkq__getAllServices * SOAP_FMAC4 soap_get_zkq__getAllServices(
 
 
 #ifndef SOAP_TYPE_zkq__getAllServicesResponse
-#define SOAP_TYPE_zkq__getAllServicesResponse (68)
+#define SOAP_TYPE_zkq__getAllServicesResponse (77)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_zkq__getAllServicesResponse(struct soap*, struct zkq__getAllServicesResponse *);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_zkq__getAllServicesResponse(struct soap*, const struct zkq__getAllServicesResponse *);
@@ -554,7 +596,7 @@ SOAP_FMAC3 struct zkq__getAllServicesResponse * SOAP_FMAC4 soap_get_zkq__getAllS
 
 
 #ifndef SOAP_TYPE_zkq__getAllHosts
-#define SOAP_TYPE_zkq__getAllHosts (65)
+#define SOAP_TYPE_zkq__getAllHosts (74)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_zkq__getAllHosts(struct soap*, struct zkq__getAllHosts *);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_zkq__getAllHosts(struct soap*, const struct zkq__getAllHosts *);
@@ -575,7 +617,7 @@ SOAP_FMAC3 struct zkq__getAllHosts * SOAP_FMAC4 soap_get_zkq__getAllHosts(struct
 
 
 #ifndef SOAP_TYPE_zkq__getAllHostsResponse
-#define SOAP_TYPE_zkq__getAllHostsResponse (64)
+#define SOAP_TYPE_zkq__getAllHostsResponse (73)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_zkq__getAllHostsResponse(struct soap*, struct zkq__getAllHostsResponse *);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_zkq__getAllHostsResponse(struct soap*, const struct zkq__getAllHostsResponse *);
@@ -595,8 +637,50 @@ SOAP_FMAC3 struct zkq__getAllHostsResponse * SOAP_FMAC4 soap_get_zkq__getAllHost
 #endif
 
 
+#ifndef SOAP_TYPE_zkq__getMsesByShowname
+#define SOAP_TYPE_zkq__getMsesByShowname (70)
+#endif
+SOAP_FMAC3 void SOAP_FMAC4 soap_default_zkq__getMsesByShowname(struct soap*, struct zkq__getMsesByShowname *);
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_zkq__getMsesByShowname(struct soap*, const struct zkq__getMsesByShowname *);
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_zkq__getMsesByShowname(struct soap*, const char*, int, const struct zkq__getMsesByShowname *, const char*);
+SOAP_FMAC3 struct zkq__getMsesByShowname * SOAP_FMAC4 soap_in_zkq__getMsesByShowname(struct soap*, const char*, struct zkq__getMsesByShowname *, const char*);
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_zkq__getMsesByShowname(struct soap*, const struct zkq__getMsesByShowname *, const char*, const char*);
+
+#ifndef soap_write_zkq__getMsesByShowname
+#define soap_write_zkq__getMsesByShowname(soap, data) ( soap_free_temp(soap), soap_begin_send(soap) || (soap_serialize_zkq__getMsesByShowname(soap, data),0) || soap_put_zkq__getMsesByShowname(soap, data, "zkq:getMsesByShowname", NULL) || soap_end_send(soap), (soap)->error )
+#endif
+
+SOAP_FMAC3 struct zkq__getMsesByShowname * SOAP_FMAC4 soap_get_zkq__getMsesByShowname(struct soap*, struct zkq__getMsesByShowname *, const char*, const char*);
+
+#ifndef soap_read_zkq__getMsesByShowname
+#define soap_read_zkq__getMsesByShowname(soap, data) ( soap_begin_recv(soap) || !soap_get_zkq__getMsesByShowname(soap, data, NULL, NULL) || soap_end_recv(soap), (soap)->error )
+#endif
+
+
+#ifndef SOAP_TYPE_zkq__getMsesByShownameResponse
+#define SOAP_TYPE_zkq__getMsesByShownameResponse (69)
+#endif
+SOAP_FMAC3 void SOAP_FMAC4 soap_default_zkq__getMsesByShownameResponse(struct soap*, struct zkq__getMsesByShownameResponse *);
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_zkq__getMsesByShownameResponse(struct soap*, const struct zkq__getMsesByShownameResponse *);
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_zkq__getMsesByShownameResponse(struct soap*, const char*, int, const struct zkq__getMsesByShownameResponse *, const char*);
+SOAP_FMAC3 struct zkq__getMsesByShownameResponse * SOAP_FMAC4 soap_in_zkq__getMsesByShownameResponse(struct soap*, const char*, struct zkq__getMsesByShownameResponse *, const char*);
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_zkq__getMsesByShownameResponse(struct soap*, const struct zkq__getMsesByShownameResponse *, const char*, const char*);
+
+#ifndef soap_write_zkq__getMsesByShownameResponse
+#define soap_write_zkq__getMsesByShownameResponse(soap, data) ( soap_free_temp(soap), soap_begin_send(soap) || (soap_serialize_zkq__getMsesByShownameResponse(soap, data),0) || soap_put_zkq__getMsesByShownameResponse(soap, data, "zkq:getMsesByShownameResponse", NULL) || soap_end_send(soap), (soap)->error )
+#endif
+
+SOAP_FMAC3 struct zkq__getMsesByShownameResponse * SOAP_FMAC4 soap_get_zkq__getMsesByShownameResponse(struct soap*, struct zkq__getMsesByShownameResponse *, const char*, const char*);
+
+#ifndef soap_read_zkq__getMsesByShownameResponse
+#define soap_read_zkq__getMsesByShownameResponse(soap, data) ( soap_begin_recv(soap) || !soap_get_zkq__getMsesByShownameResponse(soap, data, NULL, NULL) || soap_end_recv(soap), (soap)->error )
+#endif
+
+
 #ifndef SOAP_TYPE_zkq__getAllMses
-#define SOAP_TYPE_zkq__getAllMses (61)
+#define SOAP_TYPE_zkq__getAllMses (67)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_zkq__getAllMses(struct soap*, struct zkq__getAllMses *);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_zkq__getAllMses(struct soap*, const struct zkq__getAllMses *);
@@ -617,7 +701,7 @@ SOAP_FMAC3 struct zkq__getAllMses * SOAP_FMAC4 soap_get_zkq__getAllMses(struct s
 
 
 #ifndef SOAP_TYPE_zkq__getAllMsesResponse
-#define SOAP_TYPE_zkq__getAllMsesResponse (60)
+#define SOAP_TYPE_zkq__getAllMsesResponse (66)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_zkq__getAllMsesResponse(struct soap*, struct zkq__getAllMsesResponse *);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_zkq__getAllMsesResponse(struct soap*, const struct zkq__getAllMsesResponse *);
@@ -638,7 +722,7 @@ SOAP_FMAC3 struct zkq__getAllMsesResponse * SOAP_FMAC4 soap_get_zkq__getAllMsesR
 
 
 #ifndef SOAP_TYPE_zkreg__setShowName
-#define SOAP_TYPE_zkreg__setShowName (58)
+#define SOAP_TYPE_zkreg__setShowName (64)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_zkreg__setShowName(struct soap*, struct zkreg__setShowName *);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_zkreg__setShowName(struct soap*, const struct zkreg__setShowName *);
@@ -659,7 +743,7 @@ SOAP_FMAC3 struct zkreg__setShowName * SOAP_FMAC4 soap_get_zkreg__setShowName(st
 
 
 #ifndef SOAP_TYPE_zkreg__setShowNameResponse
-#define SOAP_TYPE_zkreg__setShowNameResponse (57)
+#define SOAP_TYPE_zkreg__setShowNameResponse (63)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_zkreg__setShowNameResponse(struct soap*, struct zkreg__setShowNameResponse *);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_zkreg__setShowNameResponse(struct soap*, const struct zkreg__setShowNameResponse *);
@@ -680,7 +764,7 @@ SOAP_FMAC3 struct zkreg__setShowNameResponse * SOAP_FMAC4 soap_get_zkreg__setSho
 
 
 #ifndef SOAP_TYPE_zkreg__heartBeat
-#define SOAP_TYPE_zkreg__heartBeat (55)
+#define SOAP_TYPE_zkreg__heartBeat (61)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_zkreg__heartBeat(struct soap*, struct zkreg__heartBeat *);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_zkreg__heartBeat(struct soap*, const struct zkreg__heartBeat *);
@@ -701,7 +785,7 @@ SOAP_FMAC3 struct zkreg__heartBeat * SOAP_FMAC4 soap_get_zkreg__heartBeat(struct
 
 
 #ifndef SOAP_TYPE_zkreg__heartBeatResponse
-#define SOAP_TYPE_zkreg__heartBeatResponse (54)
+#define SOAP_TYPE_zkreg__heartBeatResponse (60)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_zkreg__heartBeatResponse(struct soap*, struct zkreg__heartBeatResponse *);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_zkreg__heartBeatResponse(struct soap*, const struct zkreg__heartBeatResponse *);
@@ -718,6 +802,90 @@ SOAP_FMAC3 struct zkreg__heartBeatResponse * SOAP_FMAC4 soap_get_zkreg__heartBea
 
 #ifndef soap_read_zkreg__heartBeatResponse
 #define soap_read_zkreg__heartBeatResponse(soap, data) ( soap_begin_recv(soap) || !soap_get_zkreg__heartBeatResponse(soap, data, NULL, NULL) || soap_end_recv(soap), (soap)->error )
+#endif
+
+
+#ifndef SOAP_TYPE_zkreg__delMse
+#define SOAP_TYPE_zkreg__delMse (58)
+#endif
+SOAP_FMAC3 void SOAP_FMAC4 soap_default_zkreg__delMse(struct soap*, struct zkreg__delMse *);
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_zkreg__delMse(struct soap*, const struct zkreg__delMse *);
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_zkreg__delMse(struct soap*, const char*, int, const struct zkreg__delMse *, const char*);
+SOAP_FMAC3 struct zkreg__delMse * SOAP_FMAC4 soap_in_zkreg__delMse(struct soap*, const char*, struct zkreg__delMse *, const char*);
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_zkreg__delMse(struct soap*, const struct zkreg__delMse *, const char*, const char*);
+
+#ifndef soap_write_zkreg__delMse
+#define soap_write_zkreg__delMse(soap, data) ( soap_free_temp(soap), soap_begin_send(soap) || (soap_serialize_zkreg__delMse(soap, data),0) || soap_put_zkreg__delMse(soap, data, "zkreg:delMse", NULL) || soap_end_send(soap), (soap)->error )
+#endif
+
+SOAP_FMAC3 struct zkreg__delMse * SOAP_FMAC4 soap_get_zkreg__delMse(struct soap*, struct zkreg__delMse *, const char*, const char*);
+
+#ifndef soap_read_zkreg__delMse
+#define soap_read_zkreg__delMse(soap, data) ( soap_begin_recv(soap) || !soap_get_zkreg__delMse(soap, data, NULL, NULL) || soap_end_recv(soap), (soap)->error )
+#endif
+
+
+#ifndef SOAP_TYPE_zkreg__delMseResponse
+#define SOAP_TYPE_zkreg__delMseResponse (57)
+#endif
+SOAP_FMAC3 void SOAP_FMAC4 soap_default_zkreg__delMseResponse(struct soap*, struct zkreg__delMseResponse *);
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_zkreg__delMseResponse(struct soap*, const struct zkreg__delMseResponse *);
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_zkreg__delMseResponse(struct soap*, const char*, int, const struct zkreg__delMseResponse *, const char*);
+SOAP_FMAC3 struct zkreg__delMseResponse * SOAP_FMAC4 soap_in_zkreg__delMseResponse(struct soap*, const char*, struct zkreg__delMseResponse *, const char*);
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_zkreg__delMseResponse(struct soap*, const struct zkreg__delMseResponse *, const char*, const char*);
+
+#ifndef soap_write_zkreg__delMseResponse
+#define soap_write_zkreg__delMseResponse(soap, data) ( soap_free_temp(soap), soap_begin_send(soap) || (soap_serialize_zkreg__delMseResponse(soap, data),0) || soap_put_zkreg__delMseResponse(soap, data, "zkreg:delMseResponse", NULL) || soap_end_send(soap), (soap)->error )
+#endif
+
+SOAP_FMAC3 struct zkreg__delMseResponse * SOAP_FMAC4 soap_get_zkreg__delMseResponse(struct soap*, struct zkreg__delMseResponse *, const char*, const char*);
+
+#ifndef soap_read_zkreg__delMseResponse
+#define soap_read_zkreg__delMseResponse(soap, data) ( soap_begin_recv(soap) || !soap_get_zkreg__delMseResponse(soap, data, NULL, NULL) || soap_end_recv(soap), (soap)->error )
+#endif
+
+
+#ifndef SOAP_TYPE_zkreg__regLogic
+#define SOAP_TYPE_zkreg__regLogic (55)
+#endif
+SOAP_FMAC3 void SOAP_FMAC4 soap_default_zkreg__regLogic(struct soap*, struct zkreg__regLogic *);
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_zkreg__regLogic(struct soap*, const struct zkreg__regLogic *);
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_zkreg__regLogic(struct soap*, const char*, int, const struct zkreg__regLogic *, const char*);
+SOAP_FMAC3 struct zkreg__regLogic * SOAP_FMAC4 soap_in_zkreg__regLogic(struct soap*, const char*, struct zkreg__regLogic *, const char*);
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_zkreg__regLogic(struct soap*, const struct zkreg__regLogic *, const char*, const char*);
+
+#ifndef soap_write_zkreg__regLogic
+#define soap_write_zkreg__regLogic(soap, data) ( soap_free_temp(soap), soap_begin_send(soap) || (soap_serialize_zkreg__regLogic(soap, data),0) || soap_put_zkreg__regLogic(soap, data, "zkreg:regLogic", NULL) || soap_end_send(soap), (soap)->error )
+#endif
+
+SOAP_FMAC3 struct zkreg__regLogic * SOAP_FMAC4 soap_get_zkreg__regLogic(struct soap*, struct zkreg__regLogic *, const char*, const char*);
+
+#ifndef soap_read_zkreg__regLogic
+#define soap_read_zkreg__regLogic(soap, data) ( soap_begin_recv(soap) || !soap_get_zkreg__regLogic(soap, data, NULL, NULL) || soap_end_recv(soap), (soap)->error )
+#endif
+
+
+#ifndef SOAP_TYPE_zkreg__regLogicResponse
+#define SOAP_TYPE_zkreg__regLogicResponse (54)
+#endif
+SOAP_FMAC3 void SOAP_FMAC4 soap_default_zkreg__regLogicResponse(struct soap*, struct zkreg__regLogicResponse *);
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_zkreg__regLogicResponse(struct soap*, const struct zkreg__regLogicResponse *);
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_zkreg__regLogicResponse(struct soap*, const char*, int, const struct zkreg__regLogicResponse *, const char*);
+SOAP_FMAC3 struct zkreg__regLogicResponse * SOAP_FMAC4 soap_in_zkreg__regLogicResponse(struct soap*, const char*, struct zkreg__regLogicResponse *, const char*);
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_zkreg__regLogicResponse(struct soap*, const struct zkreg__regLogicResponse *, const char*, const char*);
+
+#ifndef soap_write_zkreg__regLogicResponse
+#define soap_write_zkreg__regLogicResponse(soap, data) ( soap_free_temp(soap), soap_begin_send(soap) || (soap_serialize_zkreg__regLogicResponse(soap, data),0) || soap_put_zkreg__regLogicResponse(soap, data, "zkreg:regLogicResponse", NULL) || soap_end_send(soap), (soap)->error )
+#endif
+
+SOAP_FMAC3 struct zkreg__regLogicResponse * SOAP_FMAC4 soap_get_zkreg__regLogicResponse(struct soap*, struct zkreg__regLogicResponse *, const char*, const char*);
+
+#ifndef soap_read_zkreg__regLogicResponse
+#define soap_read_zkreg__regLogicResponse(soap, data) ( soap_begin_recv(soap) || !soap_get_zkreg__regLogicResponse(soap, data, NULL, NULL) || soap_end_recv(soap), (soap)->error )
 #endif
 
 
@@ -1228,7 +1396,7 @@ SOAP_FMAC3 struct zkreg__Ips * SOAP_FMAC4 soap_get_zkreg__Ips(struct soap*, stru
 #ifndef WITH_NOGLOBAL
 
 #ifndef SOAP_TYPE_PointerToSOAP_ENV__Reason
-#define SOAP_TYPE_PointerToSOAP_ENV__Reason (103)
+#define SOAP_TYPE_PointerToSOAP_ENV__Reason (116)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToSOAP_ENV__Reason(struct soap*, struct SOAP_ENV__Reason *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToSOAP_ENV__Reason(struct soap*, const char *, int, struct SOAP_ENV__Reason *const*, const char *);
@@ -1251,7 +1419,7 @@ SOAP_FMAC3 struct SOAP_ENV__Reason ** SOAP_FMAC4 soap_get_PointerToSOAP_ENV__Rea
 #ifndef WITH_NOGLOBAL
 
 #ifndef SOAP_TYPE_PointerToSOAP_ENV__Detail
-#define SOAP_TYPE_PointerToSOAP_ENV__Detail (102)
+#define SOAP_TYPE_PointerToSOAP_ENV__Detail (115)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToSOAP_ENV__Detail(struct soap*, struct SOAP_ENV__Detail *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToSOAP_ENV__Detail(struct soap*, const char *, int, struct SOAP_ENV__Detail *const*, const char *);
@@ -1274,7 +1442,7 @@ SOAP_FMAC3 struct SOAP_ENV__Detail ** SOAP_FMAC4 soap_get_PointerToSOAP_ENV__Det
 #ifndef WITH_NOGLOBAL
 
 #ifndef SOAP_TYPE_PointerToSOAP_ENV__Code
-#define SOAP_TYPE_PointerToSOAP_ENV__Code (98)
+#define SOAP_TYPE_PointerToSOAP_ENV__Code (111)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToSOAP_ENV__Code(struct soap*, struct SOAP_ENV__Code *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToSOAP_ENV__Code(struct soap*, const char *, int, struct SOAP_ENV__Code *const*, const char *);
@@ -1295,7 +1463,7 @@ SOAP_FMAC3 struct SOAP_ENV__Code ** SOAP_FMAC4 soap_get_PointerToSOAP_ENV__Code(
 #endif
 
 #ifndef SOAP_TYPE_PointerTozkcfg__Ret
-#define SOAP_TYPE_PointerTozkcfg__Ret (89)
+#define SOAP_TYPE_PointerTozkcfg__Ret (102)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTozkcfg__Ret(struct soap*, struct zkcfg__Ret *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTozkcfg__Ret(struct soap*, const char *, int, struct zkcfg__Ret *const*, const char *);
@@ -1314,7 +1482,7 @@ SOAP_FMAC3 struct zkcfg__Ret ** SOAP_FMAC4 soap_get_PointerTozkcfg__Ret(struct s
 
 
 #ifndef SOAP_TYPE_PointerTozkcfg__Keys
-#define SOAP_TYPE_PointerTozkcfg__Keys (85)
+#define SOAP_TYPE_PointerTozkcfg__Keys (98)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTozkcfg__Keys(struct soap*, struct zkcfg__Keys *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTozkcfg__Keys(struct soap*, const char *, int, struct zkcfg__Keys *const*, const char *);
@@ -1332,8 +1500,27 @@ SOAP_FMAC3 struct zkcfg__Keys ** SOAP_FMAC4 soap_get_PointerTozkcfg__Keys(struct
 #endif
 
 
+#ifndef SOAP_TYPE_PointerToPointerTozkreg__Logic
+#define SOAP_TYPE_PointerToPointerTozkreg__Logic (90)
+#endif
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToPointerTozkreg__Logic(struct soap*, struct zkreg__Logic **const*);
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToPointerTozkreg__Logic(struct soap*, const char *, int, struct zkreg__Logic **const*, const char *);
+SOAP_FMAC3 struct zkreg__Logic *** SOAP_FMAC4 soap_in_PointerToPointerTozkreg__Logic(struct soap*, const char*, struct zkreg__Logic ***, const char*);
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_PointerToPointerTozkreg__Logic(struct soap*, struct zkreg__Logic **const*, const char*, const char*);
+
+#ifndef soap_write_PointerToPointerTozkreg__Logic
+#define soap_write_PointerToPointerTozkreg__Logic(soap, data) ( soap_free_temp(soap), soap_begin_send(soap) || (soap_serialize_PointerToPointerTozkreg__Logic(soap, data),0) || soap_put_PointerToPointerTozkreg__Logic(soap, data, "zkreg:Logic", NULL) || soap_end_send(soap), (soap)->error )
+#endif
+
+SOAP_FMAC3 struct zkreg__Logic *** SOAP_FMAC4 soap_get_PointerToPointerTozkreg__Logic(struct soap*, struct zkreg__Logic ***, const char*, const char*);
+
+#ifndef soap_read_PointerToPointerTozkreg__Logic
+#define soap_read_PointerToPointerTozkreg__Logic(soap, data) ( soap_begin_recv(soap) || !soap_get_PointerToPointerTozkreg__Logic(soap, data, NULL, NULL) || soap_end_recv(soap), (soap)->error )
+#endif
+
+
 #ifndef SOAP_TYPE_PointerTozkreg__Logics
-#define SOAP_TYPE_PointerTozkreg__Logics (74)
+#define SOAP_TYPE_PointerTozkreg__Logics (83)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTozkreg__Logics(struct soap*, struct zkreg__Logics *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTozkreg__Logics(struct soap*, const char *, int, struct zkreg__Logics *const*, const char *);
@@ -1352,7 +1539,7 @@ SOAP_FMAC3 struct zkreg__Logics ** SOAP_FMAC4 soap_get_PointerTozkreg__Logics(st
 
 
 #ifndef SOAP_TYPE_PointerTozkreg__Devices
-#define SOAP_TYPE_PointerTozkreg__Devices (70)
+#define SOAP_TYPE_PointerTozkreg__Devices (79)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTozkreg__Devices(struct soap*, struct zkreg__Devices *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTozkreg__Devices(struct soap*, const char *, int, struct zkreg__Devices *const*, const char *);
@@ -1371,7 +1558,7 @@ SOAP_FMAC3 struct zkreg__Devices ** SOAP_FMAC4 soap_get_PointerTozkreg__Devices(
 
 
 #ifndef SOAP_TYPE_PointerTozkreg__Services
-#define SOAP_TYPE_PointerTozkreg__Services (66)
+#define SOAP_TYPE_PointerTozkreg__Services (75)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTozkreg__Services(struct soap*, struct zkreg__Services *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTozkreg__Services(struct soap*, const char *, int, struct zkreg__Services *const*, const char *);
@@ -1390,7 +1577,7 @@ SOAP_FMAC3 struct zkreg__Services ** SOAP_FMAC4 soap_get_PointerTozkreg__Service
 
 
 #ifndef SOAP_TYPE_PointerTozkreg__Hosts
-#define SOAP_TYPE_PointerTozkreg__Hosts (62)
+#define SOAP_TYPE_PointerTozkreg__Hosts (71)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTozkreg__Hosts(struct soap*, struct zkreg__Hosts *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTozkreg__Hosts(struct soap*, const char *, int, struct zkreg__Hosts *const*, const char *);

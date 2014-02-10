@@ -165,15 +165,15 @@ static int db_select_cb(void *opaque, size_t row, sqlite3_stmt *stmt)
 
 		switch (p->desc[i].type) {
 		case DBT_INT:
-			p->cols[row]->data.i = sqlite3_column_int(stmt, i);
+			p->cols[row][i].data.i = sqlite3_column_int(stmt, i);
 			break;
 
 		case DBT_DOUBLE:
-			p->cols[row]->data.d = sqlite3_column_double(stmt, i);
+			p->cols[row][i].data.d = sqlite3_column_double(stmt, i);
 			break;
 
 		case DBT_STRING:
-			p->cols[row]->data.s = strdup((char*)sqlite3_column_text(stmt, i)); // FIXME: 此处返回的是 utf-8
+			p->cols[row][i].data.s = strdup((char*)sqlite3_column_text(stmt, i)); // FIXME: 此处返回的是 utf-8
 			break;
 
 		default:

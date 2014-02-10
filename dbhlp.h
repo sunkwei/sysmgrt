@@ -24,11 +24,12 @@ extern sqlite3 *_db;    // 方便全局使用
 /** mse 为 host, service, device, logic 的基类，保存通用信息，通过 name 字段进行关联.
         name：主键，唯一
         catalog: 类别，0 host, 1 service, 2 device, 3 logic
+		parent: 父节点 name，如果有效，必定为一 logic 对象的 name
         showname：用于可读的显示信息，utf-8存储
         reg_stamp：记录创建时间，使用 time(0) 的秒；
         access_stamp：更新记录时间；
  */
-#define SQL_CREATE_MSE "CREATE TABLE mse(name char(64) primary key, catalog int, showname text, reg_stamp int, access_stamp int)"
+#define SQL_CREATE_MSE "CREATE TABLE mse(name char(64) primary key, catalog int, parent char(64), showname text, reg_stamp int, access_stamp int)"
 
 /** host 描述主机信息
         name：唯一标识，一般可以选用mac地址；
@@ -44,6 +45,12 @@ extern sqlite3 *_db;    // 方便全局使用
         version：版本信息
  */
 #define SQL_CREATE_SERVICE "CREATE TABLE service(name char(64) primary key, hostname char(64), type varchar(16), urls text, version varchar(128))"
+
+/** logic: 保存 logic 对象信息
+		name: 唯一标识，与 mse 的 name 一致
+		children: 子节点信息，使用"\n"分割！！！！
+ */
+#define SQL_CREATE_LOGIC "CREATE TABLE logic(name char(40) primary key, children text)"
 
 /** token：描述“在线”对象
         token：唯一标识，一般为每次 regXXX 新建，并在 heartBeat() 中保持；
@@ -93,5 +100,9 @@ struct dbhlpColumn
 /// 根据 col_desc，执行 sql select，将数据保存到 cols 中，行数保存在 rows 中
 int db_exec_select2(sqlite3 *db, const char *sql, struct dbhlpColumn col_desc[], int cn, struct dbhlpColumn ***cols, int *rows);
 void db_free_select2(struct dbhlpColumn col_desc[], int cn, struct dbhlpColumn **cols, int rows);
+
+#ifdef WIN32
+#	define snprintf _snprintf
+#endif
 
 #endif

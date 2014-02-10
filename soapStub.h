@@ -83,6 +83,7 @@ struct zkreg__Mse
 {
 	char *name;	/* required element of type xsd:string */
 	enum zkreg__Catalog catalog;	/* required element of type zkreg:Catalog */
+	char *parent;	/* optional element of type xsd:string */
 	char *showname;	/* optional element of type xsd:string */
 };
 #endif
@@ -302,8 +303,44 @@ struct zkreg__unregDevice
 };
 #endif
 
+#ifndef SOAP_TYPE_zkreg__regLogicResponse
+#define SOAP_TYPE_zkreg__regLogicResponse (54)
+/* zkreg:regLogicResponse */
+struct zkreg__regLogicResponse
+{
+	char **token;	/* SOAP 1.2 RPC return element (when namespace qualified) */	/* optional element of type xsd:string */
+};
+#endif
+
+#ifndef SOAP_TYPE_zkreg__regLogic
+#define SOAP_TYPE_zkreg__regLogic (55)
+/* zkreg:regLogic */
+struct zkreg__regLogic
+{
+	struct zkreg__Logic *zkreg__regLogicReq;	/* optional element of type zkreg:Logic */
+};
+#endif
+
+#ifndef SOAP_TYPE_zkreg__delMseResponse
+#define SOAP_TYPE_zkreg__delMseResponse (57)
+/* zkreg:delMseResponse */
+struct zkreg__delMseResponse
+{
+	int *code;	/* SOAP 1.2 RPC return element (when namespace qualified) */	/* optional element of type xsd:int */
+};
+#endif
+
+#ifndef SOAP_TYPE_zkreg__delMse
+#define SOAP_TYPE_zkreg__delMse (58)
+/* zkreg:delMse */
+struct zkreg__delMse
+{
+	char *zkreg__delMseNameReq;	/* optional element of type xsd:string */
+};
+#endif
+
 #ifndef SOAP_TYPE_zkreg__heartBeatResponse
-#define SOAP_TYPE_zkreg__heartBeatResponse (54)
+#define SOAP_TYPE_zkreg__heartBeatResponse (60)
 /* zkreg:heartBeatResponse */
 struct zkreg__heartBeatResponse
 {
@@ -312,16 +349,16 @@ struct zkreg__heartBeatResponse
 #endif
 
 #ifndef SOAP_TYPE_zkreg__heartBeat
-#define SOAP_TYPE_zkreg__heartBeat (55)
+#define SOAP_TYPE_zkreg__heartBeat (61)
 /* zkreg:heartBeat */
 struct zkreg__heartBeat
 {
-	char *zkreg__heartBeatstring;	/* optional element of type xsd:string */
+	char *zkreg__heartBeatTokenReq;	/* optional element of type xsd:string */
 };
 #endif
 
 #ifndef SOAP_TYPE_zkreg__setShowNameResponse
-#define SOAP_TYPE_zkreg__setShowNameResponse (57)
+#define SOAP_TYPE_zkreg__setShowNameResponse (63)
 /* zkreg:setShowNameResponse */
 struct zkreg__setShowNameResponse
 {
@@ -330,7 +367,7 @@ struct zkreg__setShowNameResponse
 #endif
 
 #ifndef SOAP_TYPE_zkreg__setShowName
-#define SOAP_TYPE_zkreg__setShowName (58)
+#define SOAP_TYPE_zkreg__setShowName (64)
 /* zkreg:setShowName */
 struct zkreg__setShowName
 {
@@ -340,7 +377,7 @@ struct zkreg__setShowName
 #endif
 
 #ifndef SOAP_TYPE_zkq__getAllMsesResponse
-#define SOAP_TYPE_zkq__getAllMsesResponse (60)
+#define SOAP_TYPE_zkq__getAllMsesResponse (66)
 /* zkq:getAllMsesResponse */
 struct zkq__getAllMsesResponse
 {
@@ -349,7 +386,7 @@ struct zkq__getAllMsesResponse
 #endif
 
 #ifndef SOAP_TYPE_zkq__getAllMses
-#define SOAP_TYPE_zkq__getAllMses (61)
+#define SOAP_TYPE_zkq__getAllMses (67)
 /* zkq:getAllMses */
 struct zkq__getAllMses
 {
@@ -357,8 +394,27 @@ struct zkq__getAllMses
 };
 #endif
 
+#ifndef SOAP_TYPE_zkq__getMsesByShownameResponse
+#define SOAP_TYPE_zkq__getMsesByShownameResponse (69)
+/* zkq:getMsesByShownameResponse */
+struct zkq__getMsesByShownameResponse
+{
+	struct zkreg__Mses *mses;	/* SOAP 1.2 RPC return element (when namespace qualified) */	/* optional element of type zkreg:Mses */
+};
+#endif
+
+#ifndef SOAP_TYPE_zkq__getMsesByShowname
+#define SOAP_TYPE_zkq__getMsesByShowname (70)
+/* zkq:getMsesByShowname */
+struct zkq__getMsesByShowname
+{
+	enum xsd__boolean zkq__getMsesByShownameOffline;	/* required element of type xsd:boolean */
+	char *showname;	/* optional element of type xsd:string */
+};
+#endif
+
 #ifndef SOAP_TYPE_zkq__getAllHostsResponse
-#define SOAP_TYPE_zkq__getAllHostsResponse (64)
+#define SOAP_TYPE_zkq__getAllHostsResponse (73)
 /* zkq:getAllHostsResponse */
 struct zkq__getAllHostsResponse
 {
@@ -367,7 +423,7 @@ struct zkq__getAllHostsResponse
 #endif
 
 #ifndef SOAP_TYPE_zkq__getAllHosts
-#define SOAP_TYPE_zkq__getAllHosts (65)
+#define SOAP_TYPE_zkq__getAllHosts (74)
 /* zkq:getAllHosts */
 struct zkq__getAllHosts
 {
@@ -376,7 +432,7 @@ struct zkq__getAllHosts
 #endif
 
 #ifndef SOAP_TYPE_zkq__getAllServicesResponse
-#define SOAP_TYPE_zkq__getAllServicesResponse (68)
+#define SOAP_TYPE_zkq__getAllServicesResponse (77)
 /* zkq:getAllServicesResponse */
 struct zkq__getAllServicesResponse
 {
@@ -385,7 +441,7 @@ struct zkq__getAllServicesResponse
 #endif
 
 #ifndef SOAP_TYPE_zkq__getAllServices
-#define SOAP_TYPE_zkq__getAllServices (69)
+#define SOAP_TYPE_zkq__getAllServices (78)
 /* zkq:getAllServices */
 struct zkq__getAllServices
 {
@@ -394,7 +450,7 @@ struct zkq__getAllServices
 #endif
 
 #ifndef SOAP_TYPE_zkq__getAllDevicesResponse
-#define SOAP_TYPE_zkq__getAllDevicesResponse (72)
+#define SOAP_TYPE_zkq__getAllDevicesResponse (81)
 /* zkq:getAllDevicesResponse */
 struct zkq__getAllDevicesResponse
 {
@@ -403,7 +459,7 @@ struct zkq__getAllDevicesResponse
 #endif
 
 #ifndef SOAP_TYPE_zkq__getAllDevices
-#define SOAP_TYPE_zkq__getAllDevices (73)
+#define SOAP_TYPE_zkq__getAllDevices (82)
 /* zkq:getAllDevices */
 struct zkq__getAllDevices
 {
@@ -412,7 +468,7 @@ struct zkq__getAllDevices
 #endif
 
 #ifndef SOAP_TYPE_zkq__getAllLogicsResponse
-#define SOAP_TYPE_zkq__getAllLogicsResponse (76)
+#define SOAP_TYPE_zkq__getAllLogicsResponse (85)
 /* zkq:getAllLogicsResponse */
 struct zkq__getAllLogicsResponse
 {
@@ -421,7 +477,7 @@ struct zkq__getAllLogicsResponse
 #endif
 
 #ifndef SOAP_TYPE_zkq__getAllLogics
-#define SOAP_TYPE_zkq__getAllLogics (77)
+#define SOAP_TYPE_zkq__getAllLogics (86)
 /* zkq:getAllLogics */
 struct zkq__getAllLogics
 {
@@ -430,7 +486,7 @@ struct zkq__getAllLogics
 #endif
 
 #ifndef SOAP_TYPE_zkq__getServicesByTypeResponse
-#define SOAP_TYPE_zkq__getServicesByTypeResponse (79)
+#define SOAP_TYPE_zkq__getServicesByTypeResponse (88)
 /* zkq:getServicesByTypeResponse */
 struct zkq__getServicesByTypeResponse
 {
@@ -439,7 +495,7 @@ struct zkq__getServicesByTypeResponse
 #endif
 
 #ifndef SOAP_TYPE_zkq__getServicesByType
-#define SOAP_TYPE_zkq__getServicesByType (80)
+#define SOAP_TYPE_zkq__getServicesByType (89)
 /* zkq:getServicesByType */
 struct zkq__getServicesByType
 {
@@ -448,8 +504,26 @@ struct zkq__getServicesByType
 };
 #endif
 
+#ifndef SOAP_TYPE_zkq__getParentResponse
+#define SOAP_TYPE_zkq__getParentResponse (92)
+/* zkq:getParentResponse */
+struct zkq__getParentResponse
+{
+	struct zkreg__Logic **logic;	/* SOAP 1.2 RPC return element (when namespace qualified) */	/* optional element of type zkreg:Logic */
+};
+#endif
+
+#ifndef SOAP_TYPE_zkq__getParent
+#define SOAP_TYPE_zkq__getParent (93)
+/* zkq:getParent */
+struct zkq__getParent
+{
+	char *zkq__getParentName;	/* optional element of type xsd:string */
+};
+#endif
+
 #ifndef SOAP_TYPE_zkcfg__Keys
-#define SOAP_TYPE_zkcfg__Keys (81)
+#define SOAP_TYPE_zkcfg__Keys (94)
 /* Sequence of zkcfg:Keys schema type: */
 struct zkcfg__Keys
 {
@@ -459,7 +533,7 @@ struct zkcfg__Keys
 #endif
 
 #ifndef SOAP_TYPE_zkcfg__Ret
-#define SOAP_TYPE_zkcfg__Ret (82)
+#define SOAP_TYPE_zkcfg__Ret (95)
 /* zkcfg:Ret */
 struct zkcfg__Ret
 {
@@ -469,7 +543,7 @@ struct zkcfg__Ret
 #endif
 
 #ifndef SOAP_TYPE_zkcfg__getAllKeysResponse
-#define SOAP_TYPE_zkcfg__getAllKeysResponse (87)
+#define SOAP_TYPE_zkcfg__getAllKeysResponse (100)
 /* zkcfg:getAllKeysResponse */
 struct zkcfg__getAllKeysResponse
 {
@@ -478,7 +552,7 @@ struct zkcfg__getAllKeysResponse
 #endif
 
 #ifndef SOAP_TYPE_zkcfg__getAllKeys
-#define SOAP_TYPE_zkcfg__getAllKeys (88)
+#define SOAP_TYPE_zkcfg__getAllKeys (101)
 /* zkcfg:getAllKeys */
 struct zkcfg__getAllKeys
 {
@@ -487,7 +561,7 @@ struct zkcfg__getAllKeys
 #endif
 
 #ifndef SOAP_TYPE_zkcfg__getValue
-#define SOAP_TYPE_zkcfg__getValue (91)
+#define SOAP_TYPE_zkcfg__getValue (104)
 /* zkcfg:getValue */
 struct zkcfg__getValue
 {
@@ -496,7 +570,7 @@ struct zkcfg__getValue
 #endif
 
 #ifndef SOAP_TYPE_zkcfg__setValue
-#define SOAP_TYPE_zkcfg__setValue (93)
+#define SOAP_TYPE_zkcfg__setValue (106)
 /* zkcfg:setValue */
 struct zkcfg__setValue
 {
@@ -506,7 +580,7 @@ struct zkcfg__setValue
 #endif
 
 #ifndef SOAP_TYPE_zkcfg__delKey
-#define SOAP_TYPE_zkcfg__delKey (95)
+#define SOAP_TYPE_zkcfg__delKey (108)
 /* zkcfg:delKey */
 struct zkcfg__delKey
 {
@@ -517,7 +591,7 @@ struct zkcfg__delKey
 #ifndef WITH_NOGLOBAL
 
 #ifndef SOAP_TYPE_SOAP_ENV__Header
-#define SOAP_TYPE_SOAP_ENV__Header (96)
+#define SOAP_TYPE_SOAP_ENV__Header (109)
 /* SOAP Header: */
 struct SOAP_ENV__Header
 {
@@ -532,7 +606,7 @@ struct SOAP_ENV__Header
 #ifndef WITH_NOGLOBAL
 
 #ifndef SOAP_TYPE_SOAP_ENV__Code
-#define SOAP_TYPE_SOAP_ENV__Code (97)
+#define SOAP_TYPE_SOAP_ENV__Code (110)
 /* SOAP Fault Code: */
 struct SOAP_ENV__Code
 {
@@ -546,7 +620,7 @@ struct SOAP_ENV__Code
 #ifndef WITH_NOGLOBAL
 
 #ifndef SOAP_TYPE_SOAP_ENV__Detail
-#define SOAP_TYPE_SOAP_ENV__Detail (99)
+#define SOAP_TYPE_SOAP_ENV__Detail (112)
 /* SOAP-ENV:Detail */
 struct SOAP_ENV__Detail
 {
@@ -561,7 +635,7 @@ struct SOAP_ENV__Detail
 #ifndef WITH_NOGLOBAL
 
 #ifndef SOAP_TYPE_SOAP_ENV__Reason
-#define SOAP_TYPE_SOAP_ENV__Reason (100)
+#define SOAP_TYPE_SOAP_ENV__Reason (113)
 /* SOAP-ENV:Reason */
 struct SOAP_ENV__Reason
 {
@@ -574,7 +648,7 @@ struct SOAP_ENV__Reason
 #ifndef WITH_NOGLOBAL
 
 #ifndef SOAP_TYPE_SOAP_ENV__Fault
-#define SOAP_TYPE_SOAP_ENV__Fault (101)
+#define SOAP_TYPE_SOAP_ENV__Fault (114)
 /* SOAP Fault: */
 struct SOAP_ENV__Fault
 {
@@ -650,11 +724,17 @@ SOAP_FMAC5 int SOAP_FMAC6 zkreg__regDevice(struct soap*, struct zkreg__Device *z
 
 SOAP_FMAC5 int SOAP_FMAC6 zkreg__unregDevice(struct soap*, char *zkreg__unregDevciestring, int *code);
 
-SOAP_FMAC5 int SOAP_FMAC6 zkreg__heartBeat(struct soap*, char *zkreg__heartBeatstring, int *code);
+SOAP_FMAC5 int SOAP_FMAC6 zkreg__regLogic(struct soap*, struct zkreg__Logic *zkreg__regLogicReq, char **token);
+
+SOAP_FMAC5 int SOAP_FMAC6 zkreg__delMse(struct soap*, char *zkreg__delMseNameReq, int *code);
+
+SOAP_FMAC5 int SOAP_FMAC6 zkreg__heartBeat(struct soap*, char *zkreg__heartBeatTokenReq, int *code);
 
 SOAP_FMAC5 int SOAP_FMAC6 zkreg__setShowName(struct soap*, char *zkreg__setShowNameReq, char *showname, int *code);
 
 SOAP_FMAC5 int SOAP_FMAC6 zkq__getAllMses(struct soap*, enum xsd__boolean zkq__getAllMsesoffline, struct zkreg__Mses *mses);
+
+SOAP_FMAC5 int SOAP_FMAC6 zkq__getMsesByShowname(struct soap*, enum xsd__boolean zkq__getMsesByShownameOffline, char *showname, struct zkreg__Mses *mses);
 
 SOAP_FMAC5 int SOAP_FMAC6 zkq__getAllHosts(struct soap*, enum xsd__boolean zkq__getAllHostsoffline, struct zkreg__Hosts *hosts);
 
@@ -665,6 +745,8 @@ SOAP_FMAC5 int SOAP_FMAC6 zkq__getAllDevices(struct soap*, enum xsd__boolean zkq
 SOAP_FMAC5 int SOAP_FMAC6 zkq__getAllLogics(struct soap*, enum xsd__boolean zkq__getAllLogicsoffline, struct zkreg__Logics *logics);
 
 SOAP_FMAC5 int SOAP_FMAC6 zkq__getServicesByType(struct soap*, enum xsd__boolean zkq__getServiceByTypeoffline, char *type, struct zkreg__Services *services);
+
+SOAP_FMAC5 int SOAP_FMAC6 zkq__getParent(struct soap*, char *zkq__getParentName, struct zkreg__Logic **logic);
 
 SOAP_FMAC5 int SOAP_FMAC6 zkcfg__getAllKeys(struct soap*, void *notuse, struct zkcfg__Keys *zkcfg__KeysRes);
 
@@ -696,11 +778,17 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_serve_zkreg__regDevice(struct soap*);
 
 SOAP_FMAC5 int SOAP_FMAC6 soap_serve_zkreg__unregDevice(struct soap*);
 
+SOAP_FMAC5 int SOAP_FMAC6 soap_serve_zkreg__regLogic(struct soap*);
+
+SOAP_FMAC5 int SOAP_FMAC6 soap_serve_zkreg__delMse(struct soap*);
+
 SOAP_FMAC5 int SOAP_FMAC6 soap_serve_zkreg__heartBeat(struct soap*);
 
 SOAP_FMAC5 int SOAP_FMAC6 soap_serve_zkreg__setShowName(struct soap*);
 
 SOAP_FMAC5 int SOAP_FMAC6 soap_serve_zkq__getAllMses(struct soap*);
+
+SOAP_FMAC5 int SOAP_FMAC6 soap_serve_zkq__getMsesByShowname(struct soap*);
 
 SOAP_FMAC5 int SOAP_FMAC6 soap_serve_zkq__getAllHosts(struct soap*);
 
@@ -711,6 +799,8 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_serve_zkq__getAllDevices(struct soap*);
 SOAP_FMAC5 int SOAP_FMAC6 soap_serve_zkq__getAllLogics(struct soap*);
 
 SOAP_FMAC5 int SOAP_FMAC6 soap_serve_zkq__getServicesByType(struct soap*);
+
+SOAP_FMAC5 int SOAP_FMAC6 soap_serve_zkq__getParent(struct soap*);
 
 SOAP_FMAC5 int SOAP_FMAC6 soap_serve_zkcfg__getAllKeys(struct soap*);
 
@@ -739,11 +829,17 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_call_zkreg__regDevice(struct soap *soap, const ch
 
 SOAP_FMAC5 int SOAP_FMAC6 soap_call_zkreg__unregDevice(struct soap *soap, const char *soap_endpoint, const char *soap_action, char *zkreg__unregDevciestring, int *code);
 
-SOAP_FMAC5 int SOAP_FMAC6 soap_call_zkreg__heartBeat(struct soap *soap, const char *soap_endpoint, const char *soap_action, char *zkreg__heartBeatstring, int *code);
+SOAP_FMAC5 int SOAP_FMAC6 soap_call_zkreg__regLogic(struct soap *soap, const char *soap_endpoint, const char *soap_action, struct zkreg__Logic *zkreg__regLogicReq, char **token);
+
+SOAP_FMAC5 int SOAP_FMAC6 soap_call_zkreg__delMse(struct soap *soap, const char *soap_endpoint, const char *soap_action, char *zkreg__delMseNameReq, int *code);
+
+SOAP_FMAC5 int SOAP_FMAC6 soap_call_zkreg__heartBeat(struct soap *soap, const char *soap_endpoint, const char *soap_action, char *zkreg__heartBeatTokenReq, int *code);
 
 SOAP_FMAC5 int SOAP_FMAC6 soap_call_zkreg__setShowName(struct soap *soap, const char *soap_endpoint, const char *soap_action, char *zkreg__setShowNameReq, char *showname, int *code);
 
 SOAP_FMAC5 int SOAP_FMAC6 soap_call_zkq__getAllMses(struct soap *soap, const char *soap_endpoint, const char *soap_action, enum xsd__boolean zkq__getAllMsesoffline, struct zkreg__Mses *mses);
+
+SOAP_FMAC5 int SOAP_FMAC6 soap_call_zkq__getMsesByShowname(struct soap *soap, const char *soap_endpoint, const char *soap_action, enum xsd__boolean zkq__getMsesByShownameOffline, char *showname, struct zkreg__Mses *mses);
 
 SOAP_FMAC5 int SOAP_FMAC6 soap_call_zkq__getAllHosts(struct soap *soap, const char *soap_endpoint, const char *soap_action, enum xsd__boolean zkq__getAllHostsoffline, struct zkreg__Hosts *hosts);
 
@@ -754,6 +850,8 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_call_zkq__getAllDevices(struct soap *soap, const 
 SOAP_FMAC5 int SOAP_FMAC6 soap_call_zkq__getAllLogics(struct soap *soap, const char *soap_endpoint, const char *soap_action, enum xsd__boolean zkq__getAllLogicsoffline, struct zkreg__Logics *logics);
 
 SOAP_FMAC5 int SOAP_FMAC6 soap_call_zkq__getServicesByType(struct soap *soap, const char *soap_endpoint, const char *soap_action, enum xsd__boolean zkq__getServiceByTypeoffline, char *type, struct zkreg__Services *services);
+
+SOAP_FMAC5 int SOAP_FMAC6 soap_call_zkq__getParent(struct soap *soap, const char *soap_endpoint, const char *soap_action, char *zkq__getParentName, struct zkreg__Logic **logic);
 
 SOAP_FMAC5 int SOAP_FMAC6 soap_call_zkcfg__getAllKeys(struct soap *soap, const char *soap_endpoint, const char *soap_action, void *notuse, struct zkcfg__Keys *zkcfg__KeysRes);
 

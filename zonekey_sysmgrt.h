@@ -63,6 +63,7 @@ struct zkreg__Mse
 {
 	xsd__string		name		1;	// 唯一名字
 	enum zkreg__Catalog	catalog		1;	// 类型
+	xsd__string		parent		0;	// 父节点名字
 	xsd__string		showname	0;	// 显示名字
 };
 
@@ -146,6 +147,7 @@ struct zkreg__Logics
 };
 
 // 主机注册, token 为返回
+// 对于主机/服务/设备的注销，仅仅变为离线状态，而不从数据库中删除
 int zkreg__regHost(struct zkreg__Host *zkreg__regHostReq, xsd__string *token);
 int zkreg__unregHost(xsd__string zkreg__unRegHoststring, int *code);
 
@@ -157,8 +159,16 @@ int zkreg__unregService(xsd__string zkreg__unregServicestring, int *code);
 int zkreg__regDevice(struct zkreg__Device *zkreg__regDeviceReq, xsd__string *token);
 int zkreg__unregDevice(xsd__string zkreg__unregDevciestring, int *code);
 
-// 心跳
-int zkreg__heartBeat(xsd__string zkreg__heartBeatstring, int *code);
+// 逻辑注册，与上面三个不同，逻辑对象，没有心跳之说
+// 返回的 token 总是 "000000"
+int zkreg__regLogic(struct zkreg__Logic *zkreg__regLogicReq, xsd__string *token);
+
+// 从数据库中删除记录
+int zkreg__delMse(xsd__string zkreg__delMseNameReq, int *code);
+
+// 心跳，对于 host, service, device 三者，需要周期调用 heartBeat 保持在线状态
+// 第一个参数为 regXXX() 返回的 token
+int zkreg__heartBeat(xsd__string zkreg__heartBeatTokenReq, int *code);
 
 // 修改 mse 显示信息
 int zkreg__setShowName(xsd__string zkreg__setShowNameReq, xsd__string showname, int *code);
@@ -169,6 +179,10 @@ int zkreg__setShowName(xsd__string zkreg__setShowNameReq, xsd__string showname, 
 
 // 查询返回所有 mse 对象
 int zkq__getAllMses(enum xsd__boolean zkq__getAllMsesoffline, struct zkreg__Mses *mses);
+
+// 返回 ShowName 为 xxx 的 mse 对象
+int zkq__getMsesByShowname(enum xsd__boolean zkq__getMsesByShownameOffline, xsd__string showname,
+		struct zkreg__Mses *mses);
 
 // 返回所有主机
 int zkq__getAllHosts(enum xsd__boolean zkq__getAllHostsoffline, struct zkreg__Hosts *hosts);
@@ -184,6 +198,11 @@ int zkq__getAllLogics(enum xsd__boolean zkq__getAllLogicsoffline, struct zkreg__
 
 // 根据服务类型查询服务
 int zkq__getServicesByType(enum xsd__boolean zkq__getServiceByTypeoffline, xsd__string type, struct zkreg__Services *services);
+
+// 获取父节点信息，如果有效，总是 Logic 类型，如果没有 parent 节点，则 logic 为空
+int zkq__getParent(xsd__string zkq__getParentName, struct zkreg__Logic **logic);
+
+// 
 
 //////////////////////////////////////////////////////////
 // 返回配置项 keys
