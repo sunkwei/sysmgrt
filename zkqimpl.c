@@ -26,6 +26,7 @@ int zkq__getAllMses(struct soap *soap, enum xsd__boolean offline, struct zkreg__
 	};
 	struct dbhlpColumn **all = 0, **all_logic = 0;
 	int rows = 0, row_logic = 0, i;
+	int n = sizeof(desc) / sizeof(struct dbhlpColumn);
 
 	if (offline) {
 		snprintf(st, 1024, "SELECT name,parent,catalog,showname FROM mse");
@@ -36,7 +37,7 @@ int zkq__getAllMses(struct soap *soap, enum xsd__boolean offline, struct zkreg__
 			zkreg__Catalog__Logic);
 	}
 
-	db_exec_select2(_db, st, desc, 3, &all, &rows);
+	db_exec_select2(_db, st, desc, n, &all, &rows);
 
 	if (!offline) {
 		// 需要合并 logic
@@ -61,8 +62,8 @@ int zkq__getAllMses(struct soap *soap, enum xsd__boolean offline, struct zkreg__
 		mses->__ptr[i+rows].showname = soap_strdup(soap, all_logic[i][3].data.s);
 	}
 
-	db_free_select2(desc, 3, all, rows);
-	db_free_select2(desc, 3, all_logic, row_logic);
+	db_free_select2(desc, n, all, rows);
+	db_free_select2(desc, n, all_logic, row_logic);
 
 	return SOAP_OK;
 }
@@ -79,12 +80,13 @@ int zkq__getAllHosts(struct soap *soap, enum xsd__boolean offline, struct zkreg_
 {
 	char *st = (char*)alloca(1024);
 
-	struct dbhlpColumn desc[3] = {
+	struct dbhlpColumn desc[] = {
 		{ { 0 }, DBT_STRING },	// host.name
 		{ { 0 }, DBT_STRING },	// host.ips
 		{ { 0 }, DBT_STRING },	// mse.showname
 	};
 
+	int n = sizeof(desc) / sizeof(struct dbhlpColumn);
 	struct dbhlpColumn **all = 0;
 	int rows = 0, i, j;
 
@@ -100,7 +102,7 @@ int zkq__getAllHosts(struct soap *soap, enum xsd__boolean offline, struct zkreg_
                  " JOIN token ON token.name=host.name");
     }
 
-	db_exec_select2(_db, st, desc, 3, &all, &rows);
+	db_exec_select2(_db, st, desc, n, &all, &rows);
 
 	hosts->__size = rows;
 	hosts->__ptr = (struct zkreg__Host*)soap_malloc(soap, sizeof(struct zkreg__Host) * rows);
@@ -109,7 +111,7 @@ int zkq__getAllHosts(struct soap *soap, enum xsd__boolean offline, struct zkreg_
 		hosts->__ptr[i].name = soap_strdup(soap, all[i][0].data.s);
 		hosts->__ptr[i].catalog = zkreg__Catalog__Host;
 		hosts->__ptr[i].showname = soap_strdup(soap, all[i][2].data.s);
-		
+
 		// 使用 , 分割 ips
 		{
 			char **ptmp = 0;
@@ -137,7 +139,7 @@ int zkq__getAllHosts(struct soap *soap, enum xsd__boolean offline, struct zkreg_
 		}
 	}
 
-	db_free_select2(desc, 3, all, rows);
+	db_free_select2(desc, n, all, rows);
 
 	return SOAP_OK;
 }

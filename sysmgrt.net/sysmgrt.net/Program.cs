@@ -30,7 +30,7 @@ namespace sysmgrt.net
 
 		public static void Main (string[] args)
 		{
-			#if true
+			#if false
 			int count = 10;
 			Thread []th = new Thread[count];
 
@@ -44,10 +44,9 @@ namespace sysmgrt.net
 			}
 			#endif
 
-            for (int i = 0; i < 10; i++) {
-
-                // 使用 zkquery获取 hosts 列表
+            for (int i = 0; i < 100000; i++) {
                 zkquery.zkq query = new zkquery.zkq();
+                // 使用 zkquery获取 hosts 列表
                 query.Url = "http://localhost:8899";
                 zkquery.getAllHosts req = new zkquery.getAllHosts();
                 req.getAllHostsoffline = true;
@@ -59,7 +58,7 @@ namespace sysmgrt.net
                 }
                 else {
                     foreach (zkquery.Host host in res.hosts) {
-                        Console.WriteLine(num + ": token=" + host.name);
+//                        Console.WriteLine(num + ": token=" + host.name);
                         num++;
                     }
                 }

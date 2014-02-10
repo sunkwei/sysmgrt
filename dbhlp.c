@@ -36,7 +36,6 @@ int db_exec_select(sqlite3 *db, const char *sql, int (*callback)(void *opaque, s
         rc = sqlite3_step(stmt);
     }
     
-    // sqlite3_reset(stmt);
     sqlite3_finalize(stmt);
     
     return 0;
@@ -150,7 +149,7 @@ struct tmpParam
 	int rows;
 };
 
-static int db_select_cb(void *opaque, size_t row, sqlite3_stmt *stmt)
+static int db_select2_cb(void *opaque, size_t row, sqlite3_stmt *stmt)
 {
 	int i;
 	struct tmpParam *p = (struct tmpParam*)opaque;
@@ -159,6 +158,8 @@ static int db_select_cb(void *opaque, size_t row, sqlite3_stmt *stmt)
 
 	// 保存一行. 
 	p->cols[row] = (struct dbhlpColumn*)malloc(p->cn * sizeof(struct dbhlpColumn));
+	memset(p->cols[row], 0, p->cn * sizeof(struct dbhlpColumn));
+
 	for (i = 0; i < p->cn; i++) {
 		
 		p->cols[row]->type = p->desc[i].type;
@@ -173,8 +174,11 @@ static int db_select_cb(void *opaque, size_t row, sqlite3_stmt *stmt)
 			break;
 
 		case DBT_STRING:
-			p->cols[row][i].data.s = strdup((char*)sqlite3_column_text(stmt, i)); // FIXME: 此处返回的是 utf-8
-			break;
+			if (SQLITE_NULL == sqlite3_column_type(stmt, i))
+				p->cols[row][i].data.s = strdup("");
+			else
+				p->cols[row][i].data.s = strdup((char*)sqlite3_column_text(stmt, i)); // FIXME: 此处返回的是 utf-8
+ 			break;
 
 		default:
 			fprintf(stderr, "ERR: %s: NOT supported type '%d'\n", __func__, p->desc[i].type);
@@ -190,7 +194,7 @@ int db_exec_select2(sqlite3 *db, const char *sql, struct dbhlpColumn col_desc[],
 {
 	struct tmpParam param = { col_desc, cn, 0, 0 };
 
-	int rc = db_exec_select(db, sql, db_select_cb, &param);
+	int rc = db_exec_select(db, sql, db_select2_cb, &param);
 	if (rc >= 0) {
 		*cols = param.cols;
 		*rows = param.rows;
@@ -211,9 +215,10 @@ void db_free_select2(struct dbhlpColumn col_desc[], int cn, struct dbhlpColumn *
 		for (r = 0; r < rows; r++) {
 			struct dbhlpColumn *row = all[r];
 			for (c = 0; c < cn; c++) {
-				switch (row[c].type) {
+				switch (col_desc[c].type) {
 				case DBT_STRING:
-					free(row[c].data.s); // 对应着 strdup()
+					if (row[c].data.s)
+						free(row[c].data.s); // 对应着 strdup()
 					break;
 				}
 			}
