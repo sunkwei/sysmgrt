@@ -173,7 +173,12 @@ int zkreg__heartBeat(xsd__string zkreg__heartBeatTokenReq, int *code);
 // 修改 mse 显示信息
 int zkreg__setShowName(xsd__string zkreg__setShowNameReq, xsd__string showname, int *code);
 
-// 逻辑设备的绑定
+// 逻辑设备的绑定，即将 msename 保存为 bindLogicName 的 children
+int zkreg__bind(xsd__string zkreg__bindLogicName, xsd__string msename, int *code);
+int zkreg__unbind(xsd__string zkreg__bindLogicName, xsd__string msename, int *code);
+
+// 设置父节点
+int zkreg__setParent(xsd__string zkreg__setParentName, xsd__string msename, int *code);
 
 //////////////////////////////////////////////////////////
 

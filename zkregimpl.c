@@ -8,6 +8,8 @@
 
 #include <stdio.h>
 #include <time.h>
+#include <assert.h>
+#include <malloc.h>
 #include "soapStub.h"
 #include "dbhlp.h"
 #include "dboper.h"
@@ -135,5 +137,106 @@ int zkreg__regLogic(struct soap *soap, struct zkreg__Logic *logic, char **token)
 int zkreg__delMse(struct soap *soap, char *name, int *code)
 {
 	// 删除记录
+	char *st = (char*)alloca(1024);
+
+	struct dbhlpColumn desc[] = {
+		{ { 0 }, DBT_STRING },	// name
+		{ { 0 }, DBT_INT },		// catalog
+	};
+
+	struct dbhlpColumn **all;
+	int rows = 0;
+
+	snprintf(st, 1024, "SELECT name FROM mse WHERE name='%s'", name);
+	db_exec_select2(_db, st, desc, sizeof(desc)/sizeof(struct dbhlpColumn), &all, &rows);
+
+	if (rows > 0) {
+		assert(rows == 1);	// 必须的 :)
+		
+		// 说明找到了. 
+		switch (all[0][1].data.i) {
+		case zkreg__Catalog__Host:
+			snprintf(st, 1024, "DELETE FROM mse WHERE name='%s';"
+				"DELETE FROM host WHERE name='%s'", name, name);
+			break;
+
+		case zkreg__Catalog__Service:
+			snprintf(st, 1024, "DELETE FROM mse WHERE name='%s';"
+				"DELETE FROM service WHERE name='%s'", name, name);
+			break;
+
+		case zkreg__Catalog__Device:
+			snprintf(st, 1024, "DELETE FROM mse WHERE name='%s';"
+				"DELETE FROM device WHERE name='%s'", name, name);
+			break;
+
+		case zkreg__Catalog__Logic:
+			snprintf(st, 1024, "DELETE FROM mse WHERE name='%s';"
+				"DELETE FROM logic WHERE name='%s'", name, name);
+			break;
+
+		default:
+			fprintf(stderr, "ERR: %s:%d unknown type!\n", __func__, __LINE__);
+			exit(-1);
+			break;
+		}
+
+		db_free_select2(desc, sizeof(desc)/sizeof(struct dbhlpColumn), all, rows);
+
+		db_exec_sql(_db, st);
+
+		*code = 0;	// 成功
+	}
+	else {
+		*code = -1;	// 没有找到
+	}
+
+	return SOAP_OK;
+}
+
+int zkreg__bind(struct soap *soap, char *logic, char *mse, int *code)
+{
+	char *st = (char*)alloca(1024);
+
+	struct dbhlpColumn desc[] = {
+		{ { 0 }, DBT_STRING },	// name
+		{ { 0 }, DBT_STRING },	// children
+	};
+
+	struct dbhlpColumn **all;
+	int rows = 0;
+
+	snprintf(st, 1024, "SELECT name,children FROM logic WHERE name='%s'", logic);
+	db_exec_select2(_db, st, desc, sizeof(desc)/sizeof(struct dbhlpColumn), &all, &rows);
+
+	if (rows > 0) {
+		assert(rows == 1);	// 必须的 :)
+
+		// 检查 mse 是否已经在 children 中
+		if (strstr(all[0][1].data.s, mse)) {
+			*code = 1;	// 已经存在
+		}
+		else {
+			snprintf(st, 1024, "UPDATE logic SET children='%s\n%s' WHERE name=%s",
+				all[0][1].data.s, mse, logic);
+			db_exec_sql(_db, st);
+
+			db_free_select2(desc, sizeof(desc)/sizeof(struct dbhlpColumn), all, rows);
+		}
+	}
+	else {
+		*code = -1;	// 没有找到
+	}
+
+	return SOAP_OK;
+}
+
+int zkreg__unbind(struct soap *soap, char *logic, char *mse, int *code)
+{
+	return SOAP_OK;
+}
+
+int zkreg__setParent(struct soap *soap, char *mse, char *parent, int *code)
+{
 	return SOAP_OK;
 }
