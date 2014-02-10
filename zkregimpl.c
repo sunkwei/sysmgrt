@@ -212,9 +212,9 @@ int zkreg__bind(struct soap *soap, char *logic, char *mse, int *code)
 	if (rows > 0) {
 		assert(rows == 1);	// 必须的 :)
 
-		// 检查 mse 是否已经在 children 中
+		// 检查 mse 是否已经在 children 中. 
 		if (strstr(all[0][1].data.s, mse)) {
-			*code = 1;	// 已经存在
+			*code = 1;	// 已经存在. 
 		}
 		else {
 			snprintf(st, 1024, "UPDATE logic SET children='%s\n%s' WHERE name=%s",
@@ -225,7 +225,7 @@ int zkreg__bind(struct soap *soap, char *logic, char *mse, int *code)
 		}
 	}
 	else {
-		*code = -1;	// 没有找到
+		*code = -1;	// 没有找到. 
 	}
 
 	return SOAP_OK;
