@@ -56,6 +56,8 @@ int main(int argc, const char * argv[])
     sqlite3_initialize();
     
     sqlite3_open(DB_NAME, &_db);
+	sqlite3_exec(_db, "PRAGMA synchronous = OFF;", 0, 0, 0);
+
     db_init(_db);
     
     // 启动 webservice

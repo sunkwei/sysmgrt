@@ -8,1343 +8,1723 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Web.Services;
-using System.Web.Services.Protocols;
-using System.Xml.Serialization;
-
 // 
 // 此源代码由 wsdl 自动生成, Version=4.0.30319.1。
 // 
-
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Web.Services.WebServiceBindingAttribute(Name="zkreg", Namespace="http://www.zonekey.com/sysmgrt/register")]
-public partial class zkreg : System.Web.Services.Protocols.SoapHttpClientProtocol {
-    
-    private System.Threading.SendOrPostCallback regHostOperationCompleted;
-    
-    private System.Threading.SendOrPostCallback unregHostOperationCompleted;
-    
-    private System.Threading.SendOrPostCallback regServiceOperationCompleted;
-    
-    private System.Threading.SendOrPostCallback unregServiceOperationCompleted;
-    
-    private System.Threading.SendOrPostCallback regDeviceOperationCompleted;
-    
-    private System.Threading.SendOrPostCallback unregDeviceOperationCompleted;
-    
-    private System.Threading.SendOrPostCallback heartBeatOperationCompleted;
-    
-    private System.Threading.SendOrPostCallback setShowNameOperationCompleted;
-    
-    /// <remarks/>
-    public zkreg() {
-        this.Url = "http://localhost:80";
-    }
-    
-    /// <remarks/>
-    public event regHostCompletedEventHandler regHostCompleted;
-    
-    /// <remarks/>
-    public event unregHostCompletedEventHandler unregHostCompleted;
-    
-    /// <remarks/>
-    public event regServiceCompletedEventHandler regServiceCompleted;
-    
-    /// <remarks/>
-    public event unregServiceCompletedEventHandler unregServiceCompleted;
-    
-    /// <remarks/>
-    public event regDeviceCompletedEventHandler regDeviceCompleted;
-    
-    /// <remarks/>
-    public event unregDeviceCompletedEventHandler unregDeviceCompleted;
-    
-    /// <remarks/>
-    public event heartBeatCompletedEventHandler heartBeatCompleted;
-    
-    /// <remarks/>
-    public event setShowNameCompletedEventHandler setShowNameCompleted;
-    
-    /// <remarks/>
-    [System.Web.Services.Protocols.SoapDocumentMethodAttribute("", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Bare)]
-    [return: System.Xml.Serialization.XmlElementAttribute("regHostResponse", Namespace="http://www.zonekey.com/sysmgrt/register")]
-    public regHostResponse regHost([System.Xml.Serialization.XmlElementAttribute("regHost", Namespace="http://www.zonekey.com/sysmgrt/register")] regHost regHost1) {
-        object[] results = this.Invoke("regHost", new object[] {
-                    regHost1});
-        return ((regHostResponse)(results[0]));
-    }
-    
-    /// <remarks/>
-    public System.IAsyncResult BeginregHost(regHost regHost1, System.AsyncCallback callback, object asyncState) {
-        return this.BeginInvoke("regHost", new object[] {
-                    regHost1}, callback, asyncState);
-    }
-    
-    /// <remarks/>
-    public regHostResponse EndregHost(System.IAsyncResult asyncResult) {
-        object[] results = this.EndInvoke(asyncResult);
-        return ((regHostResponse)(results[0]));
-    }
-    
-    /// <remarks/>
-    public void regHostAsync(regHost regHost1) {
-        this.regHostAsync(regHost1, null);
-    }
-    
-    /// <remarks/>
-    public void regHostAsync(regHost regHost1, object userState) {
-        if ((this.regHostOperationCompleted == null)) {
-            this.regHostOperationCompleted = new System.Threading.SendOrPostCallback(this.OnregHostOperationCompleted);
-        }
-        this.InvokeAsync("regHost", new object[] {
-                    regHost1}, this.regHostOperationCompleted, userState);
-    }
-    
-    private void OnregHostOperationCompleted(object arg) {
-        if ((this.regHostCompleted != null)) {
-            System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-            this.regHostCompleted(this, new regHostCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-        }
-    }
-    
-    /// <remarks/>
-    [System.Web.Services.Protocols.SoapDocumentMethodAttribute("", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Bare)]
-    [return: System.Xml.Serialization.XmlElementAttribute("unregHostResponse", Namespace="http://www.zonekey.com/sysmgrt/register")]
-    public unregHostResponse unregHost([System.Xml.Serialization.XmlElementAttribute("unregHost", Namespace="http://www.zonekey.com/sysmgrt/register")] unregHost unregHost1) {
-        object[] results = this.Invoke("unregHost", new object[] {
-                    unregHost1});
-        return ((unregHostResponse)(results[0]));
-    }
-    
-    /// <remarks/>
-    public System.IAsyncResult BeginunregHost(unregHost unregHost1, System.AsyncCallback callback, object asyncState) {
-        return this.BeginInvoke("unregHost", new object[] {
-                    unregHost1}, callback, asyncState);
-    }
-    
-    /// <remarks/>
-    public unregHostResponse EndunregHost(System.IAsyncResult asyncResult) {
-        object[] results = this.EndInvoke(asyncResult);
-        return ((unregHostResponse)(results[0]));
-    }
-    
-    /// <remarks/>
-    public void unregHostAsync(unregHost unregHost1) {
-        this.unregHostAsync(unregHost1, null);
-    }
-    
-    /// <remarks/>
-    public void unregHostAsync(unregHost unregHost1, object userState) {
-        if ((this.unregHostOperationCompleted == null)) {
-            this.unregHostOperationCompleted = new System.Threading.SendOrPostCallback(this.OnunregHostOperationCompleted);
-        }
-        this.InvokeAsync("unregHost", new object[] {
-                    unregHost1}, this.unregHostOperationCompleted, userState);
-    }
-    
-    private void OnunregHostOperationCompleted(object arg) {
-        if ((this.unregHostCompleted != null)) {
-            System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-            this.unregHostCompleted(this, new unregHostCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-        }
-    }
-    
-    /// <remarks/>
-    [System.Web.Services.Protocols.SoapDocumentMethodAttribute("", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Bare)]
-    [return: System.Xml.Serialization.XmlElementAttribute("regServiceResponse", Namespace="http://www.zonekey.com/sysmgrt/register")]
-    public regServiceResponse regService([System.Xml.Serialization.XmlElementAttribute("regService", Namespace="http://www.zonekey.com/sysmgrt/register")] regService regService1) {
-        object[] results = this.Invoke("regService", new object[] {
-                    regService1});
-        return ((regServiceResponse)(results[0]));
-    }
-    
-    /// <remarks/>
-    public System.IAsyncResult BeginregService(regService regService1, System.AsyncCallback callback, object asyncState) {
-        return this.BeginInvoke("regService", new object[] {
-                    regService1}, callback, asyncState);
-    }
-    
-    /// <remarks/>
-    public regServiceResponse EndregService(System.IAsyncResult asyncResult) {
-        object[] results = this.EndInvoke(asyncResult);
-        return ((regServiceResponse)(results[0]));
-    }
-    
-    /// <remarks/>
-    public void regServiceAsync(regService regService1) {
-        this.regServiceAsync(regService1, null);
-    }
-    
-    /// <remarks/>
-    public void regServiceAsync(regService regService1, object userState) {
-        if ((this.regServiceOperationCompleted == null)) {
-            this.regServiceOperationCompleted = new System.Threading.SendOrPostCallback(this.OnregServiceOperationCompleted);
-        }
-        this.InvokeAsync("regService", new object[] {
-                    regService1}, this.regServiceOperationCompleted, userState);
-    }
-    
-    private void OnregServiceOperationCompleted(object arg) {
-        if ((this.regServiceCompleted != null)) {
-            System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-            this.regServiceCompleted(this, new regServiceCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-        }
-    }
-    
-    /// <remarks/>
-    [System.Web.Services.Protocols.SoapDocumentMethodAttribute("", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Bare)]
-    [return: System.Xml.Serialization.XmlElementAttribute("unregServiceResponse", Namespace="http://www.zonekey.com/sysmgrt/register")]
-    public unregServiceResponse unregService([System.Xml.Serialization.XmlElementAttribute("unregService", Namespace="http://www.zonekey.com/sysmgrt/register")] unregService unregService1) {
-        object[] results = this.Invoke("unregService", new object[] {
-                    unregService1});
-        return ((unregServiceResponse)(results[0]));
-    }
-    
-    /// <remarks/>
-    public System.IAsyncResult BeginunregService(unregService unregService1, System.AsyncCallback callback, object asyncState) {
-        return this.BeginInvoke("unregService", new object[] {
-                    unregService1}, callback, asyncState);
-    }
-    
-    /// <remarks/>
-    public unregServiceResponse EndunregService(System.IAsyncResult asyncResult) {
-        object[] results = this.EndInvoke(asyncResult);
-        return ((unregServiceResponse)(results[0]));
-    }
-    
-    /// <remarks/>
-    public void unregServiceAsync(unregService unregService1) {
-        this.unregServiceAsync(unregService1, null);
-    }
-    
-    /// <remarks/>
-    public void unregServiceAsync(unregService unregService1, object userState) {
-        if ((this.unregServiceOperationCompleted == null)) {
-            this.unregServiceOperationCompleted = new System.Threading.SendOrPostCallback(this.OnunregServiceOperationCompleted);
-        }
-        this.InvokeAsync("unregService", new object[] {
-                    unregService1}, this.unregServiceOperationCompleted, userState);
-    }
-    
-    private void OnunregServiceOperationCompleted(object arg) {
-        if ((this.unregServiceCompleted != null)) {
-            System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-            this.unregServiceCompleted(this, new unregServiceCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-        }
-    }
-    
-    /// <remarks/>
-    [System.Web.Services.Protocols.SoapDocumentMethodAttribute("", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Bare)]
-    [return: System.Xml.Serialization.XmlElementAttribute("regDeviceResponse", Namespace="http://www.zonekey.com/sysmgrt/register")]
-    public regDeviceResponse regDevice([System.Xml.Serialization.XmlElementAttribute("regDevice", Namespace="http://www.zonekey.com/sysmgrt/register")] regDevice regDevice1) {
-        object[] results = this.Invoke("regDevice", new object[] {
-                    regDevice1});
-        return ((regDeviceResponse)(results[0]));
-    }
-    
-    /// <remarks/>
-    public System.IAsyncResult BeginregDevice(regDevice regDevice1, System.AsyncCallback callback, object asyncState) {
-        return this.BeginInvoke("regDevice", new object[] {
-                    regDevice1}, callback, asyncState);
-    }
-    
-    /// <remarks/>
-    public regDeviceResponse EndregDevice(System.IAsyncResult asyncResult) {
-        object[] results = this.EndInvoke(asyncResult);
-        return ((regDeviceResponse)(results[0]));
-    }
-    
-    /// <remarks/>
-    public void regDeviceAsync(regDevice regDevice1) {
-        this.regDeviceAsync(regDevice1, null);
-    }
-    
-    /// <remarks/>
-    public void regDeviceAsync(regDevice regDevice1, object userState) {
-        if ((this.regDeviceOperationCompleted == null)) {
-            this.regDeviceOperationCompleted = new System.Threading.SendOrPostCallback(this.OnregDeviceOperationCompleted);
-        }
-        this.InvokeAsync("regDevice", new object[] {
-                    regDevice1}, this.regDeviceOperationCompleted, userState);
-    }
-    
-    private void OnregDeviceOperationCompleted(object arg) {
-        if ((this.regDeviceCompleted != null)) {
-            System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-            this.regDeviceCompleted(this, new regDeviceCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-        }
-    }
-    
-    /// <remarks/>
-    [System.Web.Services.Protocols.SoapDocumentMethodAttribute("", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Bare)]
-    [return: System.Xml.Serialization.XmlElementAttribute("unregDeviceResponse", Namespace="http://www.zonekey.com/sysmgrt/register")]
-    public unregDeviceResponse unregDevice([System.Xml.Serialization.XmlElementAttribute("unregDevice", Namespace="http://www.zonekey.com/sysmgrt/register")] unregDevice unregDevice1) {
-        object[] results = this.Invoke("unregDevice", new object[] {
-                    unregDevice1});
-        return ((unregDeviceResponse)(results[0]));
-    }
-    
-    /// <remarks/>
-    public System.IAsyncResult BeginunregDevice(unregDevice unregDevice1, System.AsyncCallback callback, object asyncState) {
-        return this.BeginInvoke("unregDevice", new object[] {
-                    unregDevice1}, callback, asyncState);
-    }
-    
-    /// <remarks/>
-    public unregDeviceResponse EndunregDevice(System.IAsyncResult asyncResult) {
-        object[] results = this.EndInvoke(asyncResult);
-        return ((unregDeviceResponse)(results[0]));
-    }
-    
-    /// <remarks/>
-    public void unregDeviceAsync(unregDevice unregDevice1) {
-        this.unregDeviceAsync(unregDevice1, null);
-    }
-    
-    /// <remarks/>
-    public void unregDeviceAsync(unregDevice unregDevice1, object userState) {
-        if ((this.unregDeviceOperationCompleted == null)) {
-            this.unregDeviceOperationCompleted = new System.Threading.SendOrPostCallback(this.OnunregDeviceOperationCompleted);
-        }
-        this.InvokeAsync("unregDevice", new object[] {
-                    unregDevice1}, this.unregDeviceOperationCompleted, userState);
-    }
-    
-    private void OnunregDeviceOperationCompleted(object arg) {
-        if ((this.unregDeviceCompleted != null)) {
-            System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-            this.unregDeviceCompleted(this, new unregDeviceCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-        }
-    }
-    
-    /// <remarks/>
-    [System.Web.Services.Protocols.SoapDocumentMethodAttribute("", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Bare)]
-    [return: System.Xml.Serialization.XmlElementAttribute("heartBeatResponse", Namespace="http://www.zonekey.com/sysmgrt/register")]
-    public heartBeatResponse heartBeat([System.Xml.Serialization.XmlElementAttribute("heartBeat", Namespace="http://www.zonekey.com/sysmgrt/register")] heartBeat heartBeat1) {
-        object[] results = this.Invoke("heartBeat", new object[] {
-                    heartBeat1});
-        return ((heartBeatResponse)(results[0]));
-    }
-    
-    /// <remarks/>
-    public System.IAsyncResult BeginheartBeat(heartBeat heartBeat1, System.AsyncCallback callback, object asyncState) {
-        return this.BeginInvoke("heartBeat", new object[] {
-                    heartBeat1}, callback, asyncState);
-    }
-    
-    /// <remarks/>
-    public heartBeatResponse EndheartBeat(System.IAsyncResult asyncResult) {
-        object[] results = this.EndInvoke(asyncResult);
-        return ((heartBeatResponse)(results[0]));
-    }
-    
-    /// <remarks/>
-    public void heartBeatAsync(heartBeat heartBeat1) {
-        this.heartBeatAsync(heartBeat1, null);
-    }
-    
-    /// <remarks/>
-    public void heartBeatAsync(heartBeat heartBeat1, object userState) {
-        if ((this.heartBeatOperationCompleted == null)) {
-            this.heartBeatOperationCompleted = new System.Threading.SendOrPostCallback(this.OnheartBeatOperationCompleted);
-        }
-        this.InvokeAsync("heartBeat", new object[] {
-                    heartBeat1}, this.heartBeatOperationCompleted, userState);
-    }
-    
-    private void OnheartBeatOperationCompleted(object arg) {
-        if ((this.heartBeatCompleted != null)) {
-            System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-            this.heartBeatCompleted(this, new heartBeatCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-        }
-    }
-    
-    /// <remarks/>
-    [System.Web.Services.Protocols.SoapDocumentMethodAttribute("", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Bare)]
-    [return: System.Xml.Serialization.XmlElementAttribute("setShowNameResponse", Namespace="http://www.zonekey.com/sysmgrt/register")]
-    public setShowNameResponse setShowName([System.Xml.Serialization.XmlElementAttribute("setShowName", Namespace="http://www.zonekey.com/sysmgrt/register")] setShowName setShowName1) {
-        object[] results = this.Invoke("setShowName", new object[] {
-                    setShowName1});
-        return ((setShowNameResponse)(results[0]));
-    }
-    
-    /// <remarks/>
-    public System.IAsyncResult BeginsetShowName(setShowName setShowName1, System.AsyncCallback callback, object asyncState) {
-        return this.BeginInvoke("setShowName", new object[] {
-                    setShowName1}, callback, asyncState);
-    }
-    
-    /// <remarks/>
-    public setShowNameResponse EndsetShowName(System.IAsyncResult asyncResult) {
-        object[] results = this.EndInvoke(asyncResult);
-        return ((setShowNameResponse)(results[0]));
-    }
-    
-    /// <remarks/>
-    public void setShowNameAsync(setShowName setShowName1) {
-        this.setShowNameAsync(setShowName1, null);
-    }
-    
-    /// <remarks/>
-    public void setShowNameAsync(setShowName setShowName1, object userState) {
-        if ((this.setShowNameOperationCompleted == null)) {
-            this.setShowNameOperationCompleted = new System.Threading.SendOrPostCallback(this.OnsetShowNameOperationCompleted);
-        }
-        this.InvokeAsync("setShowName", new object[] {
-                    setShowName1}, this.setShowNameOperationCompleted, userState);
-    }
-    
-    private void OnsetShowNameOperationCompleted(object arg) {
-        if ((this.setShowNameCompleted != null)) {
-            System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-            this.setShowNameCompleted(this, new setShowNameCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-        }
-    }
-    
-    /// <remarks/>
-    public new void CancelAsync(object userState) {
-        base.CancelAsync(userState);
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.zonekey.com/sysmgrt/register")]
-public partial class regHost {
-    
-    private Host regHostReqField;
-    
-    /// <remarks/>
-    public Host regHostReq {
-        get {
-            return this.regHostReqField;
-        }
-        set {
-            this.regHostReqField = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.zonekey.com/sysmgrt/register")]
-public partial class Host {
-    
-    private string nameField;
-    
-    private Catalog catalogField;
-    
-    private string[] ipsField;
-    
-    private string shownameField;
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-    public string name {
-        get {
-            return this.nameField;
-        }
-        set {
-            this.nameField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public Catalog catalog {
-        get {
-            return this.catalogField;
-        }
-        set {
-            this.catalogField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)]
-    [System.Xml.Serialization.XmlArrayItemAttribute("item")]
-    public string[] ips {
-        get {
-            return this.ipsField;
-        }
-        set {
-            this.ipsField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-    public string showname {
-        get {
-            return this.shownameField;
-        }
-        set {
-            this.shownameField = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.zonekey.com/sysmgrt/register")]
-public enum Catalog {
-    
-    /// <remarks/>
-    Host,
-    
-    /// <remarks/>
-    Service,
-    
-    /// <remarks/>
-    Device,
-    
-    /// <remarks/>
-    Logic,
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.zonekey.com/sysmgrt/register")]
-public partial class Device {
-    
-    private string nameField;
-    
-    private Catalog catalogField;
-    
-    private string hostnameField;
-    
-    private string typeField;
-    
-    private string vendorField;
-    
-    private string modelField;
-    
-    private string serialField;
-    
-    private string versionField;
-    
-    private string shownameField;
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-    public string name {
-        get {
-            return this.nameField;
-        }
-        set {
-            this.nameField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public Catalog catalog {
-        get {
-            return this.catalogField;
-        }
-        set {
-            this.catalogField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-    public string hostname {
-        get {
-            return this.hostnameField;
-        }
-        set {
-            this.hostnameField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-    public string type {
-        get {
-            return this.typeField;
-        }
-        set {
-            this.typeField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-    public string vendor {
-        get {
-            return this.vendorField;
-        }
-        set {
-            this.vendorField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-    public string model {
-        get {
-            return this.modelField;
-        }
-        set {
-            this.modelField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-    public string serial {
-        get {
-            return this.serialField;
-        }
-        set {
-            this.serialField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-    public string version {
-        get {
-            return this.versionField;
-        }
-        set {
-            this.versionField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-    public string showname {
-        get {
-            return this.shownameField;
-        }
-        set {
-            this.shownameField = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.zonekey.com/sysmgrt/register")]
-public partial class Service {
-    
-    private string nameField;
-    
-    private Catalog catalogField;
-    
-    private string hostnameField;
-    
-    private string typeField;
-    
-    private string[] urlsField;
-    
-    private string versionField;
-    
-    private string shownameField;
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-    public string name {
-        get {
-            return this.nameField;
-        }
-        set {
-            this.nameField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public Catalog catalog {
-        get {
-            return this.catalogField;
-        }
-        set {
-            this.catalogField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-    public string hostname {
-        get {
-            return this.hostnameField;
-        }
-        set {
-            this.hostnameField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-    public string type {
-        get {
-            return this.typeField;
-        }
-        set {
-            this.typeField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)]
-    [System.Xml.Serialization.XmlArrayItemAttribute("item", DataType="anyURI")]
-    public string[] urls {
-        get {
-            return this.urlsField;
-        }
-        set {
-            this.urlsField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-    public string version {
-        get {
-            return this.versionField;
-        }
-        set {
-            this.versionField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-    public string showname {
-        get {
-            return this.shownameField;
-        }
-        set {
-            this.shownameField = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.zonekey.com/sysmgrt/register")]
-public partial class regHostResponse {
-    
-    private string tokenField;
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-    public string token {
-        get {
-            return this.tokenField;
-        }
-        set {
-            this.tokenField = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.zonekey.com/sysmgrt/register")]
-public partial class unregHost {
-    
-    private string unRegHoststringField;
-    
-    /// <remarks/>
-    public string unRegHoststring {
-        get {
-            return this.unRegHoststringField;
-        }
-        set {
-            this.unRegHoststringField = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.zonekey.com/sysmgrt/register")]
-public partial class unregHostResponse {
-    
-    private System.Nullable<int> codeField;
-    
-    private bool codeFieldSpecified;
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-    public System.Nullable<int> code {
-        get {
-            return this.codeField;
-        }
-        set {
-            this.codeField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool codeSpecified {
-        get {
-            return this.codeFieldSpecified;
-        }
-        set {
-            this.codeFieldSpecified = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.zonekey.com/sysmgrt/register")]
-public partial class regService {
-    
-    private Service regServiceReqField;
-    
-    /// <remarks/>
-    public Service regServiceReq {
-        get {
-            return this.regServiceReqField;
-        }
-        set {
-            this.regServiceReqField = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.zonekey.com/sysmgrt/register")]
-public partial class regServiceResponse {
-    
-    private string tokenField;
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-    public string token {
-        get {
-            return this.tokenField;
-        }
-        set {
-            this.tokenField = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.zonekey.com/sysmgrt/register")]
-public partial class unregService {
-    
-    private string unregServicestringField;
-    
-    /// <remarks/>
-    public string unregServicestring {
-        get {
-            return this.unregServicestringField;
-        }
-        set {
-            this.unregServicestringField = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.zonekey.com/sysmgrt/register")]
-public partial class unregServiceResponse {
-    
-    private System.Nullable<int> codeField;
-    
-    private bool codeFieldSpecified;
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-    public System.Nullable<int> code {
-        get {
-            return this.codeField;
-        }
-        set {
-            this.codeField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool codeSpecified {
-        get {
-            return this.codeFieldSpecified;
-        }
-        set {
-            this.codeFieldSpecified = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.zonekey.com/sysmgrt/register")]
-public partial class regDevice {
-    
-    private Device regDeviceReqField;
-    
-    /// <remarks/>
-    public Device regDeviceReq {
-        get {
-            return this.regDeviceReqField;
-        }
-        set {
-            this.regDeviceReqField = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.zonekey.com/sysmgrt/register")]
-public partial class regDeviceResponse {
-    
-    private string tokenField;
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-    public string token {
-        get {
-            return this.tokenField;
-        }
-        set {
-            this.tokenField = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.zonekey.com/sysmgrt/register")]
-public partial class unregDevice {
-    
-    private string unregDevciestringField;
-    
-    /// <remarks/>
-    public string unregDevciestring {
-        get {
-            return this.unregDevciestringField;
-        }
-        set {
-            this.unregDevciestringField = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.zonekey.com/sysmgrt/register")]
-public partial class unregDeviceResponse {
-    
-    private System.Nullable<int> codeField;
-    
-    private bool codeFieldSpecified;
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-    public System.Nullable<int> code {
-        get {
-            return this.codeField;
-        }
-        set {
-            this.codeField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool codeSpecified {
-        get {
-            return this.codeFieldSpecified;
-        }
-        set {
-            this.codeFieldSpecified = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.zonekey.com/sysmgrt/register")]
-public partial class heartBeat {
-    
-    private string heartBeatstringField;
-    
-    /// <remarks/>
-    public string heartBeatstring {
-        get {
-            return this.heartBeatstringField;
-        }
-        set {
-            this.heartBeatstringField = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.zonekey.com/sysmgrt/register")]
-public partial class heartBeatResponse {
-    
-    private System.Nullable<int> codeField;
-    
-    private bool codeFieldSpecified;
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-    public System.Nullable<int> code {
-        get {
-            return this.codeField;
-        }
-        set {
-            this.codeField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool codeSpecified {
-        get {
-            return this.codeFieldSpecified;
-        }
-        set {
-            this.codeFieldSpecified = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.zonekey.com/sysmgrt/register")]
-public partial class setShowName {
-    
-    private string setShowNameReqField;
-    
-    private string shownameField;
-    
-    /// <remarks/>
-    public string setShowNameReq {
-        get {
-            return this.setShowNameReqField;
-        }
-        set {
-            this.setShowNameReqField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-    public string showname {
-        get {
-            return this.shownameField;
-        }
-        set {
-            this.shownameField = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.zonekey.com/sysmgrt/register")]
-public partial class setShowNameResponse {
-    
-    private System.Nullable<int> codeField;
-    
-    private bool codeFieldSpecified;
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-    public System.Nullable<int> code {
-        get {
-            return this.codeField;
-        }
-        set {
-            this.codeField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool codeSpecified {
-        get {
-            return this.codeFieldSpecified;
-        }
-        set {
-            this.codeFieldSpecified = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
-public delegate void regHostCompletedEventHandler(object sender, regHostCompletedEventArgs e);
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class regHostCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-    
-    private object[] results;
-    
-    internal regHostCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-            base(exception, cancelled, userState) {
-        this.results = results;
-    }
-    
-    /// <remarks/>
-    public regHostResponse Result {
-        get {
-            this.RaiseExceptionIfNecessary();
-            return ((regHostResponse)(this.results[0]));
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
-public delegate void unregHostCompletedEventHandler(object sender, unregHostCompletedEventArgs e);
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class unregHostCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-    
-    private object[] results;
-    
-    internal unregHostCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-            base(exception, cancelled, userState) {
-        this.results = results;
-    }
-    
-    /// <remarks/>
-    public unregHostResponse Result {
-        get {
-            this.RaiseExceptionIfNecessary();
-            return ((unregHostResponse)(this.results[0]));
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
-public delegate void regServiceCompletedEventHandler(object sender, regServiceCompletedEventArgs e);
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class regServiceCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-    
-    private object[] results;
-    
-    internal regServiceCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-            base(exception, cancelled, userState) {
-        this.results = results;
-    }
-    
-    /// <remarks/>
-    public regServiceResponse Result {
-        get {
-            this.RaiseExceptionIfNecessary();
-            return ((regServiceResponse)(this.results[0]));
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
-public delegate void unregServiceCompletedEventHandler(object sender, unregServiceCompletedEventArgs e);
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class unregServiceCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-    
-    private object[] results;
-    
-    internal unregServiceCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-            base(exception, cancelled, userState) {
-        this.results = results;
-    }
-    
-    /// <remarks/>
-    public unregServiceResponse Result {
-        get {
-            this.RaiseExceptionIfNecessary();
-            return ((unregServiceResponse)(this.results[0]));
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
-public delegate void regDeviceCompletedEventHandler(object sender, regDeviceCompletedEventArgs e);
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class regDeviceCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-    
-    private object[] results;
-    
-    internal regDeviceCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-            base(exception, cancelled, userState) {
-        this.results = results;
-    }
-    
-    /// <remarks/>
-    public regDeviceResponse Result {
-        get {
-            this.RaiseExceptionIfNecessary();
-            return ((regDeviceResponse)(this.results[0]));
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
-public delegate void unregDeviceCompletedEventHandler(object sender, unregDeviceCompletedEventArgs e);
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class unregDeviceCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-    
-    private object[] results;
-    
-    internal unregDeviceCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-            base(exception, cancelled, userState) {
-        this.results = results;
-    }
-    
-    /// <remarks/>
-    public unregDeviceResponse Result {
-        get {
-            this.RaiseExceptionIfNecessary();
-            return ((unregDeviceResponse)(this.results[0]));
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
-public delegate void heartBeatCompletedEventHandler(object sender, heartBeatCompletedEventArgs e);
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class heartBeatCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-    
-    private object[] results;
-    
-    internal heartBeatCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-            base(exception, cancelled, userState) {
-        this.results = results;
-    }
-    
-    /// <remarks/>
-    public heartBeatResponse Result {
-        get {
-            this.RaiseExceptionIfNecessary();
-            return ((heartBeatResponse)(this.results[0]));
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
-public delegate void setShowNameCompletedEventHandler(object sender, setShowNameCompletedEventArgs e);
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class setShowNameCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-    
-    private object[] results;
-    
-    internal setShowNameCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-            base(exception, cancelled, userState) {
-        this.results = results;
-    }
-    
-    /// <remarks/>
-    public setShowNameResponse Result {
-        get {
-            this.RaiseExceptionIfNecessary();
-            return ((setShowNameResponse)(this.results[0]));
+namespace zkreg {
+    using System.Diagnostics;
+    using System;
+    using System.Xml.Serialization;
+    using System.ComponentModel;
+    using System.Web.Services.Protocols;
+    using System.Web.Services;
+    
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Web.Services.WebServiceBindingAttribute(Name="zkreg", Namespace="http://www.zonekey.com/sysmgrt/register")]
+    public partial class zkreg : System.Web.Services.Protocols.SoapHttpClientProtocol {
+        
+        private System.Threading.SendOrPostCallback regHostOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback unregHostOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback regServiceOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback unregServiceOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback regDeviceOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback unregDeviceOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback regLogicOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback delMseOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback heartBeatOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback setShowNameOperationCompleted;
+        
+        /// <remarks/>
+        public zkreg() {
+            this.Url = "http://localhost:80";
+        }
+        
+        /// <remarks/>
+        public event regHostCompletedEventHandler regHostCompleted;
+        
+        /// <remarks/>
+        public event unregHostCompletedEventHandler unregHostCompleted;
+        
+        /// <remarks/>
+        public event regServiceCompletedEventHandler regServiceCompleted;
+        
+        /// <remarks/>
+        public event unregServiceCompletedEventHandler unregServiceCompleted;
+        
+        /// <remarks/>
+        public event regDeviceCompletedEventHandler regDeviceCompleted;
+        
+        /// <remarks/>
+        public event unregDeviceCompletedEventHandler unregDeviceCompleted;
+        
+        /// <remarks/>
+        public event regLogicCompletedEventHandler regLogicCompleted;
+        
+        /// <remarks/>
+        public event delMseCompletedEventHandler delMseCompleted;
+        
+        /// <remarks/>
+        public event heartBeatCompletedEventHandler heartBeatCompleted;
+        
+        /// <remarks/>
+        public event setShowNameCompletedEventHandler setShowNameCompleted;
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Bare)]
+        [return: System.Xml.Serialization.XmlElementAttribute("regHostResponse", Namespace="http://www.zonekey.com/sysmgrt/register")]
+        public regHostResponse regHost([System.Xml.Serialization.XmlElementAttribute("regHost", Namespace="http://www.zonekey.com/sysmgrt/register")] regHost regHost1) {
+            object[] results = this.Invoke("regHost", new object[] {
+                        regHost1});
+            return ((regHostResponse)(results[0]));
+        }
+        
+        /// <remarks/>
+        public System.IAsyncResult BeginregHost(regHost regHost1, System.AsyncCallback callback, object asyncState) {
+            return this.BeginInvoke("regHost", new object[] {
+                        regHost1}, callback, asyncState);
+        }
+        
+        /// <remarks/>
+        public regHostResponse EndregHost(System.IAsyncResult asyncResult) {
+            object[] results = this.EndInvoke(asyncResult);
+            return ((regHostResponse)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void regHostAsync(regHost regHost1) {
+            this.regHostAsync(regHost1, null);
+        }
+        
+        /// <remarks/>
+        public void regHostAsync(regHost regHost1, object userState) {
+            if ((this.regHostOperationCompleted == null)) {
+                this.regHostOperationCompleted = new System.Threading.SendOrPostCallback(this.OnregHostOperationCompleted);
+            }
+            this.InvokeAsync("regHost", new object[] {
+                        regHost1}, this.regHostOperationCompleted, userState);
+        }
+        
+        private void OnregHostOperationCompleted(object arg) {
+            if ((this.regHostCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.regHostCompleted(this, new regHostCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Bare)]
+        [return: System.Xml.Serialization.XmlElementAttribute("unregHostResponse", Namespace="http://www.zonekey.com/sysmgrt/register")]
+        public unregHostResponse unregHost([System.Xml.Serialization.XmlElementAttribute("unregHost", Namespace="http://www.zonekey.com/sysmgrt/register")] unregHost unregHost1) {
+            object[] results = this.Invoke("unregHost", new object[] {
+                        unregHost1});
+            return ((unregHostResponse)(results[0]));
+        }
+        
+        /// <remarks/>
+        public System.IAsyncResult BeginunregHost(unregHost unregHost1, System.AsyncCallback callback, object asyncState) {
+            return this.BeginInvoke("unregHost", new object[] {
+                        unregHost1}, callback, asyncState);
+        }
+        
+        /// <remarks/>
+        public unregHostResponse EndunregHost(System.IAsyncResult asyncResult) {
+            object[] results = this.EndInvoke(asyncResult);
+            return ((unregHostResponse)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void unregHostAsync(unregHost unregHost1) {
+            this.unregHostAsync(unregHost1, null);
+        }
+        
+        /// <remarks/>
+        public void unregHostAsync(unregHost unregHost1, object userState) {
+            if ((this.unregHostOperationCompleted == null)) {
+                this.unregHostOperationCompleted = new System.Threading.SendOrPostCallback(this.OnunregHostOperationCompleted);
+            }
+            this.InvokeAsync("unregHost", new object[] {
+                        unregHost1}, this.unregHostOperationCompleted, userState);
+        }
+        
+        private void OnunregHostOperationCompleted(object arg) {
+            if ((this.unregHostCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.unregHostCompleted(this, new unregHostCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Bare)]
+        [return: System.Xml.Serialization.XmlElementAttribute("regServiceResponse", Namespace="http://www.zonekey.com/sysmgrt/register")]
+        public regServiceResponse regService([System.Xml.Serialization.XmlElementAttribute("regService", Namespace="http://www.zonekey.com/sysmgrt/register")] regService regService1) {
+            object[] results = this.Invoke("regService", new object[] {
+                        regService1});
+            return ((regServiceResponse)(results[0]));
+        }
+        
+        /// <remarks/>
+        public System.IAsyncResult BeginregService(regService regService1, System.AsyncCallback callback, object asyncState) {
+            return this.BeginInvoke("regService", new object[] {
+                        regService1}, callback, asyncState);
+        }
+        
+        /// <remarks/>
+        public regServiceResponse EndregService(System.IAsyncResult asyncResult) {
+            object[] results = this.EndInvoke(asyncResult);
+            return ((regServiceResponse)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void regServiceAsync(regService regService1) {
+            this.regServiceAsync(regService1, null);
+        }
+        
+        /// <remarks/>
+        public void regServiceAsync(regService regService1, object userState) {
+            if ((this.regServiceOperationCompleted == null)) {
+                this.regServiceOperationCompleted = new System.Threading.SendOrPostCallback(this.OnregServiceOperationCompleted);
+            }
+            this.InvokeAsync("regService", new object[] {
+                        regService1}, this.regServiceOperationCompleted, userState);
+        }
+        
+        private void OnregServiceOperationCompleted(object arg) {
+            if ((this.regServiceCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.regServiceCompleted(this, new regServiceCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Bare)]
+        [return: System.Xml.Serialization.XmlElementAttribute("unregServiceResponse", Namespace="http://www.zonekey.com/sysmgrt/register")]
+        public unregServiceResponse unregService([System.Xml.Serialization.XmlElementAttribute("unregService", Namespace="http://www.zonekey.com/sysmgrt/register")] unregService unregService1) {
+            object[] results = this.Invoke("unregService", new object[] {
+                        unregService1});
+            return ((unregServiceResponse)(results[0]));
+        }
+        
+        /// <remarks/>
+        public System.IAsyncResult BeginunregService(unregService unregService1, System.AsyncCallback callback, object asyncState) {
+            return this.BeginInvoke("unregService", new object[] {
+                        unregService1}, callback, asyncState);
+        }
+        
+        /// <remarks/>
+        public unregServiceResponse EndunregService(System.IAsyncResult asyncResult) {
+            object[] results = this.EndInvoke(asyncResult);
+            return ((unregServiceResponse)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void unregServiceAsync(unregService unregService1) {
+            this.unregServiceAsync(unregService1, null);
+        }
+        
+        /// <remarks/>
+        public void unregServiceAsync(unregService unregService1, object userState) {
+            if ((this.unregServiceOperationCompleted == null)) {
+                this.unregServiceOperationCompleted = new System.Threading.SendOrPostCallback(this.OnunregServiceOperationCompleted);
+            }
+            this.InvokeAsync("unregService", new object[] {
+                        unregService1}, this.unregServiceOperationCompleted, userState);
+        }
+        
+        private void OnunregServiceOperationCompleted(object arg) {
+            if ((this.unregServiceCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.unregServiceCompleted(this, new unregServiceCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Bare)]
+        [return: System.Xml.Serialization.XmlElementAttribute("regDeviceResponse", Namespace="http://www.zonekey.com/sysmgrt/register")]
+        public regDeviceResponse regDevice([System.Xml.Serialization.XmlElementAttribute("regDevice", Namespace="http://www.zonekey.com/sysmgrt/register")] regDevice regDevice1) {
+            object[] results = this.Invoke("regDevice", new object[] {
+                        regDevice1});
+            return ((regDeviceResponse)(results[0]));
+        }
+        
+        /// <remarks/>
+        public System.IAsyncResult BeginregDevice(regDevice regDevice1, System.AsyncCallback callback, object asyncState) {
+            return this.BeginInvoke("regDevice", new object[] {
+                        regDevice1}, callback, asyncState);
+        }
+        
+        /// <remarks/>
+        public regDeviceResponse EndregDevice(System.IAsyncResult asyncResult) {
+            object[] results = this.EndInvoke(asyncResult);
+            return ((regDeviceResponse)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void regDeviceAsync(regDevice regDevice1) {
+            this.regDeviceAsync(regDevice1, null);
+        }
+        
+        /// <remarks/>
+        public void regDeviceAsync(regDevice regDevice1, object userState) {
+            if ((this.regDeviceOperationCompleted == null)) {
+                this.regDeviceOperationCompleted = new System.Threading.SendOrPostCallback(this.OnregDeviceOperationCompleted);
+            }
+            this.InvokeAsync("regDevice", new object[] {
+                        regDevice1}, this.regDeviceOperationCompleted, userState);
+        }
+        
+        private void OnregDeviceOperationCompleted(object arg) {
+            if ((this.regDeviceCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.regDeviceCompleted(this, new regDeviceCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Bare)]
+        [return: System.Xml.Serialization.XmlElementAttribute("unregDeviceResponse", Namespace="http://www.zonekey.com/sysmgrt/register")]
+        public unregDeviceResponse unregDevice([System.Xml.Serialization.XmlElementAttribute("unregDevice", Namespace="http://www.zonekey.com/sysmgrt/register")] unregDevice unregDevice1) {
+            object[] results = this.Invoke("unregDevice", new object[] {
+                        unregDevice1});
+            return ((unregDeviceResponse)(results[0]));
+        }
+        
+        /// <remarks/>
+        public System.IAsyncResult BeginunregDevice(unregDevice unregDevice1, System.AsyncCallback callback, object asyncState) {
+            return this.BeginInvoke("unregDevice", new object[] {
+                        unregDevice1}, callback, asyncState);
+        }
+        
+        /// <remarks/>
+        public unregDeviceResponse EndunregDevice(System.IAsyncResult asyncResult) {
+            object[] results = this.EndInvoke(asyncResult);
+            return ((unregDeviceResponse)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void unregDeviceAsync(unregDevice unregDevice1) {
+            this.unregDeviceAsync(unregDevice1, null);
+        }
+        
+        /// <remarks/>
+        public void unregDeviceAsync(unregDevice unregDevice1, object userState) {
+            if ((this.unregDeviceOperationCompleted == null)) {
+                this.unregDeviceOperationCompleted = new System.Threading.SendOrPostCallback(this.OnunregDeviceOperationCompleted);
+            }
+            this.InvokeAsync("unregDevice", new object[] {
+                        unregDevice1}, this.unregDeviceOperationCompleted, userState);
+        }
+        
+        private void OnunregDeviceOperationCompleted(object arg) {
+            if ((this.unregDeviceCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.unregDeviceCompleted(this, new unregDeviceCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Bare)]
+        [return: System.Xml.Serialization.XmlElementAttribute("regLogicResponse", Namespace="http://www.zonekey.com/sysmgrt/register")]
+        public regLogicResponse regLogic([System.Xml.Serialization.XmlElementAttribute("regLogic", Namespace="http://www.zonekey.com/sysmgrt/register")] regLogic regLogic1) {
+            object[] results = this.Invoke("regLogic", new object[] {
+                        regLogic1});
+            return ((regLogicResponse)(results[0]));
+        }
+        
+        /// <remarks/>
+        public System.IAsyncResult BeginregLogic(regLogic regLogic1, System.AsyncCallback callback, object asyncState) {
+            return this.BeginInvoke("regLogic", new object[] {
+                        regLogic1}, callback, asyncState);
+        }
+        
+        /// <remarks/>
+        public regLogicResponse EndregLogic(System.IAsyncResult asyncResult) {
+            object[] results = this.EndInvoke(asyncResult);
+            return ((regLogicResponse)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void regLogicAsync(regLogic regLogic1) {
+            this.regLogicAsync(regLogic1, null);
+        }
+        
+        /// <remarks/>
+        public void regLogicAsync(regLogic regLogic1, object userState) {
+            if ((this.regLogicOperationCompleted == null)) {
+                this.regLogicOperationCompleted = new System.Threading.SendOrPostCallback(this.OnregLogicOperationCompleted);
+            }
+            this.InvokeAsync("regLogic", new object[] {
+                        regLogic1}, this.regLogicOperationCompleted, userState);
+        }
+        
+        private void OnregLogicOperationCompleted(object arg) {
+            if ((this.regLogicCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.regLogicCompleted(this, new regLogicCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Bare)]
+        [return: System.Xml.Serialization.XmlElementAttribute("delMseResponse", Namespace="http://www.zonekey.com/sysmgrt/register")]
+        public delMseResponse delMse([System.Xml.Serialization.XmlElementAttribute("delMse", Namespace="http://www.zonekey.com/sysmgrt/register")] delMse delMse1) {
+            object[] results = this.Invoke("delMse", new object[] {
+                        delMse1});
+            return ((delMseResponse)(results[0]));
+        }
+        
+        /// <remarks/>
+        public System.IAsyncResult BegindelMse(delMse delMse1, System.AsyncCallback callback, object asyncState) {
+            return this.BeginInvoke("delMse", new object[] {
+                        delMse1}, callback, asyncState);
+        }
+        
+        /// <remarks/>
+        public delMseResponse EnddelMse(System.IAsyncResult asyncResult) {
+            object[] results = this.EndInvoke(asyncResult);
+            return ((delMseResponse)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void delMseAsync(delMse delMse1) {
+            this.delMseAsync(delMse1, null);
+        }
+        
+        /// <remarks/>
+        public void delMseAsync(delMse delMse1, object userState) {
+            if ((this.delMseOperationCompleted == null)) {
+                this.delMseOperationCompleted = new System.Threading.SendOrPostCallback(this.OndelMseOperationCompleted);
+            }
+            this.InvokeAsync("delMse", new object[] {
+                        delMse1}, this.delMseOperationCompleted, userState);
+        }
+        
+        private void OndelMseOperationCompleted(object arg) {
+            if ((this.delMseCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.delMseCompleted(this, new delMseCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Bare)]
+        [return: System.Xml.Serialization.XmlElementAttribute("heartBeatResponse", Namespace="http://www.zonekey.com/sysmgrt/register")]
+        public heartBeatResponse heartBeat([System.Xml.Serialization.XmlElementAttribute("heartBeat", Namespace="http://www.zonekey.com/sysmgrt/register")] heartBeat heartBeat1) {
+            object[] results = this.Invoke("heartBeat", new object[] {
+                        heartBeat1});
+            return ((heartBeatResponse)(results[0]));
+        }
+        
+        /// <remarks/>
+        public System.IAsyncResult BeginheartBeat(heartBeat heartBeat1, System.AsyncCallback callback, object asyncState) {
+            return this.BeginInvoke("heartBeat", new object[] {
+                        heartBeat1}, callback, asyncState);
+        }
+        
+        /// <remarks/>
+        public heartBeatResponse EndheartBeat(System.IAsyncResult asyncResult) {
+            object[] results = this.EndInvoke(asyncResult);
+            return ((heartBeatResponse)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void heartBeatAsync(heartBeat heartBeat1) {
+            this.heartBeatAsync(heartBeat1, null);
+        }
+        
+        /// <remarks/>
+        public void heartBeatAsync(heartBeat heartBeat1, object userState) {
+            if ((this.heartBeatOperationCompleted == null)) {
+                this.heartBeatOperationCompleted = new System.Threading.SendOrPostCallback(this.OnheartBeatOperationCompleted);
+            }
+            this.InvokeAsync("heartBeat", new object[] {
+                        heartBeat1}, this.heartBeatOperationCompleted, userState);
+        }
+        
+        private void OnheartBeatOperationCompleted(object arg) {
+            if ((this.heartBeatCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.heartBeatCompleted(this, new heartBeatCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Bare)]
+        [return: System.Xml.Serialization.XmlElementAttribute("setShowNameResponse", Namespace="http://www.zonekey.com/sysmgrt/register")]
+        public setShowNameResponse setShowName([System.Xml.Serialization.XmlElementAttribute("setShowName", Namespace="http://www.zonekey.com/sysmgrt/register")] setShowName setShowName1) {
+            object[] results = this.Invoke("setShowName", new object[] {
+                        setShowName1});
+            return ((setShowNameResponse)(results[0]));
+        }
+        
+        /// <remarks/>
+        public System.IAsyncResult BeginsetShowName(setShowName setShowName1, System.AsyncCallback callback, object asyncState) {
+            return this.BeginInvoke("setShowName", new object[] {
+                        setShowName1}, callback, asyncState);
+        }
+        
+        /// <remarks/>
+        public setShowNameResponse EndsetShowName(System.IAsyncResult asyncResult) {
+            object[] results = this.EndInvoke(asyncResult);
+            return ((setShowNameResponse)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void setShowNameAsync(setShowName setShowName1) {
+            this.setShowNameAsync(setShowName1, null);
+        }
+        
+        /// <remarks/>
+        public void setShowNameAsync(setShowName setShowName1, object userState) {
+            if ((this.setShowNameOperationCompleted == null)) {
+                this.setShowNameOperationCompleted = new System.Threading.SendOrPostCallback(this.OnsetShowNameOperationCompleted);
+            }
+            this.InvokeAsync("setShowName", new object[] {
+                        setShowName1}, this.setShowNameOperationCompleted, userState);
+        }
+        
+        private void OnsetShowNameOperationCompleted(object arg) {
+            if ((this.setShowNameCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.setShowNameCompleted(this, new setShowNameCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        public new void CancelAsync(object userState) {
+            base.CancelAsync(userState);
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.zonekey.com/sysmgrt/register")]
+    public partial class regHost {
+        
+        private Host regHostReqField;
+        
+        /// <remarks/>
+        public Host regHostReq {
+            get {
+                return this.regHostReqField;
+            }
+            set {
+                this.regHostReqField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.zonekey.com/sysmgrt/register")]
+    public partial class Host {
+        
+        private string nameField;
+        
+        private Catalog catalogField;
+        
+        private string[] ipsField;
+        
+        private string shownameField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string name {
+            get {
+                return this.nameField;
+            }
+            set {
+                this.nameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public Catalog catalog {
+            get {
+                return this.catalogField;
+            }
+            set {
+                this.catalogField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)]
+        [System.Xml.Serialization.XmlArrayItemAttribute("item")]
+        public string[] ips {
+            get {
+                return this.ipsField;
+            }
+            set {
+                this.ipsField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string showname {
+            get {
+                return this.shownameField;
+            }
+            set {
+                this.shownameField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.zonekey.com/sysmgrt/register")]
+    public enum Catalog {
+        
+        /// <remarks/>
+        Host,
+        
+        /// <remarks/>
+        Service,
+        
+        /// <remarks/>
+        Device,
+        
+        /// <remarks/>
+        Logic,
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.zonekey.com/sysmgrt/register")]
+    public partial class Mse {
+        
+        private string nameField;
+        
+        private Catalog catalogField;
+        
+        private string parentField;
+        
+        private string shownameField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string name {
+            get {
+                return this.nameField;
+            }
+            set {
+                this.nameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public Catalog catalog {
+            get {
+                return this.catalogField;
+            }
+            set {
+                this.catalogField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string parent {
+            get {
+                return this.parentField;
+            }
+            set {
+                this.parentField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string showname {
+            get {
+                return this.shownameField;
+            }
+            set {
+                this.shownameField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.zonekey.com/sysmgrt/register")]
+    public partial class Logic {
+        
+        private string nameField;
+        
+        private Catalog catalogField;
+        
+        private Mse parentField;
+        
+        private Mse[] childrenField;
+        
+        private string shownameField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string name {
+            get {
+                return this.nameField;
+            }
+            set {
+                this.nameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public Catalog catalog {
+            get {
+                return this.catalogField;
+            }
+            set {
+                this.catalogField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public Mse parent {
+            get {
+                return this.parentField;
+            }
+            set {
+                this.parentField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)]
+        [System.Xml.Serialization.XmlArrayItemAttribute("item", IsNullable=false)]
+        public Mse[] children {
+            get {
+                return this.childrenField;
+            }
+            set {
+                this.childrenField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string showname {
+            get {
+                return this.shownameField;
+            }
+            set {
+                this.shownameField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.zonekey.com/sysmgrt/register")]
+    public partial class Device {
+        
+        private string nameField;
+        
+        private Catalog catalogField;
+        
+        private string hostnameField;
+        
+        private string typeField;
+        
+        private string vendorField;
+        
+        private string modelField;
+        
+        private string serialField;
+        
+        private string versionField;
+        
+        private string shownameField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string name {
+            get {
+                return this.nameField;
+            }
+            set {
+                this.nameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public Catalog catalog {
+            get {
+                return this.catalogField;
+            }
+            set {
+                this.catalogField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string hostname {
+            get {
+                return this.hostnameField;
+            }
+            set {
+                this.hostnameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string type {
+            get {
+                return this.typeField;
+            }
+            set {
+                this.typeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string vendor {
+            get {
+                return this.vendorField;
+            }
+            set {
+                this.vendorField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string model {
+            get {
+                return this.modelField;
+            }
+            set {
+                this.modelField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string serial {
+            get {
+                return this.serialField;
+            }
+            set {
+                this.serialField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string version {
+            get {
+                return this.versionField;
+            }
+            set {
+                this.versionField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string showname {
+            get {
+                return this.shownameField;
+            }
+            set {
+                this.shownameField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.zonekey.com/sysmgrt/register")]
+    public partial class Service {
+        
+        private string nameField;
+        
+        private Catalog catalogField;
+        
+        private string hostnameField;
+        
+        private string typeField;
+        
+        private string[] urlsField;
+        
+        private string versionField;
+        
+        private string shownameField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string name {
+            get {
+                return this.nameField;
+            }
+            set {
+                this.nameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public Catalog catalog {
+            get {
+                return this.catalogField;
+            }
+            set {
+                this.catalogField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string hostname {
+            get {
+                return this.hostnameField;
+            }
+            set {
+                this.hostnameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string type {
+            get {
+                return this.typeField;
+            }
+            set {
+                this.typeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)]
+        [System.Xml.Serialization.XmlArrayItemAttribute("item", DataType="anyURI")]
+        public string[] urls {
+            get {
+                return this.urlsField;
+            }
+            set {
+                this.urlsField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string version {
+            get {
+                return this.versionField;
+            }
+            set {
+                this.versionField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string showname {
+            get {
+                return this.shownameField;
+            }
+            set {
+                this.shownameField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.zonekey.com/sysmgrt/register")]
+    public partial class regHostResponse {
+        
+        private string tokenField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string token {
+            get {
+                return this.tokenField;
+            }
+            set {
+                this.tokenField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.zonekey.com/sysmgrt/register")]
+    public partial class unregHost {
+        
+        private string unRegHoststringField;
+        
+        /// <remarks/>
+        public string unRegHoststring {
+            get {
+                return this.unRegHoststringField;
+            }
+            set {
+                this.unRegHoststringField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.zonekey.com/sysmgrt/register")]
+    public partial class unregHostResponse {
+        
+        private System.Nullable<int> codeField;
+        
+        private bool codeFieldSpecified;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<int> code {
+            get {
+                return this.codeField;
+            }
+            set {
+                this.codeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool codeSpecified {
+            get {
+                return this.codeFieldSpecified;
+            }
+            set {
+                this.codeFieldSpecified = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.zonekey.com/sysmgrt/register")]
+    public partial class regService {
+        
+        private Service regServiceReqField;
+        
+        /// <remarks/>
+        public Service regServiceReq {
+            get {
+                return this.regServiceReqField;
+            }
+            set {
+                this.regServiceReqField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.zonekey.com/sysmgrt/register")]
+    public partial class regServiceResponse {
+        
+        private string tokenField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string token {
+            get {
+                return this.tokenField;
+            }
+            set {
+                this.tokenField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.zonekey.com/sysmgrt/register")]
+    public partial class unregService {
+        
+        private string unregServicestringField;
+        
+        /// <remarks/>
+        public string unregServicestring {
+            get {
+                return this.unregServicestringField;
+            }
+            set {
+                this.unregServicestringField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.zonekey.com/sysmgrt/register")]
+    public partial class unregServiceResponse {
+        
+        private System.Nullable<int> codeField;
+        
+        private bool codeFieldSpecified;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<int> code {
+            get {
+                return this.codeField;
+            }
+            set {
+                this.codeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool codeSpecified {
+            get {
+                return this.codeFieldSpecified;
+            }
+            set {
+                this.codeFieldSpecified = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.zonekey.com/sysmgrt/register")]
+    public partial class regDevice {
+        
+        private Device regDeviceReqField;
+        
+        /// <remarks/>
+        public Device regDeviceReq {
+            get {
+                return this.regDeviceReqField;
+            }
+            set {
+                this.regDeviceReqField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.zonekey.com/sysmgrt/register")]
+    public partial class regDeviceResponse {
+        
+        private string tokenField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string token {
+            get {
+                return this.tokenField;
+            }
+            set {
+                this.tokenField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.zonekey.com/sysmgrt/register")]
+    public partial class unregDevice {
+        
+        private string unregDevciestringField;
+        
+        /// <remarks/>
+        public string unregDevciestring {
+            get {
+                return this.unregDevciestringField;
+            }
+            set {
+                this.unregDevciestringField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.zonekey.com/sysmgrt/register")]
+    public partial class unregDeviceResponse {
+        
+        private System.Nullable<int> codeField;
+        
+        private bool codeFieldSpecified;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<int> code {
+            get {
+                return this.codeField;
+            }
+            set {
+                this.codeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool codeSpecified {
+            get {
+                return this.codeFieldSpecified;
+            }
+            set {
+                this.codeFieldSpecified = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.zonekey.com/sysmgrt/register")]
+    public partial class regLogic {
+        
+        private Logic regLogicReqField;
+        
+        /// <remarks/>
+        public Logic regLogicReq {
+            get {
+                return this.regLogicReqField;
+            }
+            set {
+                this.regLogicReqField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.zonekey.com/sysmgrt/register")]
+    public partial class regLogicResponse {
+        
+        private string tokenField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string token {
+            get {
+                return this.tokenField;
+            }
+            set {
+                this.tokenField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.zonekey.com/sysmgrt/register")]
+    public partial class delMse {
+        
+        private string delMseNameReqField;
+        
+        /// <remarks/>
+        public string delMseNameReq {
+            get {
+                return this.delMseNameReqField;
+            }
+            set {
+                this.delMseNameReqField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.zonekey.com/sysmgrt/register")]
+    public partial class delMseResponse {
+        
+        private System.Nullable<int> codeField;
+        
+        private bool codeFieldSpecified;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<int> code {
+            get {
+                return this.codeField;
+            }
+            set {
+                this.codeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool codeSpecified {
+            get {
+                return this.codeFieldSpecified;
+            }
+            set {
+                this.codeFieldSpecified = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.zonekey.com/sysmgrt/register")]
+    public partial class heartBeat {
+        
+        private string heartBeatTokenReqField;
+        
+        /// <remarks/>
+        public string heartBeatTokenReq {
+            get {
+                return this.heartBeatTokenReqField;
+            }
+            set {
+                this.heartBeatTokenReqField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.zonekey.com/sysmgrt/register")]
+    public partial class heartBeatResponse {
+        
+        private System.Nullable<int> codeField;
+        
+        private bool codeFieldSpecified;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<int> code {
+            get {
+                return this.codeField;
+            }
+            set {
+                this.codeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool codeSpecified {
+            get {
+                return this.codeFieldSpecified;
+            }
+            set {
+                this.codeFieldSpecified = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.zonekey.com/sysmgrt/register")]
+    public partial class setShowName {
+        
+        private string setShowNameReqField;
+        
+        private string shownameField;
+        
+        /// <remarks/>
+        public string setShowNameReq {
+            get {
+                return this.setShowNameReqField;
+            }
+            set {
+                this.setShowNameReqField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string showname {
+            get {
+                return this.shownameField;
+            }
+            set {
+                this.shownameField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.zonekey.com/sysmgrt/register")]
+    public partial class setShowNameResponse {
+        
+        private System.Nullable<int> codeField;
+        
+        private bool codeFieldSpecified;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<int> code {
+            get {
+                return this.codeField;
+            }
+            set {
+                this.codeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool codeSpecified {
+            get {
+                return this.codeFieldSpecified;
+            }
+            set {
+                this.codeFieldSpecified = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
+    public delegate void regHostCompletedEventHandler(object sender, regHostCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class regHostCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal regHostCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public regHostResponse Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((regHostResponse)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
+    public delegate void unregHostCompletedEventHandler(object sender, unregHostCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class unregHostCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal unregHostCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public unregHostResponse Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((unregHostResponse)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
+    public delegate void regServiceCompletedEventHandler(object sender, regServiceCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class regServiceCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal regServiceCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public regServiceResponse Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((regServiceResponse)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
+    public delegate void unregServiceCompletedEventHandler(object sender, unregServiceCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class unregServiceCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal unregServiceCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public unregServiceResponse Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((unregServiceResponse)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
+    public delegate void regDeviceCompletedEventHandler(object sender, regDeviceCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class regDeviceCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal regDeviceCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public regDeviceResponse Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((regDeviceResponse)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
+    public delegate void unregDeviceCompletedEventHandler(object sender, unregDeviceCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class unregDeviceCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal unregDeviceCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public unregDeviceResponse Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((unregDeviceResponse)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
+    public delegate void regLogicCompletedEventHandler(object sender, regLogicCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class regLogicCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal regLogicCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public regLogicResponse Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((regLogicResponse)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
+    public delegate void delMseCompletedEventHandler(object sender, delMseCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class delMseCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal delMseCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public delMseResponse Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((delMseResponse)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
+    public delegate void heartBeatCompletedEventHandler(object sender, heartBeatCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class heartBeatCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal heartBeatCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public heartBeatResponse Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((heartBeatResponse)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
+    public delegate void setShowNameCompletedEventHandler(object sender, setShowNameCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class setShowNameCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal setShowNameCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public setShowNameResponse Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((setShowNameResponse)(this.results[0]));
+            }
         }
     }
 }

@@ -29,6 +29,8 @@ namespace zkquery {
         
         private System.Threading.SendOrPostCallback getAllMsesOperationCompleted;
         
+        private System.Threading.SendOrPostCallback getMsesByShownameOperationCompleted;
+        
         private System.Threading.SendOrPostCallback getAllHostsOperationCompleted;
         
         private System.Threading.SendOrPostCallback getAllServicesOperationCompleted;
@@ -39,13 +41,18 @@ namespace zkquery {
         
         private System.Threading.SendOrPostCallback getServicesByTypeOperationCompleted;
         
+        private System.Threading.SendOrPostCallback getParentOperationCompleted;
+        
         /// <remarks/>
         public zkq() {
-            this.Url = "http://localhost:8899";
+            this.Url = "http://localhost:80";
         }
         
         /// <remarks/>
         public event getAllMsesCompletedEventHandler getAllMsesCompleted;
+        
+        /// <remarks/>
+        public event getMsesByShownameCompletedEventHandler getMsesByShownameCompleted;
         
         /// <remarks/>
         public event getAllHostsCompletedEventHandler getAllHostsCompleted;
@@ -61,6 +68,9 @@ namespace zkquery {
         
         /// <remarks/>
         public event getServicesByTypeCompletedEventHandler getServicesByTypeCompleted;
+        
+        /// <remarks/>
+        public event getParentCompletedEventHandler getParentCompleted;
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Bare)]
@@ -101,6 +111,48 @@ namespace zkquery {
             if ((this.getAllMsesCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.getAllMsesCompleted(this, new getAllMsesCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Bare)]
+        [return: System.Xml.Serialization.XmlElementAttribute("getMsesByShownameResponse", Namespace="http://www.zonekey.com/sysmgrt/query")]
+        public getMsesByShownameResponse getMsesByShowname([System.Xml.Serialization.XmlElementAttribute("getMsesByShowname", Namespace="http://www.zonekey.com/sysmgrt/query")] getMsesByShowname getMsesByShowname1) {
+            object[] results = this.Invoke("getMsesByShowname", new object[] {
+                        getMsesByShowname1});
+            return ((getMsesByShownameResponse)(results[0]));
+        }
+        
+        /// <remarks/>
+        public System.IAsyncResult BegingetMsesByShowname(getMsesByShowname getMsesByShowname1, System.AsyncCallback callback, object asyncState) {
+            return this.BeginInvoke("getMsesByShowname", new object[] {
+                        getMsesByShowname1}, callback, asyncState);
+        }
+        
+        /// <remarks/>
+        public getMsesByShownameResponse EndgetMsesByShowname(System.IAsyncResult asyncResult) {
+            object[] results = this.EndInvoke(asyncResult);
+            return ((getMsesByShownameResponse)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void getMsesByShownameAsync(getMsesByShowname getMsesByShowname1) {
+            this.getMsesByShownameAsync(getMsesByShowname1, null);
+        }
+        
+        /// <remarks/>
+        public void getMsesByShownameAsync(getMsesByShowname getMsesByShowname1, object userState) {
+            if ((this.getMsesByShownameOperationCompleted == null)) {
+                this.getMsesByShownameOperationCompleted = new System.Threading.SendOrPostCallback(this.OngetMsesByShownameOperationCompleted);
+            }
+            this.InvokeAsync("getMsesByShowname", new object[] {
+                        getMsesByShowname1}, this.getMsesByShownameOperationCompleted, userState);
+        }
+        
+        private void OngetMsesByShownameOperationCompleted(object arg) {
+            if ((this.getMsesByShownameCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.getMsesByShownameCompleted(this, new getMsesByShownameCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -315,6 +367,48 @@ namespace zkquery {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Bare)]
+        [return: System.Xml.Serialization.XmlElementAttribute("getParentResponse", Namespace="http://www.zonekey.com/sysmgrt/query")]
+        public getParentResponse getParent([System.Xml.Serialization.XmlElementAttribute("getParent", Namespace="http://www.zonekey.com/sysmgrt/query")] getParent getParent1) {
+            object[] results = this.Invoke("getParent", new object[] {
+                        getParent1});
+            return ((getParentResponse)(results[0]));
+        }
+        
+        /// <remarks/>
+        public System.IAsyncResult BegingetParent(getParent getParent1, System.AsyncCallback callback, object asyncState) {
+            return this.BeginInvoke("getParent", new object[] {
+                        getParent1}, callback, asyncState);
+        }
+        
+        /// <remarks/>
+        public getParentResponse EndgetParent(System.IAsyncResult asyncResult) {
+            object[] results = this.EndInvoke(asyncResult);
+            return ((getParentResponse)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void getParentAsync(getParent getParent1) {
+            this.getParentAsync(getParent1, null);
+        }
+        
+        /// <remarks/>
+        public void getParentAsync(getParent getParent1, object userState) {
+            if ((this.getParentOperationCompleted == null)) {
+                this.getParentOperationCompleted = new System.Threading.SendOrPostCallback(this.OngetParentOperationCompleted);
+            }
+            this.InvokeAsync("getParent", new object[] {
+                        getParent1}, this.getParentOperationCompleted, userState);
+        }
+        
+        private void OngetParentOperationCompleted(object arg) {
+            if ((this.getParentCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.getParentCompleted(this, new getParentCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         public new void CancelAsync(object userState) {
             base.CancelAsync(userState);
         }
@@ -446,6 +540,8 @@ namespace zkquery {
         
         private Catalog catalogField;
         
+        private string parentField;
+        
         private string shownameField;
         
         /// <remarks/>
@@ -466,6 +562,17 @@ namespace zkquery {
             }
             set {
                 this.catalogField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string parent {
+            get {
+                return this.parentField;
+            }
+            set {
+                this.parentField = value;
             }
         }
         
@@ -796,6 +903,63 @@ namespace zkquery {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.zonekey.com/sysmgrt/query")]
+    public partial class getMsesByShowname {
+        
+        private bool getMsesByShownameOfflineField;
+        
+        private string shownameField;
+        
+        /// <remarks/>
+        public bool getMsesByShownameOffline {
+            get {
+                return this.getMsesByShownameOfflineField;
+            }
+            set {
+                this.getMsesByShownameOfflineField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string showname {
+            get {
+                return this.shownameField;
+            }
+            set {
+                this.shownameField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.zonekey.com/sysmgrt/query")]
+    public partial class getMsesByShownameResponse {
+        
+        private Mse[] msesField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)]
+        [System.Xml.Serialization.XmlArrayItemAttribute("item", Namespace="http://www.zonekey.com/sysmgrt/register", IsNullable=false)]
+        public Mse[] mses {
+            get {
+                return this.msesField;
+            }
+            set {
+                this.msesField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.zonekey.com/sysmgrt/query")]
     public partial class getAllHosts {
         
         private bool getAllHostsofflineField;
@@ -1025,6 +1189,49 @@ namespace zkquery {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.zonekey.com/sysmgrt/query")]
+    public partial class getParent {
+        
+        private string getParentNameField;
+        
+        /// <remarks/>
+        public string getParentName {
+            get {
+                return this.getParentNameField;
+            }
+            set {
+                this.getParentNameField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.zonekey.com/sysmgrt/query")]
+    public partial class getParentResponse {
+        
+        private Logic logicField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public Logic logic {
+            get {
+                return this.logicField;
+            }
+            set {
+                this.logicField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
     public delegate void getAllMsesCompletedEventHandler(object sender, getAllMsesCompletedEventArgs e);
     
     /// <remarks/>
@@ -1045,6 +1252,32 @@ namespace zkquery {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((getAllMsesResponse)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
+    public delegate void getMsesByShownameCompletedEventHandler(object sender, getMsesByShownameCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class getMsesByShownameCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal getMsesByShownameCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public getMsesByShownameResponse Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((getMsesByShownameResponse)(this.results[0]));
             }
         }
     }
@@ -1175,6 +1408,32 @@ namespace zkquery {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((getServicesByTypeResponse)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
+    public delegate void getParentCompletedEventHandler(object sender, getParentCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.1")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class getParentCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal getParentCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public getParentResponse Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((getParentResponse)(this.results[0]));
             }
         }
     }
