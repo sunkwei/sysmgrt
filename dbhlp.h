@@ -41,7 +41,7 @@ extern sqlite3 *_db;    // 方便全局使用
         name：唯一标识，一般可以选择 hostname+type+id 的组合；
         hostname：绑定的主机，等于 host.name
         type：服务类型，诸如 eval, ptz ... 之类
-        urls：提供的服务url列表，使用逗号分割
+        urls：提供的服务url列表，使用'\n'分割
         version：版本信息
  */
 #define SQL_CREATE_SERVICE "CREATE TABLE service(name char(64) primary key, hostname char(64), type varchar(16), urls text, version varchar(128))"

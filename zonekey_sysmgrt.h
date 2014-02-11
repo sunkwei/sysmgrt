@@ -80,6 +80,7 @@ struct zkreg__Host
 	xsd__string		name		1;
 	enum zkreg__Catalog	catalog		1;	// 类别，必须为 zkreg__Catalog__Host
 	struct zkreg__Ips	*ips		1;
+	xsd__string		parent		0;
 	xsd__string		showname	0;
 };
 
@@ -98,6 +99,7 @@ struct zkreg__Service
 	xsd__string		hostname	1;	// 绑定的主机名字.
 	xsd__string		type		1;	// 服务类型.
 	struct zkreg__Urls	*urls		1;	// 各种url
+	xsd__string		parent		0;
 	xsd__string		version		0;	// 版本号，可选.
 	xsd__string		showname	0;	// 可选的显示名字.
 };
@@ -116,6 +118,7 @@ struct zkreg__Device
 	enum zkreg__Catalog	catalog		1;	// 类别，必须为 zkreg__Catalog__Device
 	xsd__string		hostname	1;
 	xsd__string		type		1;	// 设备类型，如ptz, encoder ...
+	xsd__string		parent		0;
 	xsd__string		vendor		0;
 	xsd__string		model		0;
 	xsd__string		serial		0;
@@ -135,8 +138,9 @@ struct zkreg__Logic
 {
 	xsd__string		name		1;
 	enum zkreg__Catalog	catalog		1;	// 类别，必须为 zkreg__Catalog__Logic
-	struct zkreg__Mse	*parent		0;	// 可选的父对象
-	struct zkreg__Mses	*children	0;	// 可选的子对象
+	xsd__string 		parent		0;	// 可选的父对象的名字
+	xsd__string		*children	0;	// 可选的子对象的名字
+	int 			childnum	0;	// 子对象数目
 	xsd__string		showname	0;
 };
 
@@ -144,6 +148,21 @@ struct zkreg__Logics
 {
 	struct zkreg__Logic 	*__ptr		1;
 	int			__size		1;
+};
+
+// 兄弟节点..
+struct zkq__Brother
+{
+	xsd__string		parent		1;	// 父节点
+	xsd__string		*brothers	1;	// 兄弟们
+	int			brothernum	1;	// 数目
+};
+
+// 描述兄弟节点列表
+struct zkq__Brothers
+{
+	struct zkq__Brother	*__ptr		1;
+	int 			__size		1;
 };
 
 // 主机注册, token 为返回
@@ -186,8 +205,7 @@ int zkreg__setParent(xsd__string zkreg__setParentName, xsd__string msename, int 
 int zkq__getAllMses(enum xsd__boolean zkq__getAllMsesoffline, struct zkreg__Mses *mses);
 
 // 返回 ShowName 为 xxx 的 mse 对象
-int zkq__getMsesByShowname(enum xsd__boolean zkq__getMsesByShownameOffline, xsd__string showname,
-		struct zkreg__Mses *mses);
+int zkq__getMsesByShowname(xsd__string showname, struct zkreg__Mses *mses);
 
 // 返回所有主机
 int zkq__getAllHosts(enum xsd__boolean zkq__getAllHostsoffline, struct zkreg__Hosts *hosts);
@@ -205,9 +223,18 @@ int zkq__getAllLogics(enum xsd__boolean zkq__getAllLogicsoffline, struct zkreg__
 int zkq__getServicesByType(enum xsd__boolean zkq__getServiceByTypeoffline, xsd__string type, struct zkreg__Services *services);
 
 // 获取父节点信息，如果有效，总是 Logic 类型，如果没有 parent 节点，则 logic 为空
-int zkq__getParent(xsd__string zkq__getParentName, struct zkreg__Logic **logic);
+// 注意：这里返回的是 logic 列表，有可能出现某个服务同时绑定到多个 logic 的情况！！！
+int zkq__getParent(xsd__string zkq__getParentName, struct zkreg__Logics *ls);
 
-// 
+// 获取兄弟节点，
+int zkq__getBrothers(xsd__string zkq__getBrothersName, struct zkq__Brothers *brothers);
+
+// 返回 mse 描述, 如果找不到name，则 mse 为 0
+int zkq__getMseDesc(xsd__string zkq__getMseName, struct zkreg__Mse **mse);
+int zkq__getHostDesc(xsd__string zkq__getHostName, struct zkreg__Host **host);
+int zkq__getServiceDesc(xsd__string zkq__getServiceName, struct zkreg__Service **service);
+int zkq__getDeviceDesc(xsd__string zkq__getDeviceName, struct zkreg__Device **device);
+int zkq__getLogicDesc(xsd__string zkq__getLogicName, struct zkreg__Logic **logic);
 
 //////////////////////////////////////////////////////////
 // 返回配置项 keys

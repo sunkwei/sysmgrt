@@ -28,121 +28,6 @@ static int cb_exist(void *opaque, size_t row, sqlite3_stmt *stmt)
     return -1;
 }
 
-int db_regHost(sqlite3 *db, struct zkreg__Host *host, const char *token)
-{
-    char *st = (char*)alloca(1024);
-    char *ips = (char*)alloca(128); // FIXME: 应该足够了吧 :).
-    int exist = 0, i;
-    unsigned now = (unsigned)time(0);
-    
-    ips[0] = 0;
-    
-    // 串行化ips.
-    if (host->ips->__size > 0)
-        strcpy(ips, host->ips->__ptr[0]);
-    for (i = 1; i < host->ips->__size; i++) {
-        strcat(ips, ",");
-        strcat(ips, host->ips->__ptr[i]);
-    }
-    
-    // FIXME: 总是从 token 中删除 name.
-    _snprintf(st, 1024, "DELETE FROM token WHERE name='%s'", host->name);
-    db_exec_sql(db, st);
-    
-    /** 查询，如果 mse和host中有 name，则更新，name，parent, showname 和 reg_stamp 字段不更新 */
-    _snprintf(st, 1024, "SELECT COUNT(*) FROM host JOIN mse ON host.name=mse.name WHERE host.name='%s'", host->name);
-    db_exec_select(db, st, cb_exist, &exist);
-    
-    if (!exist) {
-        // 不管三七二十一，删除可能的垃圾记录.
-        _snprintf(st, 1024, "DELETE FROM mse WHERE name='%s';"
-                 "DELETE FROM host WHERE name='%s';",
-                 host->name, host->name);
-        db_exec_sql(db, st);
-        
-        // 新建记录.
-        snprintf(st, 1024, "INSERT INTO host (name, ips) VALUES ('%s', '%s')", host->name, ips);
-        db_exec_sql(db, st);
-        
-        snprintf(st, 1024, "INSERT INTO mse (name, catalog, parent, showname, reg_stamp, access_stamp)"
-                 " VALUES('%s', %d, '', '%s', %u, %u)",
-                 host->name, zkreg__Catalog__Host, host->showname, now, now);
-        db_exec_sql(db, st);
-    }
-    else {
-        // 更新记录.
-        snprintf(st, 1024, "UPDATE host SET ips='%s' WHERE name='%s'", ips, host->name);
-        db_exec_sql(db, st);
-        
-        snprintf(st, 1024, "UPDATE mse SET access_stamp=%u WHERE name='%s'", now, host->name);
-        db_exec_sql(db, st);
-    }
-    
-    // 新建 token 记录.
-    snprintf(st, 1024, "INSERT INTO token (token, name, last_stamp)"
-             " VALUES('%s', '%s', %u)",
-             token, host->name, now);
-    db_exec_sql(db, st);
-
-    return 0;
-}
-
-int db_regService(sqlite3 *db, struct zkreg__Service *service, const char *token)
-{
-    return 0;
-}
-
-int db_unregXXX(sqlite3 *db, const char *token)
-{
-    /** 对于 unRegXXX: 仅仅在 token 中删除，而不会删除 mse/host 表中的记录 .
-        永远返回0，不管 token 是否存在 :).
-     */
-    char *st = (char*)alloca(1024);
-    snprintf(st, 1024, "DELETE FROM token WHERE token='%s'", token);
-    db_exec_sql(db, st);
-    
-    return 0;
-}
-
-int db_heartBeat(sqlite3 *db, const char *token)
-{
-    /** 首先查询 token table，如果不存在，返回 -1，否则更新 last_stamp，返回 0
-     */
-    char *st = (char*)alloca(1024);
-    int exist = 0;
-    snprintf(st, 1024, "SELECT COUNT(*) FROM token WHERE token='%s'", token);
-    db_exec_select(db, st, cb_exist, &exist);
-    
-    if (!exist)
-        return -1;
-    else {
-        snprintf(st, 1024, "UPDATE token SET last_stamp=%u WHERE token='%s'",
-                 (unsigned)time(0), token);
-        db_exec_sql(db, st);
-        
-        return 0;
-    }
-}
-
-int db_setShowname(sqlite3 *db, const char *name, const char *showname)
-{
-    /** 首先查询 mse table，如果存在 name，则更新 showname，否则返回 -1 */
-    char *st = (char*)alloca(1024);
-    int exist = 0;
-    snprintf(st, 1024, "SELECT COUNT(*) FROM mse WHERE name='%s'", name);
-    db_exec_select(db, st, cb_exist, &exist);
-    
-    if (!exist)
-        return -1;
-    else {
-        snprintf(st, 1024, "UPDATE mse SET showname='%s' WHERE name='%s'",
-                 showname, name);
-        db_exec_sql(db, st);
-        
-        return 0;
-    }
-}
-
 int db_getServiceList(sqlite3 *db, int offline, struct zkreg__Service ***services, int *n)
 {
     return db_getServiceListByType(db, offline, 0, services, n);
@@ -194,7 +79,6 @@ static int cb_get_services(void *opaque, size_t row, sqlite3_stmt *stmt)
     free(urls);
     
     return 0;
-
 }
 
 int db_getServiceListByType(sqlite3 *db, int offline, const char *type, struct zkreg__Service ***service, int *n)
