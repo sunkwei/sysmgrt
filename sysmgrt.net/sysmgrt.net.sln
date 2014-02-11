@@ -5,6 +5,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sysmgrt.net", "sysmgrt.net\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sysmgrt_win32", "sysmgrt_win32\sysmgrt_win32.vcxproj", "{CBAEC55F-CE04-4410-AB41-EC16EB95820D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E0F5F8C0-6E14-4CFF-BD36-2C45B9AA5921}"
+	ProjectSection(SolutionItems) = preProject
+		zkq.cs = zkq.cs
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -36,10 +41,12 @@ Global
 		{CBAEC55F-CE04-4410-AB41-EC16EB95820D}.Release|Win32.Build.0 = Release|Win32
 		{CBAEC55F-CE04-4410-AB41-EC16EB95820D}.Release|x86.ActiveCfg = Release|Win32
 	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
+	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = sysmgrt.net\sysmgrt.net.csproj
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal
