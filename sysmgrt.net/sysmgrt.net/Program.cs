@@ -28,8 +28,36 @@ namespace sysmgrt.net
 			}
 		}
 
+		static void test_cfg()
+		{
+			zkconfig.zkcfg cfg = new zkconfig.zkcfg ();
+			cfg.Url = "http://172.16.1.103:8899";
+
+			zkconfig.MessageGetAllKeysResponse keys = cfg.getAllKeys (new zkconfig.MessageGetAllKeys ());
+
+			zkconfig.MessageSetValue sv = new zkconfig.MessageSetValue ();
+			sv.setValueKeyRequest = "key1";
+			sv.value = "value1";
+			zkconfig.Ret rc = cfg.setValue (sv);
+
+			zkconfig.MessageGetValue gv = new zkconfig.MessageGetValue ();
+			gv.getValueKeyRequest = "key1";
+			rc = cfg.getValue (gv);
+
+			keys = cfg.getAllKeys (new zkconfig.MessageGetAllKeys ());
+
+			zkconfig.MessageDelKey dk = new zkconfig.MessageDelKey ();
+			dk.delKeyRequest = "key1";
+			rc = cfg.delKey (dk);
+
+			keys = cfg.getAllKeys (new zkconfig.MessageGetAllKeys ());
+
+		}
+
 		public static void Main (string[] args)
 		{
+			test_cfg ();
+
 			#if false
 			int count = 10;
 			Thread []th = new Thread[count];
