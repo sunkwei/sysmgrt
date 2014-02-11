@@ -14,15 +14,6 @@
 #include "dbhlp.h"
 #include "soapStub.h"
 
-/** 处理 regHost 对数据库的操作 */
-int db_regHost(sqlite3 *db, struct zkreg__Host *host, const char *token);
-
-/** 处理service */
-int db_regService(sqlite3 *db, struct zkreg__Service *service, const char *token);
-
-/** 处理 unregXXX 对数据库的操作 */
-int db_unregXXX(sqlite3 *db, const char *token);
-
 /** 处理 getAllHosts 对数据库的操作
         hosts 为出参，必须合理释放
         n 为出参，指定 host 的数目

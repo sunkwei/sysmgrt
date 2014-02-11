@@ -97,8 +97,9 @@ am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am_sysmgrt_OBJECTS = sysmgrt-dbhlp.$(OBJEXT) sysmgrt-dboper.$(OBJEXT) \
 	sysmgrt-heartBeatCheck.$(OBJEXT) sysmgrt-zkqimpl.$(OBJEXT) \
-	sysmgrt-zkregimpl.$(OBJEXT) sysmgrt-soapC.$(OBJEXT) \
-	sysmgrt-soapServer.$(OBJEXT) sysmgrt-main.$(OBJEXT)
+	sysmgrt-zkregimpl.$(OBJEXT) sysmgrt-zkcfgimpl.$(OBJEXT) \
+	sysmgrt-soapC.$(OBJEXT) sysmgrt-soapServer.$(OBJEXT) \
+	sysmgrt-main.$(OBJEXT)
 sysmgrt_OBJECTS = $(am_sysmgrt_OBJECTS)
 sysmgrt_DEPENDENCIES =
 sysmgrt_LINK = $(CCLD) $(sysmgrt_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
@@ -275,7 +276,9 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-sysmgrt_SOURCES = dbhlp.c dboper.c heartBeatCheck.c zkqimpl.c zkregimpl.c soapC.c soapServer.c zonekey_sysmgrt/main.c
+sysmgrt_SOURCES = dbhlp.c dboper.c heartBeatCheck.c zkqimpl.c zkregimpl.c zkcfgimpl.c \
+			soapC.c soapServer.c zonekey_sysmgrt/main.c
+
 sysmgrt_CFLAGS = -std=c99
 sysmgrt_LDADD = -lgsoap -lsqlite3
 test_client_SOURCES = test.c soapC.c soapClient.c
@@ -398,6 +401,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sysmgrt-main.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sysmgrt-soapC.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sysmgrt-soapServer.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sysmgrt-zkcfgimpl.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sysmgrt-zkqimpl.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sysmgrt-zkregimpl.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_client-soapC.Po@am__quote@
@@ -487,6 +491,20 @@ sysmgrt-zkregimpl.obj: zkregimpl.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='zkregimpl.c' object='sysmgrt-zkregimpl.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(sysmgrt_CFLAGS) $(CFLAGS) -c -o sysmgrt-zkregimpl.obj `if test -f 'zkregimpl.c'; then $(CYGPATH_W) 'zkregimpl.c'; else $(CYGPATH_W) '$(srcdir)/zkregimpl.c'; fi`
+
+sysmgrt-zkcfgimpl.o: zkcfgimpl.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(sysmgrt_CFLAGS) $(CFLAGS) -MT sysmgrt-zkcfgimpl.o -MD -MP -MF $(DEPDIR)/sysmgrt-zkcfgimpl.Tpo -c -o sysmgrt-zkcfgimpl.o `test -f 'zkcfgimpl.c' || echo '$(srcdir)/'`zkcfgimpl.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/sysmgrt-zkcfgimpl.Tpo $(DEPDIR)/sysmgrt-zkcfgimpl.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='zkcfgimpl.c' object='sysmgrt-zkcfgimpl.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(sysmgrt_CFLAGS) $(CFLAGS) -c -o sysmgrt-zkcfgimpl.o `test -f 'zkcfgimpl.c' || echo '$(srcdir)/'`zkcfgimpl.c
+
+sysmgrt-zkcfgimpl.obj: zkcfgimpl.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(sysmgrt_CFLAGS) $(CFLAGS) -MT sysmgrt-zkcfgimpl.obj -MD -MP -MF $(DEPDIR)/sysmgrt-zkcfgimpl.Tpo -c -o sysmgrt-zkcfgimpl.obj `if test -f 'zkcfgimpl.c'; then $(CYGPATH_W) 'zkcfgimpl.c'; else $(CYGPATH_W) '$(srcdir)/zkcfgimpl.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/sysmgrt-zkcfgimpl.Tpo $(DEPDIR)/sysmgrt-zkcfgimpl.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='zkcfgimpl.c' object='sysmgrt-zkcfgimpl.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(sysmgrt_CFLAGS) $(CFLAGS) -c -o sysmgrt-zkcfgimpl.obj `if test -f 'zkcfgimpl.c'; then $(CYGPATH_W) 'zkcfgimpl.c'; else $(CYGPATH_W) '$(srcdir)/zkcfgimpl.c'; fi`
 
 sysmgrt-soapC.o: soapC.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(sysmgrt_CFLAGS) $(CFLAGS) -MT sysmgrt-soapC.o -MD -MP -MF $(DEPDIR)/sysmgrt-soapC.Tpo -c -o sysmgrt-soapC.o `test -f 'soapC.c' || echo '$(srcdir)/'`soapC.c

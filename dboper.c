@@ -9,13 +9,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <malloc.h>
 #include "dboper.h"
 
 #ifdef WIN32
+#  include <malloc.h>
 #  include <Windows.h>
 #  define snprintf _snprintf
 #else
+#  include <alloca.h>
 #  include <uuid/uuid.h>
 #endif
 /** 用于判断是否存在，一般执行: 

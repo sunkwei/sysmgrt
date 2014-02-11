@@ -103,6 +103,8 @@ void db_free_select2(struct dbhlpColumn col_desc[], int cn, struct dbhlpColumn *
 
 #ifdef WIN32
 #	define snprintf _snprintf
+#else
+#	define _snprintf snprintf
 #endif
 
 #endif

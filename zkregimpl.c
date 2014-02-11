@@ -9,13 +9,14 @@
 #include <stdio.h>
 #include <time.h>
 #include <assert.h>
-#include <malloc.h>
 #include "soapStub.h"
 #include "dbhlp.h"
 #include "dboper.h"
 #ifdef WIN32
+#  include <malloc.h>
 #  include <Windows.h>
 #else
+#  include <alloca.h>
 #  include <uuid/uuid.h>
 #endif
 
@@ -59,7 +60,7 @@ int db_regHost(sqlite3 *db, struct zkreg__Host *host, const char *token)
     }
     
     // FIXME: 总是从 token 中删除 name.
-    _snprintf(st, 1024, "DELETE FROM token WHERE name='%s'", host->name);
+    snprintf(st, 1024, "DELETE FROM token WHERE name='%s'", host->name);
     db_exec_sql(db, st);
     
     /** 查询，如果 mse和host中有 name，则更新，name，parent, showname 和 reg_stamp 字段不更新 */

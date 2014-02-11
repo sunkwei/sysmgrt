@@ -9,7 +9,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <malloc.h>
+#ifdef WIN32
+#  include <malloc.h>
+#else
+#  include <alloca.h>
+#endif
 #include <assert.h>
 #include "soapStub.h"
 #include "dbhlp.h"
