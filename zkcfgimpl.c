@@ -19,17 +19,21 @@ int zkcfg__getAllKeys(struct soap *soap, void *notused, struct zkcfg__Keys *keys
 	struct dbhlpColumn **all = 0;
 	int rows = 0, i;
 
-	int rc = db_exec_select2(_db, "SELECT key FROM config", desc, 1, &all, &rows);
-	if (rc >= 0) {
+	db_exec_select2(_db, "SELECT key FROM config", desc, 1, &all, &rows);
+	if (rows > 0) {
 		keys->__ptr = (char**)soap_malloc(soap, rows * sizeof(char*));
 		keys->__size = rows;
 
 		for (i = 0; i < rows; i++) {
 			keys->__ptr[i] = soap_strdup(soap, all[i][0].data.s);
 		}
-
-		db_free_select2(desc, 1, all, rows);
 	}
+	else {
+		keys->__ptr = 0;
+		keys->__size = 0;
+	}
+
+	db_free_select2(desc, 1, all, rows);
 
 	return SOAP_OK;
 }
