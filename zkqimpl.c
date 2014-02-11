@@ -245,6 +245,9 @@ int zkq__getAllServices(struct soap *soap, enum xsd__boolean offline, struct zkr
 int zkq__getAllDevices(struct soap* soap, enum xsd__boolean offline, struct zkreg__Devices *devices)
 {
 	// TODO:
+	devices->__ptr = 0;
+	devices->__size = 0;
+
     return SOAP_OK;
 }
 
@@ -536,6 +539,7 @@ int zkq__getServiceDesc(struct soap *soap, char *name, struct zkreg__Service **s
 int zkq__getDeviceDesc(struct soap *soap, char *name, struct zkreg__Device **device)
 {
 	// TODO:
+	*device = 0;
 	return SOAP_OK;
 }
 
