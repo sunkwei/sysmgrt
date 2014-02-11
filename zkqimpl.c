@@ -174,6 +174,7 @@ int zkq__getAllHosts(struct soap *soap, enum xsd__boolean offline, struct zkreg_
 	for (i = 0; i < rows; i++) {
 		hosts->__ptr[i].name = soap_strdup(soap, all[i][0].data.s);
 		hosts->__ptr[i].catalog = zkreg__Catalog__Host;
+		hosts->__ptr[i].ips = (struct zkreg__Ips*)soap_malloc(soap, sizeof(struct zkreg__Ips));
 		ut_copy_array(soap, &hosts->__ptr[i].ips->__ptr, &hosts->__ptr[i].ips->__size, all[i][1].data.s, ",");
 		hosts->__ptr[i].showname = soap_strdup(soap, all[i][2].data.s);
 		hosts->__ptr[i].parent = soap_strdup(soap, all[i][3].data.s);
