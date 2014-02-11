@@ -1,0 +1,11 @@
+sysmgrt_win32 为 vc 项目目录
+sysmgrt.net 为 c# 的测试客户端
+
+需要使用 
+  wsdl.exe /namespace:zkreg zkreg.wsdl
+  wsdl.exe /namespace:zkquery zkq.wsdl
+  wsdl.exe /namespace:zkconfig zkcfg.wsdl
+
+生成 client 封装代理。
+
+
