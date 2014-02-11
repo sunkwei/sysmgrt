@@ -10,7 +10,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include <malloc.h>
+#ifdef WIN32
+#  include <malloc.h>
+#else
+#  include <alloca.h>
+#endif
 #include "dbhlp.h"
 #include "heartBeatCheck.h"
 
@@ -71,7 +75,7 @@ static int db_table_exist(sqlite3 *db, const char *name)
 	int rc;
     struct cbparamSelectCount cnt = { 0 };
     
-	_snprintf(sql, sizeof(sql), "SELECT COUNT(*) FROM sqlite_master where name=\"%s\"", name);
+    snprintf(sql, sizeof(sql), "SELECT COUNT(*) FROM sqlite_master where name=\"%s\"", name);
     rc = db_exec_select(db, sql, cb_select_count, &cnt);
     if (rc != SQLITE_OK) {
         fprintf(stderr, "ERR: %s: db_exec_select err, %d\n", __func__, rc);
@@ -132,7 +136,7 @@ int db_init(sqlite3 *db)
 	{
 		unsigned curr = (unsigned)time(0) - CHECK_INTERVAL;
 		char *sql = (char*)alloca(1024);
-		_snprintf(sql, 1024, "DELETE FROM token WHERE last_stamp < %u", curr);
+		snprintf(sql, 1024, "DELETE FROM token WHERE last_stamp < %u", curr);
 		db_exec_sql(db, sql);
 	}
     fprintf(stdout, "\tOK\n");

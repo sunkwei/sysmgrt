@@ -1,12 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <malloc.h>
+#ifdef WIN32
+#  include <malloc.h>
+#else
+#  include <alloca.h>
+#endif // 
 #include "soapStub.h"
 #include "dbhlp.h"
 #include "dboper.h"
 
-int zkcfg__getAllKeys(struct soap *soap, struct zkcfg__Keys *keys)
+int zkcfg__getAllKeys(struct soap *soap, void *notused, struct zkcfg__Keys *keys)
 {
 	struct dbhlpColumn desc[1] = {
 		{ { 0 }, DBT_STRING },
@@ -40,7 +44,7 @@ int zkcfg__getValue(struct soap *soap, char *key, struct zkcfg__Ret *res)
 	int rows = 0, i, rc;
 	char *sql = (char*)alloca(1024);
 
-	_snprintf(sql, 1024, "SELECT value FROM config WHERE key='%s'", key);
+	snprintf(sql, 1024, "SELECT value FROM config WHERE key='%s'", key);
 
 	rc = db_exec_select2(_db, sql, desc, 1, &all, &rows);
 	if (rc >= 0) {
@@ -67,13 +71,13 @@ int zkcfg__setValue(struct soap *soap, char *key, char *value, struct zkcfg__Ret
 
 	if (ret.value) {
 		// 更新
-		_snprintf(sql, 1024, "UPDATE config SET value='%s' WHERE key='%s'", 
+		snprintf(sql, 1024, "UPDATE config SET value='%s' WHERE key='%s'", 
 			value, key);
 		res->result = 1;
 	}
 	else {
 		// 新建
-		_snprintf(sql, 1024, "INSERT INTO config VALUES('%s', '%s')", key, value);
+		snprintf(sql, 1024, "INSERT INTO config VALUES('%s', '%s')", key, value);
 		res->result = 0;
 	}
 
@@ -85,10 +89,11 @@ int zkcfg__setValue(struct soap *soap, char *key, char *value, struct zkcfg__Ret
 int zkcfg__delKey(struct soap *soap, char *key, struct zkcfg__Ret *res)
 {
 	char *sql = (char*)alloca(1024);
-	_snprintf(sql, 1024, "DELETE FROM config WHERE key='%s'", key);
+	snprintf(sql, 1024, "DELETE FROM config WHERE key='%s'", key);
 	db_exec_sql(_db, sql);
 
 	res->result = 0;
 
 	return SOAP_OK;
 }
+
