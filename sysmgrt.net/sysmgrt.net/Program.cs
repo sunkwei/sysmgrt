@@ -1,5 +1,6 @@
 using System;
 using System.Threading;
+using System.Collections.Generic;
 
 namespace sysmgrt.net
 {
@@ -8,15 +9,16 @@ namespace sysmgrt.net
 		static void proc_test()
 		{
 			zkreg.zkreg reg = new zkreg.zkreg ();
-			reg.Url = "http://localhost:8899";
+			reg.Url = "http://172.16.1.103:8899";
 
 			for (int i = 0; i < 1000; i++) {
 
                 zkreg.Host host = new zkreg.Host();
 				host.name = Guid.NewGuid ().ToString ("D");
                 host.catalog = zkreg.Catalog.Host;
-				host.ips = new string[1];
+				host.ips = new string[2];
 				host.ips [0] = "192.168.1.10";
+				host.ips [1] = "172.16.1.10";
 				host.showname = "汉字";
 
 				zkreg.MessageRegHost mreg = new zkreg.MessageRegHost();
@@ -25,6 +27,57 @@ namespace sysmgrt.net
 				zkreg.MessageRegHostResponse mres = reg.regHost(mreg);
 
 				Console.Write (".");
+			}
+		}
+
+		static List<string> tokens_ = new List<string>();
+		static void proc_heartBeat()
+		{
+			for (; ;) {
+				System.Threading.Thread.Sleep (3 * 60 * 1000);	// 3分钟
+				lock (tokens_) {
+					foreach (string token in tokens_) {
+						zkreg.MessageHeartBeat b = new zkreg.MessageHeartBeat ();
+						b.heartBeatTokenReq = token;
+
+						zkreg.zkreg reg = new zkreg.zkreg ();
+						reg.Url = "http://172.16.1.103:8899";
+						zkreg.MessageHeartBeatResponse rs = reg.heartBeat (b);
+					}
+				}
+			}
+		}
+
+		static void regService(string name, string hostname, string type, string urls, string version)
+		{
+			zkreg.zkreg reg = new zkreg.zkreg ();
+			reg.Url = "http://172.16.1.103:8899";
+
+			zkreg.MessageRegService s = new zkreg.MessageRegService ();
+			s.regServiceReq = new zkreg.Service ();
+			s.regServiceReq.name = name;
+			s.regServiceReq.catalog = zkreg.Catalog.Service;
+			s.regServiceReq.hostname = hostname;
+			s.regServiceReq.type = type;
+			s.regServiceReq.urls = new string[1];
+			s.regServiceReq.urls [0] = urls;
+			s.regServiceReq.version = version;
+
+			zkreg.MessageRegServiceResponse res = reg.regService (s);
+			Console.WriteLine ("regService: token=" + res.token);
+
+			lock (tokens_) {
+				tokens_.Add (res.token);
+			}
+		}
+
+		static void test_regServices()
+		{
+			// 注册一大堆服务
+			string name = "service-";
+
+			for (int i = 0; i < 100; i++) {
+				regService (name + i, "test_host", "test", "test://1283", "0.1");
 			}
 		}
 
@@ -72,8 +125,14 @@ namespace sysmgrt.net
 			}
 			#endif
 
+			test_regServices ();
+
+			Thread th_hb = new Thread (new ThreadStart (proc_heartBeat));
+			th_hb.Start ();
+
 			zkquery.zkq query = new zkquery.zkq();
-            for (int i = 0; i < 100000; i++) {
+			for (int i = 0; i < 100000; i++) {
+				Thread.Sleep (50);
                 // 使用 zkquery获取 hosts 列表
 				query.Url = "http://172.16.1.103:8899";
 				zkquery.MessageGetAllHosts req = new zkquery.MessageGetAllHosts();
@@ -90,6 +149,8 @@ namespace sysmgrt.net
                         num++;
                     }
                 }
+
+				Console.WriteLine ("/////" + i + "///////");
             }
 		}
 	}
