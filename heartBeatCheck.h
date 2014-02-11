@@ -14,6 +14,11 @@
 // 超时时间，5分钟
 #define CHECK_INTERVAL (5*60)
 
+#ifdef WIN32
+#include <Windows.h>
+DWORD __stdcall heartBeatCheck_run(void *param);
+#else
 void *heartBeatCheck_run(void *param);
+#endif 
 
 #endif

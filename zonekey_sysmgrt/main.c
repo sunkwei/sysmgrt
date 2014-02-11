@@ -74,8 +74,12 @@ int main(int argc, const char * argv[])
     
     // 启动心跳线程
     // FIXME: 在每次 webservice 的请求时，检查 token table 是不是更好些呢？
-//    pthread_t th;
-//    pthread_create(&th, 0, heartBeatCheck_run, _db);
+#ifdef WIN32
+	CloseHandle(CreateThread(0, 0, heartBeatCheck_run, _db, 0, 0));
+#else
+    pthread_t th;
+    pthread_create(&th, 0, heartBeatCheck_run, _db);
+#endif // os
     
     // 开始处理所有 webservice 请求...
     while (1) {
