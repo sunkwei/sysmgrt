@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "zk_sysmgrt_proxy.h"
 #include "impl.h"
+#include <assert.h>
 
 static void xfree(const void *p)
 {
@@ -19,6 +20,7 @@ static zksysmgrt_ss *ut_clone_ss(const char **ptr, int size)
 		int i;
 		ss->ptr = (char**)malloc(ss->cnt * sizeof(char*));
 		for (i = 0; i < ss->cnt; i++) {
+			assert(ptr[i]);
 			ss->ptr[i] = strdup(ptr[i]);
 		}
 	}
@@ -32,7 +34,7 @@ static void ut_free_ss(const zksysmgrt_ss **ss)
 	if (s) {
 		int i;
 		for (i = 0; i < s->cnt; i++)
-			xfree(s->ptr[i]);	// 对应 strdup
+			xfree(s->ptr[i]);			// 对应 strdup
 		xfree(s->ptr);					// 对应 char **
 		free(s);						// 对应 zksysmgrt_ss*
 	}
@@ -45,12 +47,16 @@ int zksysmgrt_q_getallhosts(zksysmgrt_t *sm, int offline,
 {
 	int rc, i;
 	struct zkreg__Hosts hs;
+	struct soap soap;
+
 	hs.__ptr = 0;
 	hs.__size = 0;
 	
-	rc = soap_call_zkq__getAllHosts(&sm->soap, sm->url, 0, offline ? xsd__boolean__true_ : xsd__boolean__false_, &hs);
+	soap_init(&soap);
+	rc = soap_call_zkq__getAllHosts(&soap, sm->url, 0, offline ? xsd__boolean__true_ : xsd__boolean__false_, &hs);
 
 	if (rc != SOAP_OK) {
+		soap_end(&soap);
 		return rc;
 	}
 	else {
@@ -74,6 +80,7 @@ int zksysmgrt_q_getallhosts(zksysmgrt_t *sm, int offline,
 			*hosts = rhs;
 		}
 
+		soap_end(&soap);
 		return 0;
 	}
 }
@@ -83,13 +90,18 @@ int zksysmgrt_q_getallservices(zksysmgrt_t *sm, int offline,
 {
 	int rc, i;
 	struct zkreg__Services ss;
+	struct soap soap;
+
 	ss.__ptr = 0;
 	ss.__size = 0;
 
-	rc = soap_call_zkq__getAllServices(&sm->soap, sm->url, 0, offline ? xsd__boolean__true_ : xsd__boolean__false_, &ss);
+	soap_init(&soap);
+	rc = soap_call_zkq__getAllServices(&soap, sm->url, 0, offline ? xsd__boolean__true_ : xsd__boolean__false_, &ss);
 
-	if (rc != SOAP_OK)
+	if (rc != SOAP_OK) {
+		soap_end(&soap);
 		return rc;
+	}
 	else {
 		if (ss.__size == 0) {
 			*cnt = 0;
@@ -113,7 +125,7 @@ int zksysmgrt_q_getallservices(zksysmgrt_t *sm, int offline,
 			*cnt = ss.__size;
 			*services = rss;
 		}
-
+		soap_end(&soap);
 		return 0;
 	}
 }
@@ -122,13 +134,18 @@ int zksysmgrt_q_getalllogics(zksysmgrt_t *sm, zksysmgrt_Logic **logics, int *cnt
 {
 	int rc, i;
 	struct zkreg__Logics ls;
+	struct soap soap;
+
 	ls.__ptr = 0;
 	ls.__size = 0;
 
-	rc = soap_call_zkq__getAllLogics(&sm->soap, sm->url, 0, xsd__boolean__true_, &ls);
+	soap_init(&soap);
+	rc = soap_call_zkq__getAllLogics(&soap, sm->url, 0, xsd__boolean__true_, &ls);
 
-	if (rc != SOAP_OK)
+	if (rc != SOAP_OK) {
+		soap_end(&soap);
 		return rc;
+	}
 	else {
 		if (ls.__size == 0) {
 			*cnt = 0;
@@ -149,7 +166,7 @@ int zksysmgrt_q_getalllogics(zksysmgrt_t *sm, zksysmgrt_Logic **logics, int *cnt
 			*cnt = ls.__size;
 			*logics = rls;
 		}
-
+		soap_end(&soap);
 		return 0;
 	}
 }
@@ -159,13 +176,18 @@ int zksysmgrt_q_getparents(zksysmgrt_t *sm, const char *name,
 {
 	int rc, i;
 	struct zkreg__Logics rs;
+	struct soap soap;
+
 	rs.__ptr = 0;
 	rs.__size = 0;
 
-	rc = soap_call_zkq__getParent(&sm->soap, sm->url, 0, (char*)name, &rs);
+	soap_init(&soap);
+	rc = soap_call_zkq__getParent(&soap, sm->url, 0, (char*)name, &rs);
 
-	if (rc != SOAP_OK)
+	if (rc != SOAP_OK) {
+		soap_end(&soap);
 		return rc;
+	}
 	else {
 		if (rs.__size == 0) {
 			*cnt = 0;
@@ -186,7 +208,7 @@ int zksysmgrt_q_getparents(zksysmgrt_t *sm, const char *name,
 			*cnt = rs.__size;
 			*mses = rrs;
 		}
-
+		soap_end(&soap);
 		return 0;
 	}
 }
@@ -196,13 +218,18 @@ int zksysmgrt_q_getbrothers(zksysmgrt_t *sm, const char *name,
 {
 	int rc, i;
 	struct zkq__Brothers rs;
+	struct soap soap;
+
 	rs.__ptr = 0;
 	rs.__size = 0;
 
-	rc = soap_call_zkq__getBrothers(&sm->soap, sm->url, 0, (char*)name, &rs);
+	soap_init(&soap);
+	rc = soap_call_zkq__getBrothers(&soap, sm->url, 0, (char*)name, &rs);
 
-	if (rc != SOAP_OK)
+	if (rc != SOAP_OK) {
+		soap_end(&soap);
 		return rc;
+	}
 	else {
 		if (rs.__size == 0) {
 			*cnt = 0;
@@ -222,7 +249,7 @@ int zksysmgrt_q_getbrothers(zksysmgrt_t *sm, const char *name,
 			*cnt = rs.__size;
 			*brothers = rrs;
 		}
-
+		soap_end(&soap);
 		return 0;
 	}
 }
@@ -231,11 +258,15 @@ int zksysmgrt_q_gethost(zksysmgrt_t *sm, const char *name, zksysmgrt_Host **host
 {
 	int rc;
 	struct zkreg__Host *rh;
+	struct soap soap;
 
-	rc = soap_call_zkq__getHostDesc(&sm->soap, sm->url, 0, (char*)name, &rh);
+	soap_init(&soap);
+	rc = soap_call_zkq__getHostDesc(&soap, sm->url, 0, (char*)name, &rh);
 
-	if (rc != SOAP_OK)
+	if (rc != SOAP_OK) {
+		soap_end(&soap);
 		return rc;
+	}
 	else {
 		if (!rh) {
 			*host = 0;	// 没有得到.
@@ -248,7 +279,7 @@ int zksysmgrt_q_gethost(zksysmgrt_t *sm, const char *name, zksysmgrt_Host **host
 			h->showname = strdup(rh->showname);
 			h->ips = ut_clone_ss(rh->ips->__ptr, rh->ips->__size);
 		}
-
+		soap_end(&soap);
 		return 0;
 	}
 }
@@ -257,11 +288,15 @@ int zksysmgrt_q_getservice(zksysmgrt_t *sm, const char *name, zksysmgrt_Service 
 {
 	int rc;
 	struct zkreg__Service *rs;
+	struct soap soap;
 
-	rc = soap_call_zkq__getServiceDesc(&sm->soap, sm->url, 0, (char*)name, &rs);
+	soap_init(&soap);
+	rc = soap_call_zkq__getServiceDesc(&soap, sm->url, 0, (char*)name, &rs);
 	
-	if (rc != SOAP_OK)
+	if (rc != SOAP_OK) {
+		soap_end(&soap);
 		return rc;
+	}
 	else {
 		if (!rs) {
 			*service = 0; // 没有得到
@@ -277,6 +312,7 @@ int zksysmgrt_q_getservice(zksysmgrt_t *sm, const char *name, zksysmgrt_Service 
 			s->version = strdup(rs->version);
 			s->urls = ut_clone_ss(rs->urls->__ptr, rs->urls->__size);
 		}
+		soap_end(&soap);
 
 		return 0;
 	}
@@ -286,11 +322,15 @@ int zksysmgrt_q_getlogic(zksysmgrt_t *sm, const char *name, zksysmgrt_Logic **lo
 {
 	int rc;
 	struct zkreg__Logic *rl;
+	struct soap soap;
 
-	rc = soap_call_zkq__getLogicDesc(&sm->soap, sm->url, 0, (char*)name, &rl);
+	soap_init(&soap);
+	rc = soap_call_zkq__getLogicDesc(&soap, sm->url, 0, (char*)name, &rl);
 
-	if (rc != SOAP_OK)
+	if (rc != SOAP_OK) {
+		soap_end(&soap);
 		return rc;
+	}
 	else {
 		if (!rl)
 			*logic = 0;
@@ -302,7 +342,7 @@ int zksysmgrt_q_getlogic(zksysmgrt_t *sm, const char *name, zksysmgrt_Logic **lo
 			l->showname = strdup(rl->showname);
 			l->children = ut_clone_ss(rl->children, rl->childnum);
 		}
-
+		soap_end(&soap);
 		return 0;
 	}
 }
@@ -312,13 +352,18 @@ int zksysmgrt_q_getservicesbytype(zksysmgrt_t *sm, int offline, const char *type
 {
 	int rc, i;
 	struct zkreg__Services ss;
+	struct soap soap;
+
 	ss.__ptr = 0;
 	ss.__size = 0;
 
-	rc = soap_call_zkq__getServicesByType(&sm->soap, sm->url, 0, offline ? xsd__boolean__true_ : xsd__boolean__false_, (char*)type, &ss);
+	soap_init(&soap);
+	rc = soap_call_zkq__getServicesByType(&soap, sm->url, 0, offline ? xsd__boolean__true_ : xsd__boolean__false_, (char*)type, &ss);
 
-	if (rc != SOAP_OK)
+	if (rc != SOAP_OK) {
+		soap_end(&soap);
 		return rc;
+	}
 	else {
 		if (ss.__size == 0) {
 			*cnt = 0;
@@ -342,7 +387,7 @@ int zksysmgrt_q_getservicesbytype(zksysmgrt_t *sm, int offline, const char *type
 			*cnt = ss.__size;
 			*services = rss;
 		}
-
+		soap_end(&soap);
 		return 0;
 	}
 }

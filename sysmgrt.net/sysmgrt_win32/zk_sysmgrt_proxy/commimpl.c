@@ -12,7 +12,11 @@ static void xfree(const void *p)
 void hb_one(zksysmgrt_t *sm, const char *token)
 {
 	int code;
-	soap_call_zkreg__heartBeat(&sm->soap, sm->url, 0, (char*)token, &code);
+	struct soap soap;
+
+	soap_init(&soap);
+	soap_call_zkreg__heartBeat(&soap, sm->url, 0, (char*)token, &code);
+	soap_end(&soap);
 }
 
 static void hb_list(zksysmgrt_t *sm)
@@ -104,8 +108,6 @@ zksysmgrt_t *zksysmgrt_open(const char *url)
 	zksysmgrt_t *sm = (zksysmgrt_t *)malloc(sizeof(zksysmgrt_t));
 	sm->url = strdup(url);
 
-	soap_init(&sm->soap);
-
 	list_init(&sm->tokens);
 	sm->lock = simple_mutex_create();
 	sm->th = simple_thread_create(proc_heart_beat, sm);
@@ -115,8 +117,6 @@ zksysmgrt_t *zksysmgrt_open(const char *url)
 
 void zksysmgrt_close(zksysmgrt_t *sm)
 {
-	soap_done(&sm->soap);
-
 	simple_thread_req(sm->th, 0);
 	simple_thread_join(sm->th);
 

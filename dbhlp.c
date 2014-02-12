@@ -28,6 +28,7 @@ int db_exec_select(sqlite3 *db, const char *sql, int (*callback)(void *opaque, s
 
 	if (sqlite3_prepare_v2(db, sql, (int)strlen(sql), &stmt, 0) != SQLITE_OK) {
         fprintf(stderr, "%s: sqlite3_prepare_v2 err\n", __func__);
+		fprintf(stderr, "\t%s\n\n", sql);
         exit(-1);
         return -1;
     }
