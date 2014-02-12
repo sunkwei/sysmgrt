@@ -19,8 +19,12 @@ struct zksysmgrt_t
 typedef struct token_string
 {
 	list_head list;
-	const char *str;
+	const char *token;
+	const char *name;
 } token_string;
+
+int save_token(zksysmgrt_t *sm, const char *token, const char *name);
+int remove_token(zksysmgrt_t *sm, const char *name);
 
 #ifdef WIN32
 #	define strdup _strdup

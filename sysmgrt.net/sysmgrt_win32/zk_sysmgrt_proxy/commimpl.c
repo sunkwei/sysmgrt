@@ -4,6 +4,11 @@
 #include <time.h>
 #include "impl.h"
 
+static void xfree(const void *p)
+{
+	if (p) free((void*)p);
+}
+
 void hb_one(zksysmgrt_t *sm, const char *token)
 {
 	int code;
@@ -20,7 +25,7 @@ static void hb_list(zksysmgrt_t *sm)
 
 	list_for_each(pos, &sm->tokens) {
 		token_string *token = (token_string*)pos;
-		hb_one(sm, token->str);
+		hb_one(sm, token->token);
 	}
 
 	simple_mutex_unlock(sm->lock);
@@ -53,6 +58,43 @@ static int proc_heart_beat(void *p)
 			hb_list(sm);
 		}
 	}
+
+	return 0;
+}
+
+int save_token(zksysmgrt_t *sm, const char *token, const char *name)
+{
+	token_string *ts = (token_string*)malloc(sizeof(token_string));
+	ts->name = strdup(name);
+	ts->token = strdup(token);
+
+	simple_mutex_lock(sm->lock);
+	list_add((list_head*)ts, &sm->tokens);
+	simple_mutex_unlock(sm->lock);
+
+	return 0;
+}
+
+int remove_token(zksysmgrt_t *sm, const char *name)
+{
+	list_head *pos, *n;
+
+	simple_mutex_lock(sm->lock);
+
+	list_for_each_safe(pos, n, &sm->tokens) {
+		token_string *ts = (token_string*)pos;
+		if (!strcmp(name, ts->name)) {
+			list_del(pos);
+
+			xfree(ts->name);
+			xfree(ts->token);
+			free(ts);
+
+			break;
+		}
+	}
+
+	simple_mutex_unlock(sm->lock);
 
 	return 0;
 }
