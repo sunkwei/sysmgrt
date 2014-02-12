@@ -77,6 +77,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="impl.h" />
+    <ClInclude Include="list.h" />
+    <ClInclude Include="mutex.h" />
+    <ClInclude Include="semaphore.h" />
+    <ClInclude Include="thread.h" />
     <ClInclude Include="zk_sysmgrt_common.h" />
     <ClInclude Include="zk_sysmgrt_config.h" />
     <ClInclude Include="zk_sysmgrt_proxy.h" />
@@ -90,8 +94,11 @@
     <ClCompile Include="cfgimpl.c" />
     <ClCompile Include="commimpl.c" />
     <ClCompile Include="main.c" />
+    <ClCompile Include="mutex.c" />
     <ClCompile Include="queryimpl.c" />
     <ClCompile Include="regimpl.c" />
+    <ClCompile Include="semaphore.c" />
+    <ClCompile Include="thread.c" />
   </ItemGroup>
   <ItemGroup>
     <None Include="exports.def" />

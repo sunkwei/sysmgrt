@@ -6,7 +6,6 @@
 int zksysmgrt_r_reghost(zksysmgrt_t *sm, const char *name, const char *showname,
 						const char **ips, int cnt)
 {
-	// TODO:
 	return -1;
 }
 
