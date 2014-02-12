@@ -24,3 +24,7 @@ EXPORTS
 	zksysmgrt_q_getlogic
 	zksysmgrt_q_getparents
 	zksysmgrt_q_getbrothers
+
+	zksysmgrt_c_getallkeys
+	zksysmgrt_c_getvalue
+	zksysmgrt_c_setvalue
