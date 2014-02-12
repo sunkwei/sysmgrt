@@ -5,6 +5,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sysmgrt_win32", "sysmgrt_wi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "clientMgrt", "..\clientMgrt\clientMgrt.csproj", "{F7C7B7AB-8792-45CF-80D8-24C95ADAA265}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zk_sysmgrt_proxy", "zk_sysmgrt_proxy\zk_sysmgrt_proxy.vcxproj", "{B8481EEC-1143-4823-8AC6-520FF4B7FE0F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -35,6 +37,16 @@ Global
 		{F7C7B7AB-8792-45CF-80D8-24C95ADAA265}.Release|Win32.ActiveCfg = Release|x86
 		{F7C7B7AB-8792-45CF-80D8-24C95ADAA265}.Release|x86.ActiveCfg = Release|x86
 		{F7C7B7AB-8792-45CF-80D8-24C95ADAA265}.Release|x86.Build.0 = Release|x86
+		{B8481EEC-1143-4823-8AC6-520FF4B7FE0F}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{B8481EEC-1143-4823-8AC6-520FF4B7FE0F}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{B8481EEC-1143-4823-8AC6-520FF4B7FE0F}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B8481EEC-1143-4823-8AC6-520FF4B7FE0F}.Debug|Win32.Build.0 = Debug|Win32
+		{B8481EEC-1143-4823-8AC6-520FF4B7FE0F}.Debug|x86.ActiveCfg = Debug|Win32
+		{B8481EEC-1143-4823-8AC6-520FF4B7FE0F}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{B8481EEC-1143-4823-8AC6-520FF4B7FE0F}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{B8481EEC-1143-4823-8AC6-520FF4B7FE0F}.Release|Win32.ActiveCfg = Release|Win32
+		{B8481EEC-1143-4823-8AC6-520FF4B7FE0F}.Release|Win32.Build.0 = Release|Win32
+		{B8481EEC-1143-4823-8AC6-520FF4B7FE0F}.Release|x86.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

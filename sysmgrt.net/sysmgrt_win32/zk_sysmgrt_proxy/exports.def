@@ -1,0 +1,26 @@
+EXPORTS
+	zksysmgrt_open
+	zksysmgrt_close
+
+	zksysmgrt_r_reghost
+	zksysmgrt_r_unreghost
+	zksysmgrt_r_regservice
+	zksysmgrt_r_unregservice
+	zksysmgrt_r_addlogic
+	zksysmgrt_r_delobj
+	zksysmgrt_r_bind
+	zksysmgrt_r_unbind
+	zksysmgrt_r_setshowname
+
+	zksysmgrt_q_getallhosts
+	zksysmgrt_q_freehosts
+	zksysmgrt_q_getallservices
+	zksysmgrt_q_freeservices
+	zksysmgrt_q_getservicesbytype
+	zksysmgrt_q_freemses
+	zksysmgrt_q_freebrothers
+	zksysmgrt_q_gethost
+	zksysmgrt_q_getservice
+	zksysmgrt_q_getlogic
+	zksysmgrt_q_getparents
+	zksysmgrt_q_getbrothers
