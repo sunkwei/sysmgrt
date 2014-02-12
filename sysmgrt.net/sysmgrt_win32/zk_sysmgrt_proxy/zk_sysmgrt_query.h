@@ -118,11 +118,11 @@ int zksysmgrt_q_getlogic(zksysmgrt_t *sm,
 /* 查询，得到父/兄弟，mse 类型，如希望得到详细描述，必须再次调用 zksysmgrt_q_getXXXX() */
 int zksysmgrt_q_getparents(zksysmgrt_t *sm,
 						   const char *name,
-						   zksysmgrt_Mse **mses,
+						   zksysmgrt_Logic **logics,
 						   int *num);		/* 可能多个父节点 */
 int zksysmgrt_q_getbrothers(zksysmgrt_t *sm,
 							const char *name,
-							zksysmgrt_Mse **mses,
+							zksysmgrt_Brother **brothers,
 							int *num);
 
 #ifdef __cplusplus

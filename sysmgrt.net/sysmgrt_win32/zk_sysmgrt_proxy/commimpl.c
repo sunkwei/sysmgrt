@@ -5,7 +5,7 @@
 
 zksysmgrt_t *zksysmgrt_open(const char *url)
 {
-	zksysmgrt_t *sm = (zksysmgrt_t *)malloc(sizeof(zksysmgrt_t*));
+	zksysmgrt_t *sm = (zksysmgrt_t *)malloc(sizeof(zksysmgrt_t));
 	sm->url = strdup(url);
 
 	soap_init(&sm->soap);
