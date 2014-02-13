@@ -185,64 +185,58 @@ int zkq__getAllHosts(struct soap *soap, enum xsd__boolean offline, struct zkreg_
 	return SOAP_OK;
 }
 
-static int copy_ss_and_release(struct soap *soap, struct zkreg__Service**ss, int n, struct zkreg__Services *services)
+static void ut_copy_services(struct soap *soap, 
+							 struct dbhlpColumn desc[], int n,
+							 struct dbhlpColumn **all, int rows,
+							 struct zkreg__Services *services)
 {
-    /** 将 Services 数据从 paramGetAllServices 结构中，复制到 zkreg__Services，并且释放 paramGetAllServices
-     */
+	int i, j;
+	
+	services->__size = rows;
+	services->__ptr = (struct zkreg__Service*)soap_malloc(soap, sizeof(struct zkreg__Service)*rows);
 
-    int i, j;
-    
-    services->__size = n;
-    services->__ptr = (struct zkreg__Service*)soap_malloc(soap, sizeof(struct zkreg__Service) * n);
-    for (i = 0; i < n; i++) {
-        struct zkreg__Service *s = ss[i];
-        s->name = soap_strdup(soap, ss[i]->name);
-        s->hostname = soap_strdup(soap, ss[i]->hostname);
-        s->catalog = ss[i]->catalog;
-        s->type = soap_strdup(soap, ss[i]->type);
-        s->showname = soap_strdup(soap, ss[i]->showname);
-        
-        s->urls->__size = ss[i]->urls->__size;
-        s->urls->__ptr = (char**)soap_malloc(soap, sizeof(char*) * s->urls->__size);
-        for (j = 0; j < s->urls->__size; j++) {
-            s->urls->__ptr[j] = ss[i]->urls->__ptr[j];
-        }
-    }
-    
-    // 释放 p._p
-    for (i = 0; i < n; i++) {
-        free(ss[i]->name);
-        free(ss[i]->hostname);
-        free(ss[i]->type);
-        free(ss[i]->version);
-        free(ss[i]->showname);
-        
-        for (j = 0; j < ss[i]->urls->__size; j++) {
-            free(ss[i]->urls->__ptr[j]);
-        }
-        free(ss[i]->urls->__ptr);
-        free(ss[i]->urls);
-        
-        free(ss[i]);
-    }
-    free(ss);
+	for (i = 0; i < rows; i++) {
+		struct zkreg__Service *d = &services->__ptr[i];
+		struct dbhlpColumn *s = all[i];
 
-    return 0;
+		d->name = soap_strdup(soap, s[0].data.s);
+		d->hostname = soap_strdup(soap, s[1].data.s);
+		d->catalog = zkreg__Catalog__Service;
+		d->parent = soap_strdup(soap, "");
+		d->showname = soap_strdup(soap, s[3].data.s);
+		d->type = soap_strdup(soap, s[2].data.s);
+		d->urls = (struct zkreg__Urls*)soap_malloc(soap, sizeof(struct zkreg__Urls));
+		ut_copy_array(soap, &d->urls->__ptr, &d->urls->__size, s[4].data.s, "\n");
+		d->version = soap_strdup(soap, s[5].data.s);
+	}
 }
 
 int zkq__getAllServices(struct soap *soap, enum xsd__boolean offline, struct zkreg__Services *services)
 {
-    struct zkreg__Service **ss = 0;
-    int n = 0;
-    
-    int rc = db_getServiceList(_db, offline, &ss, &n);
-    if (rc < 0) {
-        services->__ptr = 0;
-        services->__size = 0;
-        return SOAP_OK;
-    }
-    
-    copy_ss_and_release(soap, ss, n, services);
+	char *st = (char*)alloca(1024);
+	struct dbhlpColumn desc[] = {
+		{ {0}, DBT_STRING },	// name
+		{ {0}, DBT_STRING },	// hostname
+		{ {0}, DBT_STRING },	// type
+		{ {0}, DBT_STRING },	// showname
+		{ {0}, DBT_STRING },	// urls
+		{ {0}, DBT_STRING },	// version
+	};
+	struct dbhlpColumn **all = 0;
+	int rows = 0;
+
+	if (offline) {
+		snprintf(st, 1024, "SELECT mse.name,service.hostname,service.type,mse.showname,service.urls,service.version"
+			" FROM service JOIN mse ON service.name=mse.name;");
+	}
+	else {
+		snprintf(st, 1024, "SELECT mse.name,service.hostname,service.type,mse.showname,service.urls,service.version"
+			" FROM service JOIN mse ON service.name=mse.name JOIN token ON service.name=token.name;");
+	}
+
+	db_exec_select2(_db, st, desc, sizeof(desc)/sizeof(struct dbhlpColumn), &all, &rows);
+	ut_copy_services(soap, desc, sizeof(desc)/sizeof(struct dbhlpColumn), all, rows, services);
+	db_free_select2(desc, sizeof(desc)/sizeof(struct dbhlpColumn), all, rows);
 
     return SOAP_OK;
 }
@@ -301,18 +295,31 @@ int zkq__getAllLogics(struct soap *soap, enum xsd__boolean offline, struct zkreg
 
 int zkq__getServicesByType(struct soap *soap, enum xsd__boolean offline, char *type, struct zkreg__Services *services)
 {
-    struct zkreg__Service **ss = 0;
-    int n = 0;
-    
-    int rc = db_getServiceListByType(_db, offline, type, &ss, &n);
-    if (rc < 0) {
-        services->__ptr = 0;
-        services->__size = 0;
-        return SOAP_OK;
-    }
-    
-    copy_ss_and_release(soap, ss, n, services);
-    
+	char *st = (char*)alloca(1024);
+	struct dbhlpColumn desc[] = {
+		{ {0}, DBT_STRING },	// name
+		{ {0}, DBT_STRING },	// hostname
+		{ {0}, DBT_STRING },	// type
+		{ {0}, DBT_STRING },	// showname
+		{ {0}, DBT_STRING },	// urls
+		{ {0}, DBT_STRING },	// version
+	};
+	struct dbhlpColumn **all = 0;
+	int rows = 0;
+
+	if (offline) {
+		snprintf(st, 1024, "SELECT mse.name,service.hostname,service.type,mse.showname,service.urls,service.version"
+			" FROM service JOIN mse ON service.name=mse.name WHERE service.type='%s';", type);
+	}
+	else {
+		snprintf(st, 1024, "SELECT mse.name,service.hostname,service.type,mse.showname,service.urls,service.version"
+			" FROM service JOIN mse ON service.name=mse.name JOIN token ON service.name=token.name WHERE service.type='%s';", type);
+	}
+
+	db_exec_select2(_db, st, desc, sizeof(desc)/sizeof(struct dbhlpColumn), &all, &rows);
+	ut_copy_services(soap, desc, sizeof(desc)/sizeof(struct dbhlpColumn), all, rows, services);
+	db_free_select2(desc, sizeof(desc)/sizeof(struct dbhlpColumn), all, rows);
+
     return SOAP_OK;
 }
 

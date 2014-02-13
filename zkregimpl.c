@@ -167,10 +167,10 @@ static int db_regService(sqlite3 *db, struct zkreg__Service *s, const char *toke
 		// 新建记录
         snprintf(st, 4096, "INSERT INTO mse (name, catalog, parent, showname, reg_stamp, access_stamp)"
                  " VALUES('%s', %d, '', '%s', %u, %u);"
-				 "INSERT INFO service (name, hostname, type, urls, version)"
+				 "INSERT INTO service (name, hostname, type, urls, version)"
 				 " VALUES('%s', '%s', '%s', '%s', '%s');",
 				 s->name, zkreg__Catalog__Service, s->showname, now, now,
-				 s->name, s->hostname, s->type, s->urls, s->version);
+				 s->name, s->hostname, s->type, url, s->version);
 		db_exec_sql(_db, st);
 	}
 	else {
@@ -178,7 +178,7 @@ static int db_regService(sqlite3 *db, struct zkreg__Service *s, const char *toke
 		snprintf(st, 4096, "UPDATE mse SET access_stamp=%u WHERE name='%s';"
 			"UPDATE service SET type='%s', urls='%s', version='%s' WHERE name='%s'",
 			now, s->name,
-			s->type, s->urls, s->version, s->name);
+			s->type, url, s->version, s->name);
 		db_exec_sql(_db, st);
 	}
 

@@ -51,7 +51,7 @@ static int cb_get_services(void *opaque, size_t row, sqlite3_stmt *stmt)
      name, hostname, type, urls, version, showname
      */
     p->_n = (int)row+1;
-    p->_p = (struct zkreg__Service**)realloc(p->_p, p->_n);
+    p->_p = (struct zkreg__Service**)realloc(p->_p, p->_n*sizeof(struct zkreg__Service*));
     p->_p[p->_n] = (struct zkreg__Service*)malloc(sizeof(struct zkreg__Service));
     
     s = p->_p[p->_n];
