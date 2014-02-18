@@ -62,12 +62,15 @@ int main(int argc, const char * argv[])
     
     // 启动心跳线程
     // FIXME: 在每次 webservice 的请求时，检查 token table 是不是更好些呢？
+    // 已经修改为，在每次查询时，首先删除超时对象，这样不需要启动独立的工作线程；
+#if 0
 #ifdef WIN32
 	CloseHandle(CreateThread(0, 0, heartBeatCheck_run, 0, 0, 0));
 #else
     pthread_t th;
     pthread_create(&th, 0, heartBeatCheck_run, 0);
 #endif // os
+#endif // 0;
     
     // 开始处理所有 webservice 请求...
     while (1) {

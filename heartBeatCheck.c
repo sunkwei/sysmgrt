@@ -16,6 +16,14 @@
 #endif
 #include "heartBeatCheck.h"
 
+void heartCheck(sqlite3 *db)
+{
+    char sql[256];
+    
+    snprintf(sql, sizeof(sql), "DELETE FROM token WHERE last_stamp < %u", (unsigned)time(0) - CHECK_INTERVAL);
+    db_exec_sql(db, sql);
+}
+
 #ifdef WIN32
 DWORD __stdcall heartBeatCheck_run(void *param)
 #else
@@ -25,16 +33,13 @@ void *heartBeatCheck_run(void *param)
     sqlite3 *db = db_get();
     
     while (1) {
-        char sql[256];
-
 #ifdef WIN32
 		Sleep(CHECK_INTERVAL*1000);
 #else
         usleep(CHECK_INTERVAL*1000*1000);
 #endif
-        
-        snprintf(sql, sizeof(sql), "DELETE FROM token WHERE last_stamp < %u", (unsigned)time(0) - CHECK_INTERVAL);
-        db_exec_sql(db, sql);
+
+        heartCheck(db);
     }
     
     db_release(db);

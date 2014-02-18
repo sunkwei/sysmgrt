@@ -18,6 +18,7 @@
 #include "soapStub.h"
 #include "dbhlp.h"
 #include "dboper.h"
+#include "heartBeatCheck.h"
 
 static void ut_copy_array(struct soap *soap, char ***ptr, int *size, char *data, char *split)
 {
@@ -63,6 +64,8 @@ int zkq__getAllMses(struct soap *soap, enum xsd__boolean offline, struct zkreg__
 	int rows = 0, row_logic = 0, i;
 	int n = sizeof(desc) / sizeof(struct dbhlpColumn);
 
+    heartCheck(db);
+    
 	if (offline) {
 		snprintf(st, 1024, "SELECT name,parent,catalog,showname FROM mse");
 	}
@@ -115,7 +118,7 @@ int zkq__getMsesByShowname(struct soap *soap, char *showname, struct zkreg__Mses
 	struct dbhlpColumn **all = 0;
 	int rows = 0, i;
     sqlite3 *db = db_get();
-
+    
 	snprintf(st, 1024, "SELECT name,catalog,parent,showname FROM mse WHERE showname='%s'", showname);
 	db_exec_select2(db, st, desc, sizeof(desc)/sizeof(struct dbhlpColumn), &all, &rows);
 
@@ -155,8 +158,10 @@ int zkq__getAllHosts(struct soap *soap, enum xsd__boolean offline, struct zkreg_
 
 	int n = sizeof(desc) / sizeof(struct dbhlpColumn);
 	struct dbhlpColumn **all = 0;
-	int rows = 0, i, j;
+	int rows = 0, i;
 
+    heartCheck(db);
+    
     /** 根据 offline，从 host, mse, token 中返回查询记录，从将每行信息分配保存到 zkreg__Host 结构中.
      */
     if (offline) {
@@ -230,6 +235,8 @@ int zkq__getAllServices(struct soap *soap, enum xsd__boolean offline, struct zkr
 	int rows = 0;
 	sqlite3 *db = db_get();
 
+    heartCheck(db);
+    
 	if (offline) {
 		snprintf(st, 1024, "SELECT mse.name,service.hostname,service.type,mse.showname,service.urls,service.version"
 			" FROM service JOIN mse ON service.name=mse.name;");
@@ -251,6 +258,8 @@ int zkq__getAllDevices(struct soap* soap, enum xsd__boolean offline, struct zkre
 	// TODO:
 	devices->__ptr = 0;
 	devices->__size = 0;
+    
+    
 
     return SOAP_OK;
 }
@@ -267,6 +276,8 @@ int zkq__getAllLogics(struct soap *soap, enum xsd__boolean offline, struct zkreg
 	struct dbhlpColumn **all = 0;
 	int rows = 0;
     sqlite3 *db = db_get();
+    
+    heartCheck(db);
 
 	snprintf(st, 1024, "SELECT mse.name,mse.parent,mse.showname,logic.children"
 		" FROM mse JOIN logic ON mse.name=logic.name");
@@ -315,6 +326,8 @@ int zkq__getServicesByType(struct soap *soap, enum xsd__boolean offline, char *t
 	int rows = 0;
 	sqlite3 *db = db_get();
 
+    heartCheck(db);
+    
 	if (offline) {
 		snprintf(st, 1024, "SELECT mse.name,service.hostname,service.type,mse.showname,service.urls,service.version"
 			" FROM service JOIN mse ON service.name=mse.name WHERE service.type='%s';", type);

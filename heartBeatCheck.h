@@ -21,4 +21,6 @@ DWORD __stdcall heartBeatCheck_run(void *param);
 void *heartBeatCheck_run(void *param);
 #endif 
 
+void heartCheck(sqlite3 *db);
+
 #endif
