@@ -36,6 +36,12 @@ static void uuid_unparse(uuid_t *id, char s[40])
 
 #endif // win32
 
+int zkreg__version(struct soap *soap, void *notused, char **info)
+{
+    *info = soap_strdup(soap, "en, VERSION is 0.0.9");
+    return SOAP_OK;
+}
+
 int cb_exist(void *opaque, size_t row, sqlite3_stmt *stmt)
 {
     *(int*)opaque = sqlite3_column_int(stmt, 0);    // 总是 COUNT(*)

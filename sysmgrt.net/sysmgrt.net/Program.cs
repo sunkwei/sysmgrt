@@ -107,11 +107,23 @@ namespace sysmgrt.net
 
 		}
 
+		static void version()
+		{
+			zkreg.zkreg reg = new zkreg.zkreg ();
+			reg.Url = "http://localhost/soap";
+
+			zkreg.MessageVersionResponse res = reg.version (new zkreg.MessageVersion ());
+
+			Console.WriteLine (res.info);
+		}
+
 		public static void Main (string[] args)
 		{
+			version ();
+
 			test_cfg ();
 
-			#if false
+			#if true
 			int count = 10;
 			Thread []th = new Thread[count];
 

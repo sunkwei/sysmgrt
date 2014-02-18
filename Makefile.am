@@ -6,5 +6,5 @@ sysmgrt_LDADD=	-lgsoap -lsqlite3
 
 test_client_SOURCES=	test.c soapC.c soapClient.c
 test_client_CFLAGS=	-std=c99
-test_client_LDADD=	-lgsoap -lpthread
+test_client_LDADD= -lgsoap -lpthread
 

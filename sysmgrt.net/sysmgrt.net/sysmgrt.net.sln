@@ -26,6 +26,6 @@ Global
 		{BC29B8AA-BF22-4526-B29A-7C04C30DF39A}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = clientControl\clientControl.csproj
+		StartupItem = sysmgrt.net.csproj
 	EndGlobalSection
 EndGlobal

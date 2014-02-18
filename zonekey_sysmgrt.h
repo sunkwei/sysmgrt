@@ -165,6 +165,8 @@ struct zkq__Brothers
 	int 			__size		1;
 };
 
+int zkreg__version(void *notused, xsd__string *info);
+
 // 主机注册, token 为返回
 // 对于主机/服务/设备的注销，仅仅变为离线状态，而不从数据库中删除
 int zkreg__regHost(struct zkreg__Host *zkreg__regHostReq, xsd__string *token);
