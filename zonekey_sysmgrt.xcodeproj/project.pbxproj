@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C000367018B2F76B00D05A42 /* zkcfgimpl.c in Sources */ = {isa = PBXBuildFile; fileRef = C000366F18B2F76B00D05A42 /* zkcfgimpl.c */; };
 		C07CEE751890C5E3009C3F17 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = C07CEE741890C5E3009C3F17 /* main.c */; };
 		C07CEE771890C5E3009C3F17 /* zonekey_sysmgrt.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C07CEE761890C5E3009C3F17 /* zonekey_sysmgrt.1 */; };
 		C07CEE811890D7EF009C3F17 /* soapC.c in Sources */ = {isa = PBXBuildFile; fileRef = C07CEE7D1890D7EF009C3F17 /* soapC.c */; };
@@ -33,6 +34,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C000366F18B2F76B00D05A42 /* zkcfgimpl.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zkcfgimpl.c; sourceTree = SOURCE_ROOT; };
 		C07CEE711890C5E3009C3F17 /* zonekey_sysmgrt */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = zonekey_sysmgrt; sourceTree = BUILT_PRODUCTS_DIR; };
 		C07CEE741890C5E3009C3F17 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		C07CEE761890C5E3009C3F17 /* zonekey_sysmgrt.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = zonekey_sysmgrt.1; sourceTree = "<group>"; };
@@ -82,6 +84,7 @@
 		C07CEE731890C5E3009C3F17 /* zonekey_sysmgrt */ = {
 			isa = PBXGroup;
 			children = (
+				C000366F18B2F76B00D05A42 /* zkcfgimpl.c */,
 				C09F38F318949983001A5A59 /* dboper.c */,
 				C09F38F218949968001A5A59 /* dboper.h */,
 				C0BC4DA6189394C400CCC0D5 /* heartBeatCheck.h */,
@@ -166,6 +169,7 @@
 				C09F38F418949983001A5A59 /* dboper.c in Sources */,
 				C07CEE8B189284DE009C3F17 /* zkqimpl.c in Sources */,
 				C07CEE751890C5E3009C3F17 /* main.c in Sources */,
+				C000367018B2F76B00D05A42 /* zkcfgimpl.c in Sources */,
 				C07CEE841890DA1B009C3F17 /* stdsoap2.c in Sources */,
 				C0BC4DA5189394A700CCC0D5 /* heartBeatCheck.c in Sources */,
 			);
