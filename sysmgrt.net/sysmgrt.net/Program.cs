@@ -9,7 +9,7 @@ namespace sysmgrt.net
 		static void proc_test()
 		{
 			zkreg.zkreg reg = new zkreg.zkreg ();
-			reg.Url = "http://172.16.1.103:8899";
+			reg.Url = "http://localhost/soap";
 
 			for (int i = 0; i < 1000; i++) {
 
@@ -41,7 +41,7 @@ namespace sysmgrt.net
 						b.heartBeatTokenReq = token;
 
 						zkreg.zkreg reg = new zkreg.zkreg ();
-						reg.Url = "http://172.16.1.103:8899";
+						reg.Url = "http://localhost/soap";
 						zkreg.MessageHeartBeatResponse rs = reg.heartBeat (b);
 					}
 				}
@@ -51,7 +51,7 @@ namespace sysmgrt.net
 		static void regService(string name, string hostname, string type, string urls, string version)
 		{
 			zkreg.zkreg reg = new zkreg.zkreg ();
-			reg.Url = "http://172.16.1.103:8899";
+			reg.Url = "http://localhost/soap";
 
 			zkreg.MessageRegService s = new zkreg.MessageRegService ();
 			s.regServiceReq = new zkreg.Service ();
@@ -84,7 +84,7 @@ namespace sysmgrt.net
 		static void test_cfg()
 		{
 			zkconfig.zkcfg cfg = new zkconfig.zkcfg ();
-			cfg.Url = "http://172.16.1.103:8899";
+			cfg.Url = "http://localhost/soap";
 
 			zkconfig.MessageGetAllKeysResponse keys = cfg.getAllKeys (new zkconfig.MessageGetAllKeys ());
 
@@ -121,7 +121,7 @@ namespace sysmgrt.net
 		{
 			version ();
 
-			test_cfg ();
+			//test_cfg ();
 
 			#if true
 			int count = 10;
@@ -146,7 +146,7 @@ namespace sysmgrt.net
 			for (int i = 0; i < 100000; i++) {
 				Thread.Sleep (50);
                 // 使用 zkquery获取 hosts 列表
-				query.Url = "http://172.16.1.103:8899";
+				query.Url = "http://localhost/soap";
 				zkquery.MessageGetAllHosts req = new zkquery.MessageGetAllHosts();
                 req.getAllHostsoffline = true;
 				zkquery.MessageGetAllHostsResponse res = query.getAllHosts(req);

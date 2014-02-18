@@ -18,16 +18,64 @@
 #include "dbhlp.h"
 #include "heartBeatCheck.h"
 
+static int cb_busy(void *p, int cnt)
+{
+    // 永远重试 :)
+    sqlite3_sleep(5); // 5ms
+    return 1;
+}
+
+sqlite3 *db_get()
+{
+    sqlite3 *db = 0;
+    int rc;
+    
+    if (sqlite3_threadsafe()) {
+        sqlite3_config(SQLITE_CONFIG_SERIALIZED);
+    }
+    
+    rc = sqlite3_open(DB_NAME, &db);
+    if (rc != SQLITE_OK) {
+        fprintf(stderr, "sqlite3_open %s ERR, rc=%d\n", DB_NAME, rc);
+        exit(-1);
+    }
+    
+    // 注册 busy callback
+    sqlite3_busy_handler(db, cb_busy, 0);
+    
+    rc = sqlite3_exec(db, "PRAGMA journal_mode=WAL;", 0, 0, 0);
+    if (rc != SQLITE_OK) {
+        fprintf(stderr, "sqlite3_exec: PRAGMA journal_mode=WAL; ERR, rc=%d\n", rc);
+        //exit(-1);
+    }
+    
+	rc = sqlite3_exec(db, "PRAGMA synchronous = OFF;", 0, 0, 0);
+    if (rc != SQLITE_OK) {
+        fprintf(stderr, "sqlite3_exec: PRAGMA synchronous=OFF ERR, rc=%d\n", rc);
+        //exit(-1);
+    }
+    
+    db_init(db);
+    
+    return db;
+}
+
+void db_release(sqlite3 *db)
+{
+    sqlite3_close(db);
+}
+
 /** 执行 select 语句. 
  */
 int db_exec_select(sqlite3 *db, const char *sql, int (*callback)(void *opaque, size_t row, sqlite3_stmt *stmt), void *opaque)
 {
     size_t row = 0;
-    sqlite3_stmt *stmt;
-	int rc;
-
-	if (sqlite3_prepare_v2(db, sql, (int)strlen(sql), &stmt, 0) != SQLITE_OK) {
-        fprintf(stderr, "%s: sqlite3_prepare_v2 err\n", __func__);
+    sqlite3_stmt *stmt = 0;
+    int rc;
+    
+    rc = sqlite3_prepare_v2(db, sql, -1, &stmt, 0);
+	if (rc != SQLITE_OK) {
+        fprintf(stderr, "%s: sqlite3_prepare_v2 err, db=%p, rc=%d\n", __func__, db, rc);
 		fprintf(stderr, "\t%s\n\n", sql);
         exit(-1);
         return -1;
@@ -48,7 +96,9 @@ int db_exec_select(sqlite3 *db, const char *sql, int (*callback)(void *opaque, s
 
 int db_exec_sql(sqlite3 *db, const char *sql)
 {
-    return sqlite3_exec(db, sql, 0, 0, 0);
+    int rc;
+    rc = sqlite3_exec(db, sql, 0, 0, 0);
+    return rc;
 }
 
 struct cbparamSelectCount
@@ -76,7 +126,7 @@ static int db_table_exist(sqlite3 *db, const char *name)
 	int rc;
     struct cbparamSelectCount cnt = { 0 };
     
-    snprintf(sql, sizeof(sql), "SELECT COUNT(*) FROM sqlite_master where name=\"%s\"", name);
+    snprintf(sql, sizeof(sql), "SELECT COUNT(*) FROM sqlite_master where name='%s'", name);
     rc = db_exec_select(db, sql, cb_select_count, &cnt);
     if (rc != SQLITE_OK) {
         fprintf(stderr, "ERR: %s: db_exec_select err, %d\n", __func__, rc);
@@ -89,7 +139,6 @@ static int db_table_exist(sqlite3 *db, const char *name)
  */
 int db_init(sqlite3 *db)
 {
-    fprintf(stdout, "INFO: %s calling...\n", __func__);
     /** 检查是否存在 host, service, 等...
      */
     if (!db_table_exist(db, "mse")) {

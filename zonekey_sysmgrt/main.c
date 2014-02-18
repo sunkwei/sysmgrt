@@ -19,8 +19,6 @@
 
 #define MULTITHREAD_SERVER
 
-sqlite3 *_db = 0;
-
 #ifdef MULTITHREAD_SERVER
 #ifdef WIN32
 static DWORD __stdcall _working_proc(void *param)
@@ -49,17 +47,7 @@ int main(int argc, const char * argv[])
     struct soap soap;
 
 	// sqlite3 设置为工作在 Serialized 模式下，因为“心跳线程”会周期操作 token table
-    if (sqlite3_threadsafe()) {
-        sqlite3_config(SQLITE_CONFIG_SERIALIZED);
-    }
-    
-    sqlite3_initialize();
-    
-    sqlite3_open(DB_NAME, &_db);
-	sqlite3_exec(_db, "PRAGMA synchronous = OFF;", 0, 0, 0);
 
-    db_init(_db);
-    
     // 启动 webservice
     soap_init(&soap);
     
@@ -75,10 +63,10 @@ int main(int argc, const char * argv[])
     // 启动心跳线程
     // FIXME: 在每次 webservice 的请求时，检查 token table 是不是更好些呢？
 #ifdef WIN32
-	CloseHandle(CreateThread(0, 0, heartBeatCheck_run, _db, 0, 0));
+	CloseHandle(CreateThread(0, 0, heartBeatCheck_run, 0, 0, 0));
 #else
     pthread_t th;
-    pthread_create(&th, 0, heartBeatCheck_run, _db);
+    pthread_create(&th, 0, heartBeatCheck_run, 0);
 #endif // os
     
     // 开始处理所有 webservice 请求...

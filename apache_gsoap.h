@@ -141,7 +141,7 @@ extern "C" {
  SOAP_FMAC1 void SOAP_FMAC2 apache_soap_soap_destroy(struct soap *soap, request_rec *r) \
     {return soap_destroy(soap);}\
  SOAP_FMAC1 void SOAP_FMAC2 apache_default_soap_init(struct soap *soap, request_rec *r) \
-    {return soap_init(soap);}\
+    { soap_init(soap); soap_set_mode(soap, SOAP_C_UTFSTRING); }\
  SOAP_FMAC1 int SOAP_FMAC2 apache_default_soap_serve(struct soap *soap, request_rec *r) \
     {return soap_serve(soap);}\
  SOAP_FMAC1 void SOAP_FMAC2 apache_default_soap_end(struct soap *soap, request_rec *r) \

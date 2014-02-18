@@ -22,7 +22,7 @@ DWORD __stdcall heartBeatCheck_run(void *param)
 void *heartBeatCheck_run(void *param)
 #endif 
 {
-    sqlite3 *db = (sqlite3*)param;
+    sqlite3 *db = db_get();
     
     while (1) {
         char sql[256];
@@ -36,6 +36,8 @@ void *heartBeatCheck_run(void *param)
         snprintf(sql, sizeof(sql), "DELETE FROM token WHERE last_stamp < %u", (unsigned)time(0) - CHECK_INTERVAL);
         db_exec_sql(db, sql);
     }
+    
+    db_release(db);
     
     return 0;
 }
