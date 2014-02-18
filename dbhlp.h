@@ -16,9 +16,11 @@
 
 #include <sqlite3.h>
 
-extern sqlite3 *_db;    // 方便全局使用
-
-#define DB_NAME "zonekey.mgrt.db"
+#ifdef MOD
+#   define DB_NAME "/tmp/zonekey.mgrt.db"
+#else
+#   define DB_NAME "zonekey.mgrt.db"
+#endif //
 //#define DB_NAME ":memory:"
 
 /** mse 为 host, service, device, logic 的基类，保存通用信息，通过 name 字段进行关联.
@@ -64,6 +66,10 @@ extern sqlite3 *_db;    // 方便全局使用
 		value: 值
  */
 #define SQL_CREATE_CONFIG "CREATE TABLE config(key char(64) primary key, value text)"
+
+// 作为数据库链接，需要考虑每个 http request 都应该重建 ..
+sqlite3 *db_get();
+void db_release(sqlite3 *db);
 
 /** 初始化 db，自动创建所需的表 */
 int db_init(sqlite3 *db);

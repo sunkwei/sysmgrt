@@ -15,11 +15,11 @@ int zkcfg__getAllKeys(struct soap *soap, void *notused, struct zkcfg__Keys *keys
 	struct dbhlpColumn desc[1] = {
 		{ { 0 }, DBT_STRING },
 	};
-
+    sqlite3 *db = db_get();
 	struct dbhlpColumn **all = 0;
 	int rows = 0, i;
 
-	db_exec_select2(_db, "SELECT key FROM config", desc, 1, &all, &rows);
+	db_exec_select2(db, "SELECT key FROM config", desc, 1, &all, &rows);
 	if (rows > 0) {
 		keys->__ptr = (char**)soap_malloc(soap, rows * sizeof(char*));
 		keys->__size = rows;
@@ -34,7 +34,8 @@ int zkcfg__getAllKeys(struct soap *soap, void *notused, struct zkcfg__Keys *keys
 	}
 
 	db_free_select2(desc, 1, all, rows);
-
+    db_release(db);
+    
 	return SOAP_OK;
 }
 
@@ -43,14 +44,14 @@ int zkcfg__getValue(struct soap *soap, char *key, struct zkcfg__Ret *res)
 	struct dbhlpColumn desc[1] = {
 		{{ 0 }, DBT_STRING },
 	};
-
+    sqlite3 *db = db_get();
 	struct dbhlpColumn **all = 0;
 	int rows = 0, i, rc;
 	char *sql = (char*)alloca(1024);
 
 	snprintf(sql, 1024, "SELECT value FROM config WHERE key='%s'", key);
 
-	rc = db_exec_select2(_db, sql, desc, 1, &all, &rows);
+	rc = db_exec_select2(db, sql, desc, 1, &all, &rows);
 	if (rc >= 0) {
 		if (rows == 0) {
 			res->value = 0;
@@ -63,7 +64,8 @@ int zkcfg__getValue(struct soap *soap, char *key, struct zkcfg__Ret *res)
 
 		db_free_select2(desc, 1, all, rows);
 	}
-
+    db_release(db);
+    
 	return SOAP_OK;
 }
 
@@ -71,6 +73,8 @@ int zkcfg__setValue(struct soap *soap, char *key, char *value, struct zkcfg__Ret
 {
 	char *sql = (char*)alloca(1024);
 	struct zkcfg__Ret ret;
+    sqlite3 *db = db_get();
+    
 	zkcfg__getValue(soap, key, &ret);
 
 	if (ret.value) {
@@ -85,18 +89,22 @@ int zkcfg__setValue(struct soap *soap, char *key, char *value, struct zkcfg__Ret
 		res->result = 0;
 	}
 
-	db_exec_sql(_db, sql);
-
+	db_exec_sql(db, sql);
+    db_release(db);
+    
 	return SOAP_OK;
 }
 
 int zkcfg__delKey(struct soap *soap, char *key, struct zkcfg__Ret *res)
 {
 	char *sql = (char*)alloca(1024);
+    sqlite3 *db = db_get();
+    
 	snprintf(sql, 1024, "DELETE FROM config WHERE key='%s'", key);
-	db_exec_sql(_db, sql);
-
+	db_exec_sql(db, sql);
 	res->result = 0;
+    
+    db_release(db);
 
 	return SOAP_OK;
 }

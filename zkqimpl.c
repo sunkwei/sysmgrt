@@ -52,6 +52,7 @@ int zkq__getAllMses(struct soap *soap, enum xsd__boolean offline, struct zkreg__
 {
     /** 返回 mse table 的内容 */
 	char *st = (char*)alloca(1024);
+    sqlite3 *db = db_get();
 	struct dbhlpColumn desc[] = {
 		{ { 0 }, DBT_STRING },	// name
 		{ { 0 }, DBT_STRING },	// parent
@@ -71,12 +72,12 @@ int zkq__getAllMses(struct soap *soap, enum xsd__boolean offline, struct zkreg__
 			zkreg__Catalog__Logic);
 	}
 
-	db_exec_select2(_db, st, desc, n, &all, &rows);
+	db_exec_select2(db, st, desc, n, &all, &rows);
 
 	if (!offline) {
 		// 需要合并 logic
 		snprintf(st, 1024, "SELECT name,parent,catalog,showname FROM mse WHERE catalog=%d", zkreg__Catalog__Logic);
-		db_exec_select2(_db, st, desc, 3, &all_logic, &row_logic);
+		db_exec_select2(db, st, desc, 3, &all_logic, &row_logic);
 	}
 
 	mses->__size = rows + row_logic;
@@ -98,7 +99,7 @@ int zkq__getAllMses(struct soap *soap, enum xsd__boolean offline, struct zkreg__
 
 	db_free_select2(desc, n, all, rows);
 	db_free_select2(desc, n, all_logic, row_logic);
-
+    db_release(db);
 	return SOAP_OK;
 }
 
@@ -113,9 +114,10 @@ int zkq__getMsesByShowname(struct soap *soap, char *showname, struct zkreg__Mses
 	};
 	struct dbhlpColumn **all = 0;
 	int rows = 0, i;
+    sqlite3 *db = db_get();
 
 	snprintf(st, 1024, "SELECT name,catalog,parent,showname FROM mse WHERE showname='%s'", showname);
-	db_exec_select2(_db, st, desc, sizeof(desc)/sizeof(struct dbhlpColumn), &all, &rows);
+	db_exec_select2(db, st, desc, sizeof(desc)/sizeof(struct dbhlpColumn), &all, &rows);
 
 	if (rows > 0) {
 		mses->__size = rows;
@@ -135,14 +137,15 @@ int zkq__getMsesByShowname(struct soap *soap, char *showname, struct zkreg__Mses
 	}
 
 	db_free_select2(desc, sizeof(desc)/sizeof(struct dbhlpColumn), all, rows);
-
+    db_release(db);
+    
 	return SOAP_OK;
 }
 
 int zkq__getAllHosts(struct soap *soap, enum xsd__boolean offline, struct zkreg__Hosts *hosts)
 {
 	char *st = (char*)alloca(1024);
-
+    sqlite3 *db = db_get();
 	struct dbhlpColumn desc[] = {
 		{ { 0 }, DBT_STRING },	// host.name
 		{ { 0 }, DBT_STRING },	// host.ips
@@ -166,7 +169,7 @@ int zkq__getAllHosts(struct soap *soap, enum xsd__boolean offline, struct zkreg_
                  " JOIN token ON token.name=host.name");
     }
 
-	db_exec_select2(_db, st, desc, n, &all, &rows);
+	db_exec_select2(db, st, desc, n, &all, &rows);
 
 	hosts->__size = rows;
 	hosts->__ptr = (struct zkreg__Host*)soap_malloc(soap, sizeof(struct zkreg__Host) * rows);
@@ -181,7 +184,8 @@ int zkq__getAllHosts(struct soap *soap, enum xsd__boolean offline, struct zkreg_
 	}
 
 	db_free_select2(desc, n, all, rows);
-
+    db_release(db);
+    
 	return SOAP_OK;
 }
 
@@ -224,6 +228,7 @@ int zkq__getAllServices(struct soap *soap, enum xsd__boolean offline, struct zkr
 	};
 	struct dbhlpColumn **all = 0;
 	int rows = 0;
+	sqlite3 *db = db_get();
 
 	if (offline) {
 		snprintf(st, 1024, "SELECT mse.name,service.hostname,service.type,mse.showname,service.urls,service.version"
@@ -234,7 +239,7 @@ int zkq__getAllServices(struct soap *soap, enum xsd__boolean offline, struct zkr
 			" FROM service JOIN mse ON service.name=mse.name JOIN token ON service.name=token.name;");
 	}
 
-	db_exec_select2(_db, st, desc, sizeof(desc)/sizeof(struct dbhlpColumn), &all, &rows);
+	db_exec_select2(db, st, desc, sizeof(desc)/sizeof(struct dbhlpColumn), &all, &rows);
 	ut_copy_services(soap, desc, sizeof(desc)/sizeof(struct dbhlpColumn), all, rows, services);
 	db_free_select2(desc, sizeof(desc)/sizeof(struct dbhlpColumn), all, rows);
 
@@ -261,11 +266,12 @@ int zkq__getAllLogics(struct soap *soap, enum xsd__boolean offline, struct zkreg
 	};
 	struct dbhlpColumn **all = 0;
 	int rows = 0;
+    sqlite3 *db = db_get();
 
 	snprintf(st, 1024, "SELECT mse.name,mse.parent,mse.showname,logic.children"
 		" FROM mse JOIN logic ON mse.name=logic.name");
 
-	db_exec_select2(_db, st, desc, sizeof(desc)/sizeof(struct dbhlpColumn), &all, &rows);
+	db_exec_select2(db, st, desc, sizeof(desc)/sizeof(struct dbhlpColumn), &all, &rows);
 
 	if (rows > 0) {
 		int i;
@@ -289,7 +295,8 @@ int zkq__getAllLogics(struct soap *soap, enum xsd__boolean offline, struct zkreg
 	}
 
 	db_free_select2(desc, sizeof(desc)/sizeof(struct dbhlpColumn), all, rows);
-	
+	db_release(db);
+    
     return SOAP_OK;
 }
 
@@ -306,6 +313,7 @@ int zkq__getServicesByType(struct soap *soap, enum xsd__boolean offline, char *t
 	};
 	struct dbhlpColumn **all = 0;
 	int rows = 0;
+	sqlite3 *db = db_get();
 
 	if (offline) {
 		snprintf(st, 1024, "SELECT mse.name,service.hostname,service.type,mse.showname,service.urls,service.version"
@@ -316,9 +324,11 @@ int zkq__getServicesByType(struct soap *soap, enum xsd__boolean offline, char *t
 			" FROM service JOIN mse ON service.name=mse.name JOIN token ON service.name=token.name WHERE service.type='%s';", type);
 	}
 
-	db_exec_select2(_db, st, desc, sizeof(desc)/sizeof(struct dbhlpColumn), &all, &rows);
+	db_exec_select2(db, st, desc, sizeof(desc)/sizeof(struct dbhlpColumn), &all, &rows);
 	ut_copy_services(soap, desc, sizeof(desc)/sizeof(struct dbhlpColumn), all, rows, services);
 	db_free_select2(desc, sizeof(desc)/sizeof(struct dbhlpColumn), all, rows);
+
+	db_release(db);
 
     return SOAP_OK;
 }
@@ -334,11 +344,12 @@ int zkq__getParent(struct soap *soap, char *name, struct zkreg__Logics *ls)
 	};
 	struct dbhlpColumn **all = 0;
 	int rows = 0;
+    sqlite3 *db = db_get();
 
 	snprintf(st, 1024, "SELECT mse.name,mse.parent,mse.showname,logic.children"
 		" FROM mse JOIN logic ON mse.name=logic.name");
 
-	db_exec_select2(_db, st, desc, sizeof(desc)/sizeof(struct dbhlpColumn), &all, &rows);
+	db_exec_select2(db, st, desc, sizeof(desc)/sizeof(struct dbhlpColumn), &all, &rows);
 
 	if (rows > 0) {
 		int i, n = 0;
@@ -380,7 +391,8 @@ int zkq__getParent(struct soap *soap, char *name, struct zkreg__Logics *ls)
 	}
 
 	db_free_select2(desc, sizeof(desc)/sizeof(struct dbhlpColumn), all, rows);
-
+    db_release(db);
+    
 	return SOAP_OK;
 }
 
@@ -391,7 +403,7 @@ int zkq__getBrothers(struct soap *soap, char *name, struct zkq__Brothers *brothe
 
 	char *st = (char*)alloca(1024);
 	struct zkreg__Logics parents;
-
+    
 	brothers->__ptr = 0;
 	brothers->__size = 0;
 
@@ -444,9 +456,10 @@ int zkq__getMseDesc(struct soap *soap, char *name, struct zkreg__Mse **mse)
 	};
 	struct dbhlpColumn **all = 0;
 	int rows = 0;
+    sqlite3 *db = db_get();
 
 	snprintf(st, 1024, "SELECT name,catalog,parent,showname FROM mse WHERE name='%s'", name);
-	db_exec_select2(_db, st, desc, sizeof(desc)/sizeof(struct dbhlpColumn), &all, &rows);
+	db_exec_select2(db, st, desc, sizeof(desc)/sizeof(struct dbhlpColumn), &all, &rows);
 
 	if (rows > 0) {
 		struct zkreg__Mse *p = (struct zkreg__Mse*)soap_malloc(soap, sizeof(struct zkreg__Mse));
@@ -464,7 +477,8 @@ int zkq__getMseDesc(struct soap *soap, char *name, struct zkreg__Mse **mse)
 	}
 
 	db_free_select2(desc, sizeof(desc)/sizeof(struct dbhlpColumn), all, rows);
-
+    db_release(db);
+    
 	return SOAP_OK;
 }
 
@@ -479,9 +493,10 @@ int zkq__getHostDesc(struct soap *soap, char *name, struct zkreg__Host **host)
 	};
 	struct dbhlpColumn **all = 0;
 	int rows = 0;
+    sqlite3 *db = db_get();
 
 	snprintf(st, 1024, "SELECT mse.name,mse.parent,mse.showname,host.ips FROM mse JOIN host ON mse.name=host.name WHERE mse.name='%s'", name);
-	db_exec_select2(_db, st, desc, sizeof(desc)/sizeof(struct dbhlpColumn), &all, &rows);
+	db_exec_select2(db, st, desc, sizeof(desc)/sizeof(struct dbhlpColumn), &all, &rows);
 
 	if (rows > 0) {
 		struct zkreg__Host *p = (struct zkreg__Host*)soap_malloc(soap, sizeof(struct zkreg__Host));
@@ -499,7 +514,8 @@ int zkq__getHostDesc(struct soap *soap, char *name, struct zkreg__Host **host)
 	}
 
 	db_free_select2(desc, sizeof(desc)/sizeof(struct dbhlpColumn), all, rows);
-
+    db_release(db);
+    
 	return SOAP_OK;
 }
 
@@ -517,12 +533,13 @@ int zkq__getServiceDesc(struct soap *soap, char *name, struct zkreg__Service **s
 	};
 	struct dbhlpColumn **all = 0;
 	int rows = 0;
+    sqlite3 *db = db_get();
 
 	snprintf(st, 1024, "SELECT mse.name,mse.parent,mse.showname,service.hostname,service.type,service.urls,service.version"
 		" FROM mse JOIN service ON mse.name=service.name"
 		" WHERE mse.name='%s'",
 		name);
-	db_exec_select2(_db, st, desc, sizeof(desc)/sizeof(struct dbhlpColumn), &all, &rows);
+	db_exec_select2(db, st, desc, sizeof(desc)/sizeof(struct dbhlpColumn), &all, &rows);
 
 	if (rows > 0) {
 		struct zkreg__Service *p = (struct zkreg__Service*)soap_malloc(soap, sizeof(struct zkreg__Service));
@@ -544,7 +561,8 @@ int zkq__getServiceDesc(struct soap *soap, char *name, struct zkreg__Service **s
 	}
 
 	db_free_select2(desc, sizeof(desc)/sizeof(struct dbhlpColumn), all, rows);
-
+    db_release(db);
+    
 	return SOAP_OK;
 }
 
@@ -566,13 +584,14 @@ int zkq__getLogicDesc(struct soap *soap, char *name, struct zkreg__Logic **logic
 	};
 	struct dbhlpColumn **all = 0;
 	int rows = 0;
+    sqlite3 *db = db_get();
 
 	snprintf(st, 1024, "SELECT mse.name,mse.parent,mse.showname,logic.children"
 		" FROM mse JOIN logic ON mse.name=logic.name"
 		" WHERE mse.name='%s'",
 		name);
 
-	db_exec_select2(_db, st, desc, sizeof(desc)/sizeof(struct dbhlpColumn), &all, &rows);
+	db_exec_select2(db, st, desc, sizeof(desc)/sizeof(struct dbhlpColumn), &all, &rows);
 
 	if (rows > 0) {
 		struct zkreg__Logic *p = (struct zkreg__Logic*)soap_malloc(soap, sizeof(struct zkreg__Logic));
@@ -591,6 +610,7 @@ int zkq__getLogicDesc(struct soap *soap, char *name, struct zkreg__Logic **logic
 	}
 
 	db_free_select2(desc, sizeof(desc)/sizeof(struct dbhlpColumn), all, rows);
-
+    db_release(db);
+    
 	return SOAP_OK;
 }
