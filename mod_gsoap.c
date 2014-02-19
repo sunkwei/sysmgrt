@@ -186,10 +186,6 @@ SoapSharedLibrary_create(apr_pool_t * p)
     return This;
 }
 
-/** sunkw: 2014-2-18: when so loaded, try to call init_lib()
- */
-typedef void (*init_lib)();
-
 /*
  * SoapSharedLibrary_assign(SoapSharedLibrary *This, SoapSharedLibrary *pLib) {
  * This->m_pPool = pLib->m_pPool;
@@ -205,7 +201,6 @@ static const char *
 SoapSharedLibrary_load(SoapSharedLibrary * This, apr_pool_t * pTempPool)
 {
     const char *pszError = NULL;
-    init_lib fn = 0;
 
 #ifdef WIN32
     This->m_hLibrary = DLOPEN(This->m_pszPath,0);
@@ -235,19 +230,6 @@ SoapSharedLibrary_load(SoapSharedLibrary * This, apr_pool_t * pTempPool)
             apr_psprintf(NULL == pTempPool ? This->m_pPool : pTempPool,
                          "mod_gsoap: %s loading library %s", pszError,
                          This->m_pszPath);
-    }
-
-    // sunkw: 2014-2-18: try to call init_lib()
-
-
-    ap_log_error(APLOG_MARK, APLOG_ERR, 0, 0, "mod_gsoap: %s",
-                 This->m_pszPath);
-
-    fn = (init_lib)DLSYM(This->m_hLibrary, "init_lib");
-    if (fn) {
-	    ap_log_error(APLOG_MARK, APLOG_ERR, 0, 0, "%s: before exec init_lib()", __func__);
-	    fn();
-	    ap_log_error(APLOG_MARK, APLOG_ERR, 0, 0, "%s: after exec init_lib()", __func__);
     }
 
     return pszError;
@@ -585,7 +567,6 @@ static const command_rec gsoap_cmds[] = {
 static void
 gsoap_hooks(apr_pool_t * p)
 {
-    ap_log_error(APLOG_MARK, APLOG_ERR, 0, 0, "%s: calling", __func__);
     // I think this is the call to make to register a handler for method calls (GET PUT et. al.).
     // We will ask to be last so that the comment has a higher tendency to
     // go at the end.
@@ -1065,7 +1046,6 @@ static void *
 gsoap_create_dir_config(apr_pool_t * p, char *dirspec)
 {
     gsoapConfiguration *pConfig = gsoapConfiguration_create(p);
-    ap_log_error(APLOG_MARK, APLOG_ERR, 0, 0, "%s: calling", __func__);
     pConfig->m_Type = ct_directory;
     return pConfig;
 }
@@ -1088,7 +1068,6 @@ gsoap_create_dir_config(apr_pool_t * p, char *dirspec)
 static void *
 gsoap_merge_dir_config(apr_pool_t * p, void *parent_conf, void *newloc_conf)
 {
-    ap_log_error(APLOG_MARK, APLOG_ERR, 0, 0, "%s: calling", __func__);
     gsoapConfiguration *pMergedConfig = gsoapConfiguration_create(p);
     gsoapConfiguration *pParentConfig = (gsoapConfiguration *) parent_conf;
     gsoapConfiguration *pNewConfig = (gsoapConfiguration *) newloc_conf;
@@ -1108,7 +1087,6 @@ static void *
 gsoap_create_server_config(apr_pool_t * p, server_rec * s)
 {
     gsoapConfiguration *pConfig = gsoapConfiguration_create(p);
-    ap_log_error(APLOG_MARK, APLOG_ERR, 0, 0, "%s: calling", __func__);
 
     pConfig->m_Type = ct_server;
     return pConfig;
@@ -1132,7 +1110,6 @@ gsoap_merge_server_config(apr_pool_t * p, void *server1_conf,
                           void *server2_conf)
 {
     gsoapConfiguration *pMergedConfig = gsoapConfiguration_create(p);
-    ap_log_error(APLOG_MARK, APLOG_ERR, 0, 0, "%s: calling", __func__);
     gsoapConfiguration *pServer1Config = (gsoapConfiguration *) server1_conf;
     gsoapConfiguration *pServer2Config = (gsoapConfiguration *) server2_conf;
 

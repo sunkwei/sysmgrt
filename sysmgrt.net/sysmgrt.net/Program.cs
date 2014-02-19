@@ -123,7 +123,7 @@ namespace sysmgrt.net
 
 			//test_cfg ();
 
-			#if true
+			#if false
 			int count = 10;
 			Thread []th = new Thread[count];
 
@@ -135,9 +135,9 @@ namespace sysmgrt.net
 			for (int i = 0; i < count; i++) {
 				th [i].Join (-1);
 			}
-			#endif
 
 			test_regServices ();
+			#endif
 
 			Thread th_hb = new Thread (new ThreadStart (proc_heartBeat));
 			th_hb.Start ();
@@ -157,7 +157,7 @@ namespace sysmgrt.net
                 }
                 else {
                     foreach (zkquery.Host host in res.hosts) {
-                        Console.WriteLine(num + ": token=" + host.name);
+						Console.WriteLine(num + ": token=" + host.name + ", title=" + host.showname);
                         num++;
                     }
                 }
