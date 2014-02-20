@@ -1,0 +1,10 @@
+用于主机、设备、服务、逻辑单元的注册和查询。
+
+基于 gsoap + sqlite3 实现；
+
+步骤：
+   soapcpp2 -cL zonekey_sysmgrt.h 
+
+   ./configure
+   make
+
